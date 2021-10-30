@@ -23,16 +23,16 @@ public class time {
             case 8 :
             case 10 :
             case 12 :
-                r = new Reservation[30];
+                r = new Reservation[31];
                 break;
             case 2 :
-                r = new Reservation[27];
+                r = new Reservation[28];
                 break;
             case 4 :
             case 6 :
             case 9 :
             case 11 :
-                r = new Reservation[29];
+                r = new Reservation[30];
                 break;
         }
     }

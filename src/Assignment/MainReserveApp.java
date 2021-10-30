@@ -18,9 +18,11 @@ public class MainReserveApp {
                 int date = sc.nextInt();
                 System.out.println("Time :");
                 int time = sc.nextInt();
+                System.out.println("Name :");
+                String name = sc.next();
                 System.out.println("Pax :");
                 int pax = sc.nextInt();
-                reserveDate.reserveR(time, date, pax); break;
+                reserveDate.reserveR(time, date, pax, name); break;
 
             case 1 :
                 System.out.println("Date :");
@@ -61,7 +63,6 @@ public class MainReserveApp {
                 System.out.println("Input number of pax :");
                 pax = sc.nextInt();
                 reserveDate.updateReservation(time,date,pax,tableId); break;
-
             default:break;
         }
 

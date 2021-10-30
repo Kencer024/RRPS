@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class Reservation {
     private Table[] table = new Table[30];      //assume 30 tables
+
     Scanner sc = new Scanner(System.in);
 
     public Reservation(){
@@ -25,19 +26,22 @@ public class Reservation {
     }
 
 
-    public void reserve(int pax){
+    public void reserve(int pax, String Name){
         checkEmptyTable(pax);
+
         boolean doesTableExist = false;
         System.out.println("Enter choice of Table : ");
         int tableId = sc.nextInt();
         for(int i =0; i< table.length;i++){             //brute force search
-            if(table[i].getTableId() == tableId && table[i].getreserved() == false) {       //if table[i] is tableid
+            if(table[i].getTableId() == tableId && !table[i].getreserved()) {       //if table[i] is tableid
                 table[i].setReserved(true);             //set it to reserved
+                table[i].setName(Name);
                 System.out.println("Table is reserved");
                 doesTableExist = true;
+
             }
         }if(doesTableExist == false){
-            System.out.println("Table does not exist");
+            System.out.println("Cannot book table");
         }
 
     }
@@ -78,7 +82,7 @@ public class Reservation {
     public Table[] checkEmptyTable(int pax){
         Table[] eTable = new Table[0];
         for(int i =0;i< table.length; i++){
-            if(table[i].getreserved() == false && table[i].getpax() >= pax){
+            if(!table[i].getreserved() && table[i].getpax() >= pax){
                 System.out.println(table[i].getTableId() + " is empty ");
                 eTable = Arrays.copyOf(eTable, eTable.length+1);        //append eTable array
                 eTable[eTable.length-1] = table[i];
@@ -89,8 +93,8 @@ public class Reservation {
 
     public void checkReservedTable(){
         for(int i =0;i<table.length;i++){
-            if(table[i].getreserved()== true){
-                System.out.println("table " + i + " is reserved");
+            if(table[i].getreserved()){
+                System.out.println("table " + i + " is reserved for " + table[i].getName() );
             }
         }
     }

@@ -16,9 +16,9 @@ public class ReserveDate {
         return t;
     }
 
-    public void reserveR(int time, int date, int pax){
+    public void reserveR(int time, int date, int pax, String Name){
         Reservation[] r = t[time].getR();
-        r[date-1].reserve(pax);             //cos date starts from 0
+        r[date-1].reserve(pax,Name);             //cos date starts from 0
 
     }
 
