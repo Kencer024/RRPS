@@ -8,8 +8,7 @@ public class Reservation {
 
     public Reservation(){
             for(int i =0; i< table.length;i++){
-                table[i].setTableId(i);
-                table[i].setReserved(false);
+                table[i] = new Table(i);
             }
     }
 
