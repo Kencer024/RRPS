@@ -1,4 +1,3 @@
-import javafx.util.Pair;
 import java.util.ArrayList;
 
 public class Order
@@ -9,7 +8,7 @@ public class Order
 	ArrayList<Pair<String, Integer>> items;
 	ArrayList<Pair<String, Integer>> sets;
 
-	public Order(int tableId_, int pax_)
+	public Order(String tableId_, int pax_)
 	{
 		tableId = tableId_;
 		pax = pax_;
@@ -25,11 +24,11 @@ public class Order
 		while(left + 1 < right)
 		{
 			middle = (left + right)/2;
-			if(!id.compareTo(items.get(middle).getKey()))
+			if(id.compareTo(items.get(middle).getFirst()) == 0)
 			{
 				return middle;
 			}
-			else if(id.compareTo(items.get(middle).getKey() == 1))
+			else if(id.compareTo(items.get(middle).getFirst()) == 1)
 			{
 				left = middle;
 			}
@@ -49,11 +48,11 @@ public class Order
 		while(left + 1 < right)
 		{
 			middle = (left + right)/2;
-			if(!id.compareTo(sets.get(middle).getKey()))
+			if(id.compareTo(sets.get(middle).getFirst()) == 0)
 			{
 				return middle;
 			}
-			else if(id.compareTo(sets.get(middle).getKey() == 1))
+			else if(id.compareTo(sets.get(middle).getFirst()) == 1)
 			{
 				left = middle;
 			}
@@ -67,25 +66,27 @@ public class Order
 
 	public void addItem(String id, int amount)
 	{
-		ArrayList<Pair<String, Integer>> tmp = new ArrayList<Pair<String, Integer>>(id, amount);
+		Pair<String, Integer> tmp = new Pair<String, Integer>(id, amount);
 		items.add(getItemIndex(id) + 1, tmp);
 	}
 	public Boolean removeItem(String id)
 	{
 		int itemIndex = getItemIndex(id);
-		if(!items.get(itemIndex).getKey().matches(id)) return false;
+		if(!items.get(itemIndex).getFirst().matches(id)) return false;
 		items.remove(itemIndex);
+		return true;
 	}
 	public void addSet(String id, int amount)
 	{
-		ArrayList<Pair<String, Integer>> tmp = new ArrayList<Pair<String, Integer>>(id, amount);
+		Pair<String, Integer> tmp = new Pair<String, Integer>(id, amount);
 		sets.add(getSetIndex(id) + 1, tmp);
 	}
 	public Boolean removeSet(String id)
 	{
 		int setIndex = getSetIndex(id);
-		if(!sets.get(setIndex).getKey().matches(id)) return false;
+		if(!sets.get(setIndex).getFirst().matches(id)) return false;
 		sets.remove(setIndex);
+		return true;
 	}
 
 	public ArrayList<Pair<String, Integer>> listItems()

@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Pair;
 
 public class OrderDatabase
 {
@@ -18,11 +17,11 @@ public class OrderDatabase
 		while(right > left)
 		{
 			middle = (left + right)/2;
-			if(!tableId.compareTo(currentOrders[middle].tableId))
+			if(tableId.compareTo(currentOrders.get(middle).tableId) == 0)
 			{
 				return middle;
 			}
-			else if(tableId.compareTo(currentOrders[middle].tableId == 1))
+			else if(tableId.compareTo(currentOrders.get(middle).tableId) == 1)
 			{
 				left = middle;
 			}
@@ -39,9 +38,9 @@ public class OrderDatabase
 		int index;
 		for(index = 0; index < currentOrders.size(); index++)
 		{
-			if(currentOrders[index].tableId.matches(tableId))
+			if(currentOrders.get(index).tableId.matches(tableId))
 			{
-				return currentOrders[index];
+				return currentOrders.get(index);
 			}
 		}
 		return null;
@@ -54,14 +53,14 @@ public class OrderDatabase
 
 	public void printCurrentOrders()
 	{
-		int index;
-		for(index = 0; index < currentOrders.size(); index++)
-		{
-			if(currentOrders[index].tableId.matches(tableId))
-			{
+		// int index;
+		// for(index = 0; index < currentOrders.size(); index++)
+		// {
+		// 	if(currentOrders.get(index).tableId.matches(tableId))
+		// 	{
 				
-			}
-		}
+		// 	}
+		// }
 	}
 	public void newOrder(String tableId, int pax)
 	{
@@ -72,12 +71,12 @@ public class OrderDatabase
 		while(left + 1 < right)
 		{
 			middle = (left + right)/2;
-			if(!tableId.compareTo(currentOrders[middle].tableId))
+			if(tableId.compareTo(currentOrders.get(middle).tableId) == 0)
 			{
 				System.out.println("Duplicate Order!");
-				return null;
+				return;
 			}
-			else if(tableId.compareTo(currentOrders[middle].tableId == 1))
+			else if(tableId.compareTo(currentOrders.get(middle).tableId) == 1)
 			{
 				left = middle;
 			}
@@ -87,84 +86,82 @@ public class OrderDatabase
 			}
 		}
 		middle = (left + right)/2;
-		currentOrders.add(newOrder, middle);
+		currentOrders.add(middle, newOrder);
 	}
 
 	public Boolean addItem(String tableId, String itemId, int amount)
 	{
 		int orderIndex = getOrderIndex(tableId);
-		if(!currentOrders[orderIndex].tableId.matches(tableId)) return false;
-		currentOrders[orderIndex].addItem(itemId, amount);
+		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return false;
+		currentOrders.get(orderIndex).addItem(itemId, amount);
 		return true;
 	}
 
 	public Boolean removeItem(String tableId, String itemId)
 	{
 		int orderIndex = getOrderIndex(tableId);
-		if(!currentOrders[orderIndex].tableId.matches(tableId)) return false;
-		currentOrders[getOrderIndex(tableId)].removeItem(itemId);
+		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return false;
+		currentOrders.get(getOrderIndex(tableId)).removeItem(itemId);
 		return true;
 	}
 
 	public Boolean addSet(String tableId, String setId, int amount)
 	{
 		int orderIndex = getOrderIndex(tableId);
-		if(!currentOrders[orderIndex].tableId.matches(tableId)) return false;
-		currentOrders[getOrderIndex(tableId)].addSet(setId, amount);
+		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return false;
+		currentOrders.get(getOrderIndex(tableId)).addSet(setId, amount);
 		return true;
 	}
 
 	public Boolean removeSet(String tableId, String setId)
 	{
 		int orderIndex = getOrderIndex(tableId);
-		if(!currentOrders[orderIndex].tableId.matches(tableId)) return false;
-		currentOrders[getOrderIndex(tableId)].removeSet(setId);
+		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return false;
+		currentOrders.get(getOrderIndex(tableId)).removeSet(setId);
 		return true;
 	}
 
-	public ArrayList<String> listItems(String tableId)
+	public ArrayList<Pair<String, Integer>> listItems(String tableId)
 	{
 		int orderIndex = getOrderIndex(tableId);
-		if(!currentOrders[orderIndex].tableId.matches(tableId)) return false;
-		currentOrders[getOrderIndex(tableId)].listItems(setId);
-		return true;
+		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return null;
+		return currentOrders.get(getOrderIndex(tableId)).listItems();
 	}
-	public ArrayList<String> listSets(String tableId)
+	public ArrayList<Pair<String, Integer>> listSets(String tableId)
 	{
 		int orderIndex = getOrderIndex(tableId);
-		if(!currentOrders[orderIndex].tableId.matches(tableId)) return false;
-		currentOrders[getOrderIndex(tableId)].listSets(setId);
-		return true;
+		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return null;
+		return currentOrders.get(getOrderIndex(tableId)).listSets();
 	}
 	public Boolean clearAll(String tableId)
 	{
 		int orderIndex = getOrderIndex(tableId);
-		if(!currentOrders[orderIndex].tableId.matches(tableId)) return false;
-		currentOrders[getOrderIndex(tableId)].clearAll();
+		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return false;
+		currentOrders.get(getOrderIndex(tableId)).clearAll();
 		return true;
 	}
 
 	public Boolean printItems(String tableId)
 	{
 		int orderIndex = getOrderIndex(tableId);
-		if(!currentOrders[orderIndex].tableId.matches(tableId)) return false;
-		currentOrders[getOrderIndex(tableId)].printItems();
+		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return false;
+		currentOrders.get(getOrderIndex(tableId)).printItems();
 		return true;
 	}
 
 	public Boolean printSets(String tableId)
 	{
 		int orderIndex = getOrderIndex(tableId);
-		if(!currentOrders[orderIndex].tableId.matches(tableId)) return false;
-		currentOrders[getOrderIndex(tableId)].printSets();
+		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return false;
+		currentOrders.get(getOrderIndex(tableId)).printSets();
 		return true;
 	}
 
 	public Boolean applyMembership(String tableId)
 	{
 		int orderIndex = getOrderIndex(tableId);
-		if(!currentOrders[orderIndex].tableId.matches(tableId)) return false;
-		currentOrders[getOrderIndex(tableId)].applyMembership();
+		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return false;
+		currentOrders.get(getOrderIndex(tableId)).applyMembership();
 		return true;
 	}
 }
