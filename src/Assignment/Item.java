@@ -8,6 +8,7 @@ public class Item {
     private String type_;
     private float saleCost_;
     private float baseCost_;
+    public int availability_;
     
     public Item(String name_input, float saleCost_input, float baseCost_input) {
         this();
@@ -38,6 +39,7 @@ public class Item {
         this.type_ = "";
         this.saleCost_ = 0;
         this.baseCost_ = 0;
+        this.availability_ = 1;
     }
 
     public String getId()
@@ -133,7 +135,5 @@ public class Item {
             this.isValid_ = false;
         }
     }
-
-
     
 }

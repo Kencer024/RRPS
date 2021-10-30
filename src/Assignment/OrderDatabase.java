@@ -56,7 +56,7 @@ public class OrderDatabase
 		int index;
 		for(index = 0; index < currentOrders.size(); index++)
 		{
-			System.out.println(currentOrders.get(index).getTableId());
+			System.out.println("Table " + currentOrders.get(index).getTableId());
 		}
 	}
 	public void newOrder(String tableId, int pax)
@@ -169,5 +169,17 @@ public class OrderDatabase
 		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return false;
 		currentOrders.get(getOrderIndex(tableId)).applyMembership();
 		return true;
+	}
+
+	public Boolean isInOrderList(String tableId)
+	{
+		int orderIndex = getOrderIndex(tableId);
+		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return false;
+		return true;
+	}
+
+	public int size()
+	{
+		return currentOrders.size();
 	}
 }
