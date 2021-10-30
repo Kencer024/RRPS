@@ -9,6 +9,7 @@ public class Order
 	Boolean hasMembership;
 	ArrayList<Pair<String, Integer>> items;
 	ArrayList<Pair<String, Integer>> sets;
+	private double bill;
 
 	public Order(String tableId_, int pax_)
 	{
@@ -17,6 +18,7 @@ public class Order
 		items = new ArrayList<Pair<String, Integer>>(0);
 		sets = new ArrayList<Pair<String, Integer>>(0);
 		dateTime = LocalDateTime.now();
+		bill = 0.0;
 	}
 
 	private int getItemIndex(String id)
@@ -126,5 +128,17 @@ public class Order
 	public String getTableId()
 	{
 		return tableId;
+	}
+
+	public void computeBill(MenuList menu)
+	{
+		for(int i=0; i<items.size(); i++)
+		{
+			Pair<String,Integer>  local_pair = items.get(i); 
+			String local_item_id = local_pair.getFirst();
+			Item local_item = menu.getItem(local_item_id);
+			double cost_local_item = local_item.getSaleCost();
+			this.bill+= (cost_local_item*local_pair.getSecond());
+		}
 	}
 }
