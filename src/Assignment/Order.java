@@ -135,10 +135,10 @@ public class Order
 		for(int i=0; i<items.size(); i++)
 		{
 			Pair<String,Integer>  local_pair = items.get(i); 
-			String local_item_id = local_pair.getKey();
+			String local_item_id = local_pair.getFirst();
 			Item local_item = menu.getItem(local_item_id);
 			double cost_local_item = local_item.getSaleCost();
-			this.bill+= (cost_local_item*local_pair.getValue());
+			this.bill+= (cost_local_item*local_pair.getSecond());
 		}
 	}
 }
