@@ -2,7 +2,6 @@ package Assignment;
 
 import java.util.Arrays;
 import java.util.Scanner;
-import java.time.LocalDate; // import the LocalDate class
 
 public class Reservation {
     private Table[] table = new Table[30];      //assume 30 tables
@@ -25,13 +24,14 @@ public class Reservation {
             }
     }
 
+
     public void reserve(int pax){
         checkEmptyTable(pax);
         boolean doesTableExist = false;
         System.out.println("Enter choice of Table : ");
         int tableId = sc.nextInt();
         for(int i =0; i< table.length;i++){             //brute force search
-            if(table[i].getTableId() == tableId && table[i].getreserved() != false) {       //if table[i] is tableid
+            if(table[i].getTableId() == tableId && table[i].getreserved() == false) {       //if table[i] is tableid
                 table[i].setReserved(true);             //set it to reserved
                 System.out.println("Table is reserved");
                 doesTableExist = true;
@@ -61,7 +61,10 @@ public class Reservation {
         }return false;
     }
 
-    public void updateReservation(int tableId, int tableId2){
+    public void updateReservation(int tableId, int pax){
+        checkEmptyTable(pax);
+        System.out.println("Enter choice of Table : ");
+        int tableId2 = sc.nextInt();
         for(int i =0; i< table.length;i++){             //brute force search
             if(table[i].getTableId() == tableId) {       //if table[i] is tableid
                     table[i].setReserved(false);
@@ -82,6 +85,18 @@ public class Reservation {
             }
         }
         return eTable;
+    }
+
+    public void checkReservedTable(){
+        for(int i =0;i<table.length;i++){
+            if(table[i].getreserved()== true){
+                System.out.println("table " + i + " is reserved");
+            }
+        }
+    }
+
+    public Table[] getTable(){
+        return table;
     }
 
 
