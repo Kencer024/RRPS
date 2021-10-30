@@ -1,9 +1,11 @@
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 public class Order
 {
 	String tableId;
 	int pax;
+	LocalDateTime dateTime = LocalDateTime.now();
 	Boolean hasMembership;
 	ArrayList<Pair<String, Integer>> items;
 	ArrayList<Pair<String, Integer>> sets;
@@ -14,6 +16,7 @@ public class Order
 		pax = pax_;
 		items = new ArrayList<Pair<String, Integer>>(0);
 		sets = new ArrayList<Pair<String, Integer>>(0);
+		dateTime = LocalDateTime.now();
 	}
 
 	private int getItemIndex(String id)

@@ -1,15 +1,38 @@
 // import java.io.*;
 import java.util.*;
 
-public class PromoSet extends Item{
+public class PromoSet{
 
     private List<String> itemList_ = new ArrayList<String>();
+    private String promoSetId_;
+    public int promo_availability_;
+    
+    public PromoSet(String promoSetId_input)
+    {   
+        this.promoSetId_ = promoSetId_input;
+    }
+
+    public PromoSet()
+    {
+        this.promoSetId_ = "";
+        this.promo_availability_ = 1;
+    }
+
+    public void setPromoSetId(String id_input)
+    {
+        this.promoSetId_ = id_input;
+    }
+
+    public String getPromoSetId()
+    {
+        return this.promoSetId_;
+    }
 
     public List<String> getallItemIds()
     {
         return this.itemList_;
     }
-
+    
     public void setallItemIds(List<String> addallitems_input)
 
     {
