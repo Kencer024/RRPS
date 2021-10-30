@@ -53,20 +53,22 @@ public class OrderDatabase
 
 	public void printCurrentOrders()
 	{
-		// int index;
-		// for(index = 0; index < currentOrders.size(); index++)
-		// {
-		// 	if(currentOrders.get(index).tableId.matches(tableId))
-		// 	{
-				
-		// 	}
-		// }
+		int index;
+		for(index = 0; index < currentOrders.size(); index++)
+		{
+			System.out.println(currentOrders.get(index).getTableId());
+		}
 	}
 	public void newOrder(String tableId, int pax)
 	{
 		Order newOrder = new Order(tableId, pax);
 		int left = 0, right = currentOrders.size(), middle;
 
+		if(currentOrders.size() == 0)
+		{
+			currentOrders.add(0, newOrder);
+			return;
+		}
 		//Binary insertion to the sorted list
 		while(left + 1 < right)
 		{
@@ -85,8 +87,12 @@ public class OrderDatabase
 				right = middle;
 			}
 		}
-		middle = (left + right)/2;
-		currentOrders.add(middle, newOrder);
+		if(tableId.compareTo(currentOrders.get(left).tableId) == 0)
+		{
+			System.out.println("Duplicate Order!");
+			return;
+		}
+		currentOrders.add(left, newOrder);
 	}
 
 	public Boolean addItem(String tableId, String itemId, int amount)

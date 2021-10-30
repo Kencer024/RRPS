@@ -119,4 +119,9 @@ public class Order
 	{
 		hasMembership = true;
 	}
+
+	public String getTableId()
+	{
+		return tableId;
+	}
 }
