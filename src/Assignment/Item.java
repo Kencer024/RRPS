@@ -34,7 +34,6 @@ public class Item {
     public Item(){
         this.name_ = "";
         this.isValid_ = false;
-        this.name_ = "";
         this.itemDesc_ = "";
         this.type_ = "";
         this.saleCost_ = 0;
