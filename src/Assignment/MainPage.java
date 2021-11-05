@@ -1,13 +1,20 @@
 package Assignment;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
 public class MainPage {
     public static void main (String [] args) {
+
+        /*
+
+
+        //If remove successfully, no print statement
+        //If there is no reservation, no print statement
+
+
+         */
 
         Scanner sc = new Scanner(System.in);
 
@@ -22,18 +29,22 @@ public class MainPage {
         //System.out.println(month);
         ReserveDate reserveDate = new ReserveDate(month);
 
-        int choice = 0; //userInputOfChoice
-        int reservationTableId = 0;
-        int newReservationTableId = 0;
-        int noOfPax = 0;
-        int reservationTime = 0;
-        String reservationName = "";
-        int reservationDate = 0;
+        int choice; //userInputOfChoice
+
+        int reservationChoice;
+        int reservationTableId;
+        int newReservationTableId;
+        int noOfPax;
+        int reservationTime;
+        String reservationName;
+        int reservationDate;
         int checkReservationChoice;
         boolean BooleanReservationChoice;
 
+        int orderChoice;
+
         do {
-            System.out.printf("|========================================================|\n"
+            System.out.print("|========================================================|\n"
                     + "|                         MENU                           |\n"
                     + "|========================================================|\n"
                     + "||     1: Order Category                               ||\n"
@@ -44,9 +55,8 @@ public class MainPage {
             choice = sc.nextInt();
 
             if(choice==1) { //Order
-                int orderChoice = 0;
                 do {
-                    System.out.printf("|========================================================|\n"
+                    System.out.print("|========================================================|\n"
                             + "|                         MENU                           |\n"
                             + "|========================================================|\n"
                             + "||     1: Add to cart.                                  ||\n"
@@ -79,9 +89,8 @@ public class MainPage {
             }
 
             else if (choice==2) { //Reservation
-                int reservationChoice = 0;
                 do {
-                    System.out.printf("|========================================================|\n"
+                    System.out.print("|========================================================|\n"
                             + "|                         MENU                           |\n"
                             + "|========================================================|\n"
                             + "||     1: Reserve Table.                                 ||\n"
@@ -112,7 +121,10 @@ public class MainPage {
                             System.out.println("============================== REMOVE RESERVATION ==============================");
                             System.out.println("Enter Reservation Date: ");
                             reservationDate = sc.nextInt();
-                            System.out.println("Enter Reservation Time: ");
+                            System.out.println("===Enter Reservation Time===\n"
+                                            + "0: 12pm \n"
+                                            + "1: 1pm \n"
+                                            + "2: 2pm and so on till 10pm");//0 for 12pm, 1 for 1pm etc until 10pm
                             reservationTime = sc.nextInt();
                             System.out.println("Enter Table Id: "); //should check by name instead
                             reservationTableId = sc.nextInt();
@@ -123,18 +135,11 @@ public class MainPage {
                             System.out.println("============================== CHECK TABLES ==============================");
                             System.out.println(
                                     "|==================================|\n"
-                                  + "||  1: Check for Vacant Table       ||\n"
-                                  + "||  2: Check for Reserved Table      ||\n");
-
+                                  + "||  1: Check for Vacant Table      ||\n"
+                                  + "||  2: Check for Reserved Table    ||");
                             checkReservationChoice = sc.nextInt();
-                            if (checkReservationChoice == 1){
-                                BooleanReservationChoice = true;
-                            }
-                            else{
-                                BooleanReservationChoice = false;
-                            }
-
-                            System.out.println(checkReservationChoice);
+                            BooleanReservationChoice = checkReservationChoice == 1; //True if 1
+                            //System.out.println(checkReservationChoice);
                             System.out.println("Enter Reservation Date: ");
                             reservationDate = sc.nextInt();
                             System.out.println("Enter Reservation Time: ");
@@ -146,11 +151,15 @@ public class MainPage {
 
                         case 4: //Update Reservation Info
                             System.out.println("============================== RESERVATION TABLE ==============================");
-
-                            reservationTableId = sc.nextInt();
+                            System.out.println("Enter Reservation Date: ");
+                            reservationDate = sc.nextInt();
+                            System.out.println("Enter Reservation Time: ");
+                            reservationTime = sc.nextInt();
+                            System.out.println("Enter No. Of Pax: ");
+                            noOfPax = sc.nextInt();
                             System.out.println("Enter New Table Id: ");
                             newReservationTableId = sc.nextInt();
-                            reserveDate.updateReservation(reservationTableId, newReservationTableId); //time, date, pax, table
+                            reserveDate.updateReservation(reservationTime, reservationDate, noOfPax, newReservationTableId); //time, date, pax, table
                             break;
 
                         case 5: //Exit
