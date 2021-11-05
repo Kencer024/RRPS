@@ -5,6 +5,101 @@ public class MenuList
 {
     private ArrayList<Item> items_ = new ArrayList<Item>();
     private ArrayList<PromoSet> sets_ = new ArrayList<PromoSet>();
+    private String itemEndId = "0000";
+    private String setEndId = "0000";
+
+    private int searchItemTypeStartIndex(String type)
+    {
+        int left = 0, right = items_.size() - 1, center;
+        while(left < right)
+        {
+            center = (left + right) / 2;
+            if(items_.get(center).getType().compareTo(type) < 0)
+            {
+                left = center + 1;
+            }
+            else
+            {
+                right = center;
+            }
+
+        }
+        return left;
+    }
+
+    private int searchItemTypeEndIndex(String type)
+    {
+        int left = 0, right = items_.size() - 1, center;
+        while(left < right)
+        {
+            center = (left + right) / 2;
+            if(items_.get(center).getType().compareTo(type) <= 0)
+            {
+                left = center + 1;
+            }
+            else
+            {
+                right = center;
+            }
+
+        }
+        return left;
+    }
+
+    private int searchItemIndex(String type, int id)
+    {
+        int left = searchItemTypeStartIndex(type), right = searchItemTypeEndIndex(type) - 1, center;
+        while(left < right)
+        {
+            center = (left + right) / 2;
+            if(items_.get(center).getType().compareTo(type) <= 0)
+            {
+                left = center + 1;
+            }
+            else
+            {
+                right = center;
+            }
+        }
+    }
+
+    private int searchSetTypeStartIndex(String type)
+    {
+        int left = 0, right = sets_.size() - 1, center;
+        while(left < right)
+        {
+            center = (left + right) / 2;
+            if(sets_.get(center).getType().compareTo(type) < 0)
+            {
+                left = center + 1;
+            }
+            else
+            {
+                right = center;
+            }
+
+        }
+        return left;
+    }
+
+    private int searchSetTypeEndIndex(String type)
+    {
+        int left = 0, right = sets_.size() - 1, center;
+        while(left < right)
+        {
+            center = (left + right) / 2;
+            if(sets_.get(center).getType().compareTo(type) <= 0)
+            {
+                left = center + 1;
+            }
+            else
+            {
+                right = center;
+            }
+
+        }
+        return left;
+    }
 
     public Item getItem(String id)
     {
@@ -61,7 +156,14 @@ public class MenuList
 
     public void appendItem(Item item_append)
     {
-        this.items_.add(item_append);
+        if(this.items_.size() == 0)
+        {
+            this.items_.add(item_append);
+        }
+        else
+        {
+
+        }
     } 
 
     public void removeItem(String id)
