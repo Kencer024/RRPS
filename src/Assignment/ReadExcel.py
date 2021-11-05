@@ -9,7 +9,7 @@ df = pd.read_excel ('menus.xlsx')
 for i in range(df['name'].size):
 	if df['item/set'][i] == 'item':
 		f.write('\n\t\ttmp_item = new Item();\n')
-		f.write('\t\ttmp_item.setId(menu.getNewItemId());\n')
+		f.write('\t\ttmp_item.setId(menu.getNewItemId(\"'+df['type'][i]+'\"));\n')
 		f.write('\t\ttmp_item.setName(\"'+df['name'][i]+'\");\n')
 		f.write('\t\ttmp_item.setType(\"'+df['type'][i]+'\");\n')
 		f.write('\t\ttmp_item.setSaleCost('+str(df['saleCost'][i])+'f);\n')

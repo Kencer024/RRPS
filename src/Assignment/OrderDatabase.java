@@ -11,19 +11,19 @@ public class OrderDatabase
 
 	private int getOrderIndex(String tableId)
 	{
-		int left = 0, right = currentOrders.size(), middle;
+		int left = 0, right = currentOrders.size() - 1, middle;
 
 		//Binary insertion to the sorted list
-		while(right > left)
+		while(left < right)
 		{
 			middle = (left + right)/2;
 			if(tableId.compareTo(currentOrders.get(middle).tableId) == 0)
 			{
 				return middle;
 			}
-			else if(tableId.compareTo(currentOrders.get(middle).tableId) == 1)
+			else if(tableId.compareTo(currentOrders.get(middle).tableId) > 0)
 			{
-				left = middle;
+				left = middle + 1;
 			}
 			else
 			{
@@ -62,7 +62,7 @@ public class OrderDatabase
 	public void newOrder(String tableId, int pax)
 	{
 		Order newOrder = new Order(tableId, pax);
-		int left = 0, right = currentOrders.size(), middle;
+		int left = 0, right = currentOrders.size() - 1, middle;
 
 		if(currentOrders.size() == 0)
 		{
@@ -70,7 +70,7 @@ public class OrderDatabase
 			return;
 		}
 		//Binary insertion to the sorted list
-		while(left + 1 < right)
+		while(left < right)
 		{
 			middle = (left + right)/2;
 			if(tableId.compareTo(currentOrders.get(middle).tableId) == 0)
@@ -78,9 +78,9 @@ public class OrderDatabase
 				System.out.println("Duplicate Order!");
 				return;
 			}
-			else if(tableId.compareTo(currentOrders.get(middle).tableId) == 1)
+			else if(tableId.compareTo(currentOrders.get(middle).tableId) > 0)
 			{
-				left = middle;
+				left = middle + 1;
 			}
 			else
 			{
@@ -105,6 +105,7 @@ public class OrderDatabase
 
 	public Boolean removeItem(String tableId, String itemId)
 	{
+		if(currentOrders.size() == 0)return false;
 		int orderIndex = getOrderIndex(tableId);
 		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return false;
 		currentOrders.get(getOrderIndex(tableId)).removeItem(itemId);
@@ -176,6 +177,13 @@ public class OrderDatabase
 		int orderIndex = getOrderIndex(tableId);
 		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return false;
 		return true;
+	}
+
+	public float computeBill(String tableId, MenuList menu)
+	{
+		int orderIndex = getOrderIndex(tableId);
+		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return 0;
+		return currentOrders.get(getOrderIndex(tableId)).computeBill(menu);
 	}
 
 	public int size()

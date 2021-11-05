@@ -1,10 +1,10 @@
 public class MenuImporter {
-	public static MenuList importExcel(MenuList menu) {
+	public MenuList importExcel(MenuList menu) {
 		Item tmp_item = new Item();
 		PromoSet tmp_set = new PromoSet();
 
 		tmp_item = new Item();
-		tmp_item.setId(menu.getNewItemId());
+		tmp_item.setId(menu.getNewItemId("Dessert"));
 		tmp_item.setName("McFlurry Oreo");
 		tmp_item.setType("Dessert");
 		tmp_item.setSaleCost(2.7f);
@@ -12,7 +12,7 @@ public class MenuImporter {
 		menu.appendItem(tmp_item);
 
 		tmp_item = new Item();
-		tmp_item.setId(menu.getNewItemId());
+		tmp_item.setId(menu.getNewItemId("Dessert"));
 		tmp_item.setName("McFlurry Strawberry Shortcake/Mudpie");
 		tmp_item.setType("Dessert");
 		tmp_item.setSaleCost(3.0f);
@@ -20,7 +20,7 @@ public class MenuImporter {
 		menu.appendItem(tmp_item);
 
 		tmp_item = new Item();
-		tmp_item.setId(menu.getNewItemId());
+		tmp_item.setId(menu.getNewItemId("Dessert"));
 		tmp_item.setName("Sundae");
 		tmp_item.setType("Dessert");
 		tmp_item.setSaleCost(1.7f);
@@ -28,7 +28,7 @@ public class MenuImporter {
 		menu.appendItem(tmp_item);
 
 		tmp_item = new Item();
-		tmp_item.setId(menu.getNewItemId());
+		tmp_item.setId(menu.getNewItemId("Dessert"));
 		tmp_item.setName("Vanilla cone");
 		tmp_item.setType("Dessert");
 		tmp_item.setSaleCost(0.8f);
@@ -36,7 +36,7 @@ public class MenuImporter {
 		menu.appendItem(tmp_item);
 
 		tmp_item = new Item();
-		tmp_item.setId(menu.getNewItemId());
+		tmp_item.setId(menu.getNewItemId("Dessert"));
 		tmp_item.setName("ChocoCone");
 		tmp_item.setType("Dessert");
 		tmp_item.setSaleCost(1.0f);
@@ -44,7 +44,7 @@ public class MenuImporter {
 		menu.appendItem(tmp_item);
 
 		tmp_item = new Item();
-		tmp_item.setId(menu.getNewItemId());
+		tmp_item.setId(menu.getNewItemId("Beef"));
 		tmp_item.setName("Classic Angus cheese burger");
 		tmp_item.setType("Beef");
 		tmp_item.setSaleCost(8.95f);
@@ -52,7 +52,7 @@ public class MenuImporter {
 		menu.appendItem(tmp_item);
 
 		tmp_item = new Item();
-		tmp_item.setId(menu.getNewItemId());
+		tmp_item.setId(menu.getNewItemId("Beef"));
 		tmp_item.setName("Double cheeseburger");
 		tmp_item.setType("Beef");
 		tmp_item.setSaleCost(3.5f);
@@ -60,7 +60,7 @@ public class MenuImporter {
 		menu.appendItem(tmp_item);
 
 		tmp_item = new Item();
-		tmp_item.setId(menu.getNewItemId());
+		tmp_item.setId(menu.getNewItemId("Beef"));
 		tmp_item.setName("Big Mac");
 		tmp_item.setType("Beef");
 		tmp_item.setSaleCost(5.75f);
@@ -68,7 +68,7 @@ public class MenuImporter {
 		menu.appendItem(tmp_item);
 
 		tmp_item = new Item();
-		tmp_item.setId(menu.getNewItemId());
+		tmp_item.setId(menu.getNewItemId("Beef"));
 		tmp_item.setName("The original Angus");
 		tmp_item.setType("Beef");
 		tmp_item.setSaleCost(6.2f);
@@ -76,7 +76,7 @@ public class MenuImporter {
 		menu.appendItem(tmp_item);
 
 		tmp_item = new Item();
-		tmp_item.setId(menu.getNewItemId());
+		tmp_item.setId(menu.getNewItemId("Fish"));
 		tmp_item.setName("Double Filet-O-Fish");
 		tmp_item.setType("Fish");
 		tmp_item.setSaleCost(5.4f);
@@ -84,7 +84,7 @@ public class MenuImporter {
 		menu.appendItem(tmp_item);
 
 		tmp_item = new Item();
-		tmp_item.setId(menu.getNewItemId());
+		tmp_item.setId(menu.getNewItemId("Salads & Wraps"));
 		tmp_item.setName("Grilled chicken salad");
 		tmp_item.setType("Salads & Wraps");
 		tmp_item.setSaleCost(5.8f);
@@ -92,7 +92,7 @@ public class MenuImporter {
 		menu.appendItem(tmp_item);
 
 		tmp_item = new Item();
-		tmp_item.setId(menu.getNewItemId());
+		tmp_item.setId(menu.getNewItemId("Salads & Wraps"));
 		tmp_item.setName("Grilled chicken wrap");
 		tmp_item.setType("Salads & Wraps");
 		tmp_item.setSaleCost(5.8f);
@@ -100,7 +100,7 @@ public class MenuImporter {
 		menu.appendItem(tmp_item);
 
 		tmp_item = new Item();
-		tmp_item.setId(menu.getNewItemId());
+		tmp_item.setId(menu.getNewItemId("Chicken"));
 		tmp_item.setName("McSpicy – single");
 		tmp_item.setType("Chicken");
 		tmp_item.setSaleCost(5.25f);
@@ -108,7 +108,7 @@ public class MenuImporter {
 		menu.appendItem(tmp_item);
 
 		tmp_item = new Item();
-		tmp_item.setId(menu.getNewItemId());
+		tmp_item.setId(menu.getNewItemId("Chicken"));
 		tmp_item.setName("McSpicy – double");
 		tmp_item.setType("Chicken");
 		tmp_item.setSaleCost(7.2f);
@@ -116,7 +116,7 @@ public class MenuImporter {
 		menu.appendItem(tmp_item);
 
 		tmp_item = new Item();
-		tmp_item.setId(menu.getNewItemId());
+		tmp_item.setId(menu.getNewItemId("Chicken"));
 		tmp_item.setName("Buttermilk crispy chicken");
 		tmp_item.setType("Chicken");
 		tmp_item.setSaleCost(6.95f);
@@ -124,7 +124,7 @@ public class MenuImporter {
 		menu.appendItem(tmp_item);
 
 		tmp_item = new Item();
-		tmp_item.setId(menu.getNewItemId());
+		tmp_item.setId(menu.getNewItemId("Chicken"));
 		tmp_item.setName("McWings – 4pc");
 		tmp_item.setType("Chicken");
 		tmp_item.setSaleCost(4.2f);
@@ -132,7 +132,7 @@ public class MenuImporter {
 		menu.appendItem(tmp_item);
 
 		tmp_item = new Item();
-		tmp_item.setId(menu.getNewItemId());
+		tmp_item.setId(menu.getNewItemId("Chicken"));
 		tmp_item.setName("Chicken nuggets – 6pc");
 		tmp_item.setType("Chicken");
 		tmp_item.setSaleCost(4.6f);
@@ -140,7 +140,7 @@ public class MenuImporter {
 		menu.appendItem(tmp_item);
 
 		tmp_item = new Item();
-		tmp_item.setId(menu.getNewItemId());
+		tmp_item.setId(menu.getNewItemId("Chicken"));
 		tmp_item.setName("Chicken nuggets – 9pc");
 		tmp_item.setType("Chicken");
 		tmp_item.setSaleCost(6.2f);
@@ -148,7 +148,7 @@ public class MenuImporter {
 		menu.appendItem(tmp_item);
 
 		tmp_item = new Item();
-		tmp_item.setId(menu.getNewItemId());
+		tmp_item.setId(menu.getNewItemId("Drinks"));
 		tmp_item.setName("Coke");
 		tmp_item.setType("Drinks");
 		tmp_item.setSaleCost(2.0f);
@@ -156,7 +156,7 @@ public class MenuImporter {
 		menu.appendItem(tmp_item);
 
 		tmp_item = new Item();
-		tmp_item.setId(menu.getNewItemId());
+		tmp_item.setId(menu.getNewItemId("Drinks"));
 		tmp_item.setName("Sprite");
 		tmp_item.setType("Drinks");
 		tmp_item.setSaleCost(2.0f);
@@ -164,7 +164,7 @@ public class MenuImporter {
 		menu.appendItem(tmp_item);
 
 		tmp_item = new Item();
-		tmp_item.setId(menu.getNewItemId());
+		tmp_item.setId(menu.getNewItemId("Drinks"));
 		tmp_item.setName("Orange Juice");
 		tmp_item.setType("Drinks");
 		tmp_item.setSaleCost(2.5f);
@@ -172,7 +172,7 @@ public class MenuImporter {
 		menu.appendItem(tmp_item);
 
 		tmp_item = new Item();
-		tmp_item.setId(menu.getNewItemId());
+		tmp_item.setId(menu.getNewItemId("Sides"));
 		tmp_item.setName("French Fries Small");
 		tmp_item.setType("Sides");
 		tmp_item.setSaleCost(1.9f);
@@ -180,7 +180,7 @@ public class MenuImporter {
 		menu.appendItem(tmp_item);
 
 		tmp_item = new Item();
-		tmp_item.setId(menu.getNewItemId());
+		tmp_item.setId(menu.getNewItemId("Sides"));
 		tmp_item.setName("French Fries Medium");
 		tmp_item.setType("Sides");
 		tmp_item.setSaleCost(2.4f);
@@ -188,7 +188,7 @@ public class MenuImporter {
 		menu.appendItem(tmp_item);
 
 		tmp_item = new Item();
-		tmp_item.setId(menu.getNewItemId());
+		tmp_item.setId(menu.getNewItemId("Sides"));
 		tmp_item.setName("French Fries Large");
 		tmp_item.setType("Sides");
 		tmp_item.setSaleCost(2.5f);

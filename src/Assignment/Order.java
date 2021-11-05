@@ -23,59 +23,67 @@ public class Order
 
 	private int getItemIndex(String id)
 	{
-		int left = 0, right = items.size(), middle;
+		int left = 0, right = items.size() - 1, middle = 0;
 
 		//Binary search
-		while(left + 1 < right)
+		while(left < right)
 		{
 			middle = (left + right)/2;
 			if(id.compareTo(items.get(middle).getFirst()) == 0)
 			{
 				return middle;
 			}
-			else if(id.compareTo(items.get(middle).getFirst()) == 1)
+			else if(id.compareTo(items.get(middle).getFirst()) > 0)
 			{
-				left = middle;
+				left = middle + 1;
 			}
 			else
 			{
 				right = middle;
 			}
 		}
-		return left;
+		if(id.compareTo(items.get(middle).getFirst()) > 0)
+			return left + 1;
+		else
+			return left;
 	}
 
 	private int getSetIndex(String id)
 	{
-		int left = 0, right = sets.size(), middle;
+		int left = 0, right = sets.size() - 1, middle = 0;
 
 		//Binary search
-		while(left + 1 < right)
+		while(left < right)
 		{
 			middle = (left + right)/2;
 			if(id.compareTo(sets.get(middle).getFirst()) == 0)
 			{
 				return middle;
 			}
-			else if(id.compareTo(sets.get(middle).getFirst()) == 1)
+			else if(id.compareTo(sets.get(middle).getFirst()) > 0)
 			{
-				left = middle;
+				left = middle + 1;
 			}
 			else
 			{
 				right = middle;
 			}
 		}
-		return left;
+		if(id.compareTo(sets.get(middle).getFirst()) > 0)
+			return left + 1;
+		else
+			return left;
 	}
 
 	public void addItem(String id, int amount)
 	{
 		Pair<String, Integer> tmp = new Pair<String, Integer>(id, amount);
-		items.add(getItemIndex(id) + 1, tmp);
+		if(items.size() == 0)items.add(tmp);
+		else items.add(getItemIndex(id), tmp);
 	}
 	public Boolean removeItem(String id)
 	{
+		if(items.size() == 0)return false;
 		int itemIndex = getItemIndex(id);
 		if(!items.get(itemIndex).getFirst().matches(id)) return false;
 		items.remove(itemIndex);
@@ -84,10 +92,12 @@ public class Order
 	public void addSet(String id, int amount)
 	{
 		Pair<String, Integer> tmp = new Pair<String, Integer>(id, amount);
-		sets.add(getSetIndex(id) + 1, tmp);
+		if(sets.size() == 0)sets.add(tmp);
+		else sets.add(getSetIndex(id), tmp);
 	}
 	public Boolean removeSet(String id)
 	{
+		if(sets.size() == 0)return false;
 		int setIndex = getSetIndex(id);
 		if(!sets.get(setIndex).getFirst().matches(id)) return false;
 		sets.remove(setIndex);
@@ -112,12 +122,20 @@ public class Order
 
 	public void printItems()
 	{
-
+		System.out.println("Items : ");
+		for(int i = 0; i < items.size(); i++)
+		{
+			System.out.println(items.get(i).getFirst() + " Quantity = " + items.get(i).getSecond());
+		}
 	}
 
 	public void printSets()
 	{
-
+		System.out.println("Sets : ");
+		for(int i = 0; i < sets.size(); i++)
+		{
+			System.out.println(sets.get(i).getFirst() + " Quantity = " + sets.get(i).getSecond());
+		}
 	}
 
 	public void applyMembership()
@@ -130,8 +148,9 @@ public class Order
 		return tableId;
 	}
 
-	public void computeBill(MenuList menu)
+	public float computeBill(MenuList menu)
 	{
+		this.bill = 0f;
 		for(int i=0; i<items.size(); i++)
 		{
 			Pair<String,Integer>  local_pair = items.get(i); 
@@ -139,6 +158,8 @@ public class Order
 			Item local_item = menu.getItem(local_item_id);
 			double cost_local_item = local_item.getSaleCost();
 			this.bill+= (cost_local_item*local_pair.getSecond());
+			System.out.print();
 		}
+		return this.bill;
 	}
 }

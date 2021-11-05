@@ -25,6 +25,12 @@ public final class StringUtil
 			carry = (alphaNumeralToValue(str.charAt(i)) + carry)/base;
 			strIncremented.append(valueToAlphaNumeral(tmp));
 		}
+		while(carry != 0)
+		{
+			tmp = carry%base;
+			carry = carry/base;
+			strIncremented.append(valueToAlphaNumeral(tmp));
+		}
 		return strIncremented.reverse().toString();
 	}
 }

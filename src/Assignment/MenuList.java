@@ -5,16 +5,37 @@ public class MenuList
 {
     private ArrayList<Item> items_ = new ArrayList<Item>();
     private ArrayList<PromoSet> sets_ = new ArrayList<PromoSet>();
-    private String itemEndId = "0000";
-    private String setEndId = "0000";
+    private CategoryKeyMap map = new CategoryKeyMap();
 
-    private int searchItemTypeStartIndex(String type)
+    public MenuList()
+    {
+        map.addCategory("Dessert");
+        // System.out.println(map.getKey("Dessert"));
+        // map.printkey();
+        map.addCategory("Beef");
+        // map.printkey();
+        map.addCategory("Fish");
+        // map.printkey();
+        map.addCategory("Salads & Wraps");
+        map.addCategory("Chicken");
+        map.addCategory("Drinks");
+        map.addCategory("Sides");
+
+        // map.printkey();
+    }
+    private int searchItemIndex(String id)
     {
         int left = 0, right = items_.size() - 1, center;
         while(left < right)
         {
             center = (left + right) / 2;
-            if(items_.get(center).getType().compareTo(type) < 0)
+            // System.out.print(id + " ");
+            // System.out.println(center);
+            if(items_.get(center).getId().compareTo(id) == 0)
+            {
+                return center;
+            }
+            else if(items_.get(center).getId().compareTo(id) < 0)
             {
                 left = center + 1;
             }
@@ -22,54 +43,21 @@ public class MenuList
             {
                 right = center;
             }
-
         }
         return left;
     }
 
-    private int searchItemTypeEndIndex(String type)
-    {
-        int left = 0, right = items_.size() - 1, center;
-        while(left < right)
-        {
-            center = (left + right) / 2;
-            if(items_.get(center).getType().compareTo(type) <= 0)
-            {
-                left = center + 1;
-            }
-            else
-            {
-                right = center;
-            }
-
-        }
-        return left;
-    }
-
-    private int searchItemIndex(String type, int id)
-    {
-        int left = searchItemTypeStartIndex(type), right = searchItemTypeEndIndex(type) - 1, center;
-        while(left < right)
-        {
-            center = (left + right) / 2;
-            if(items_.get(center).getType().compareTo(type) <= 0)
-            {
-                left = center + 1;
-            }
-            else
-            {
-                right = center;
-            }
-        }
-    }
-
-    private int searchSetTypeStartIndex(String type)
+    private int searchSetIndex(String id)
     {
         int left = 0, right = sets_.size() - 1, center;
         while(left < right)
         {
             center = (left + right) / 2;
-            if(sets_.get(center).getType().compareTo(type) < 0)
+            if(sets_.get(center).getPromoSetId().compareTo(id) == 0)
+            {
+                return center;
+            }
+            else if(sets_.get(center).getPromoSetId().compareTo(id) < 0)
             {
                 left = center + 1;
             }
@@ -77,32 +65,65 @@ public class MenuList
             {
                 right = center;
             }
-
         }
         return left;
     }
 
-    private int searchSetTypeEndIndex(String type)
+    public String getNewItemId(String type)
     {
-        int left = 0, right = sets_.size() - 1, center;
-        while(left < right)
+        if(items_.size() == 0)
         {
-            center = (left + right) / 2;
-            if(sets_.get(center).getType().compareTo(type) <= 0)
+            return map.getKey(type) + "000";
+        }
+        else
+        {
+            String lastId, nextType;
+            if(map.getKey(type) == "z")
             {
-                left = center + 1;
+                nextType = "{000";
             }
             else
             {
-                right = center;
+                nextType = StringUtil.incrementString(map.getKey(type), 1) + "000";
             }
 
+            lastId = items_.get(searchItemIndex(nextType)).getId();
+            // End of Array, category not found
+            // System.out.print(type);
+            // System.out.println(" "+lastId);
+            if(lastId.charAt(0) < map.getKey(type).charAt(0))
+            {
+                return map.getKey(type) + "000";
+            }
+            // End of Array, category found
+            else if(lastId.charAt(0) == map.getKey(type).charAt(0))
+            {
+                return StringUtil.incrementString(lastId, 1);
+            }
+            // Start of Array, category not found
+            else if(searchItemIndex(nextType) == 0)
+            {
+                return map.getKey(type) + "000";
+            }
+            // Middle of Array
+            else
+            {
+                // System.out.println(nextType);
+                lastId = items_.get(searchItemIndex(nextType) - 1).getId();
+                // Category not found
+                if(lastId.charAt(0) < map.getKey(type).charAt(0))
+                    return map.getKey(type) + "000";
+                // Category found
+                else
+                    return StringUtil.incrementString(lastId, 1);
+            }
         }
-        return left;
+        
     }
 
     public Item getItem(String id)
     {
+
         for(int i = 0; i< this.items_.size(); i++)
         {
             Item local_item = this.items_.get(i);
@@ -156,13 +177,24 @@ public class MenuList
 
     public void appendItem(Item item_append)
     {
-        if(this.items_.size() == 0)
+        int appendIndex;
+        if(items_.size() == 0)
         {
-            this.items_.add(item_append);
+            items_.add(item_append);
         }
         else
         {
-
+            appendIndex = searchItemIndex(item_append.getId());
+            // System.out.print(appendIndex);
+            // System.out.println(" " + item_append.getId());
+            if(items_.get(appendIndex).getId().compareTo(item_append.getId()) < 0)
+            {
+                items_.add(item_append);
+            }
+            else
+            {
+                items_.add(appendIndex, item_append);
+            }
         }
     } 
 
@@ -286,6 +318,7 @@ public class MenuList
     {
         for(int i = 0; i<this.items_.size(); i++)
         {
+            System.out.print(this.items_.get(i).getId() + " ");
             System.out.println(this.items_.get(i).getName());
         }
     }
@@ -298,6 +331,7 @@ public class MenuList
         return sortedMenuItems;
     }
 
+    // Not necessary
     public ArrayList<Item> sort_items_by_id()
     {
         ArrayList<Item> sortedMenuItems = (ArrayList<Item>)items_.clone();

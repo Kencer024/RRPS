@@ -3,17 +3,81 @@ public class test
 {
 	public static void main(String[] args)
     {
-    	// OrderDatabase orders = new OrderDatabase();
-     //    orders.newOrder("12", 2);
-     //    orders.newOrder("12", 1);
-     //    orders.newOrder("11", 1);
+        Scanner sc = new Scanner(System.in);
 
-     //    orders.printCurrentOrders();
-        String test = "abcde";
-        for(int i = 0; i < 10000; i++)
+        MenuList menu = new MenuList();
+        MenuImporter sth = new MenuImporter();
+        menu = sth.importExcel(menu); 
+        menu.printItems();
+
+        OrderDatabase orders = new OrderDatabase();
+        int select = -1;
+        Boolean newTable = false;
+        String tableId = "0";
+        while(true)
         {
-            System.out.println(StringUtil.incrementString(test, i));
+            System.out.print("Choice : ");
+            select = sc.nextInt();
+            newTable = false;
+            switch(select)
+            {
+                case 1:
+                    System.out.print("Table Id : ");
+                    tableId = sc.next();
+                    System.out.print("Pax : ");
+                    int pax = sc.nextInt();
+                    orders.newOrder(tableId, pax);
+                    newTable = true;
+                case 2:
+                    if(!newTable)
+                    {
+                        System.out.print("Table Id : ");
+                        tableId = sc.next();
+                    }
+                    while(select != -1)
+                    {
+                        System.out.print("Table " + tableId + " | Choice : ");
+                        select = sc.nextInt();
+                        switch(select)
+                        {
+                            case 1:
+                                menu.printItems();
+                                break;
+                            case 2:
+                                orders.printItems(tableId);
+                                orders.printSets(tableId);
+                                break;
+                            case 3:
+                                System.out.print("Item id : ");
+                                String itemid = sc.next();
+                                System.out.print("Amount : ");
+                                int amount = sc.nextInt();
+                                orders.addItem(tableId, itemid, amount);
+                                break;
+                            case 4:
+                                System.out.print("Item id : ");
+                                itemid = sc.next();
+                                orders.removeItem(tableId, itemid);
+                                break;
+                            case 5:
+                                System.out.print("Set id : ");
+                                String setid = sc.next();
+                                System.out.print("Amount : ");
+                                amount = sc.nextInt();
+                                orders.addSet(tableId, setid, amount);
+                                break;
+                            case 6:
+                                System.out.print("Set id : ");
+                                setid = sc.next();
+                                orders.removeSet(tableId, setid);
+                                break;
+
+                            case -1:
+                                break;
+                        }
+                    }
+                    break;
+            }
         }
-        
     }
 }
