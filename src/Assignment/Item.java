@@ -28,10 +28,12 @@ public class Item {
             System.out.println("Set a valid baseprice( > 0)");
         }  
         this.checkValidity();
+        this.id_ = "";
         
     }
 
     public Item(){
+        this.id_ = "";
         this.name_ = "";
         this.isValid_ = false;
         this.itemDesc_ = "";

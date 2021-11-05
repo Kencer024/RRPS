@@ -5,7 +5,101 @@ public class MenuList
 {
     private ArrayList<Item> items_ = new ArrayList<Item>();
     private ArrayList<PromoSet> sets_ = new ArrayList<PromoSet>();
-    private ArrayList<String> types_ = new ArrayList<String>();
+    private String itemEndId = "0000";
+    private String setEndId = "0000";
+
+    private int searchItemTypeStartIndex(String type)
+    {
+        int left = 0, right = items_.size() - 1, center;
+        while(left < right)
+        {
+            center = (left + right) / 2;
+            if(items_.get(center).getType().compareTo(type) < 0)
+            {
+                left = center + 1;
+            }
+            else
+            {
+                right = center;
+            }
+
+        }
+        return left;
+    }
+
+    private int searchItemTypeEndIndex(String type)
+    {
+        int left = 0, right = items_.size() - 1, center;
+        while(left < right)
+        {
+            center = (left + right) / 2;
+            if(items_.get(center).getType().compareTo(type) <= 0)
+            {
+                left = center + 1;
+            }
+            else
+            {
+                right = center;
+            }
+
+        }
+        return left;
+    }
+
+    private int searchItemIndex(String type, int id)
+    {
+        int left = searchItemTypeStartIndex(type), right = searchItemTypeEndIndex(type) - 1, center;
+        while(left < right)
+        {
+            center = (left + right) / 2;
+            if(items_.get(center).getType().compareTo(type) <= 0)
+            {
+                left = center + 1;
+            }
+            else
+            {
+                right = center;
+            }
+        }
+    }
+
+    private int searchSetTypeStartIndex(String type)
+    {
+        int left = 0, right = sets_.size() - 1, center;
+        while(left < right)
+        {
+            center = (left + right) / 2;
+            if(sets_.get(center).getType().compareTo(type) < 0)
+            {
+                left = center + 1;
+            }
+            else
+            {
+                right = center;
+            }
+
+        }
+        return left;
+    }
+
+    private int searchSetTypeEndIndex(String type)
+    {
+        int left = 0, right = sets_.size() - 1, center;
+        while(left < right)
+        {
+            center = (left + right) / 2;
+            if(sets_.get(center).getType().compareTo(type) <= 0)
+            {
+                left = center + 1;
+            }
+            else
+            {
+                right = center;
+            }
+
+        }
+        return left;
+    }
 
     public Item getItem(String id)
     {
@@ -50,6 +144,11 @@ public class MenuList
     
     }
 
+    public ArrayList<Item> getAllItems()
+    {
+        return this.items_;
+    }
+
     public ArrayList<PromoSet> getAllPromoSets()
     {
         return this.sets_;
@@ -57,8 +156,41 @@ public class MenuList
 
     public void appendItem(Item item_append)
     {
-        this.items_.add(item_append);
+        if(this.items_.size() == 0)
+        {
+            this.items_.add(item_append);
+        }
+        else
+        {
+
+        }
     } 
+
+    public void removeItem(String id)
+    {
+        for(int i = 0; i< this.items_.size();i++)
+        {
+            Item local_item_type = this.items_.get(i);
+            String local_item_id = local_item_type.getId();
+            if(local_item_id == id)
+            {   
+                this.items_.remove(local_item_type);
+            }
+        }
+    }
+
+    public void removeSet(String id)
+    {
+        for(int i = 0; i< this.sets_.size();i++)
+        {
+            PromoSet local_set = this.sets_.get(i);
+            String local_set_id = local_set.getPromoSetId();
+            if(local_set_id == id)
+            {   
+                this.sets_.remove(local_set);
+            }
+        }
+    }
 
     public void updateItem(Item item_update)
     {
@@ -78,6 +210,7 @@ public class MenuList
     {
         this.sets_.add(set_append);
     } 
+
 
     public void updateSet(PromoSet set_update)
     {
@@ -149,26 +282,38 @@ public class MenuList
         }
     }
 
-    public String getNewItemId()
+    public void printItems()
     {
-        int leftLimit = 48; // numeral '0'
-        int rightLimit = 122; // letter 'z'
-        int targetStringLength = 10;
-        Random random = new Random();
-
-        String generatedString;
-        do{
-            generatedString = random.ints(leftLimit, rightLimit + 1)
-              .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-              .limit(targetStringLength)
-              .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-              .toString();
-          }while(getItem(generatedString) != null);
-        
-
-        return generatedString;
-        // System.out.println(generatedString);
+        for(int i = 0; i<this.items_.size(); i++)
+        {
+            System.out.println(this.items_.get(i).getName());
+        }
     }
+
+    public ArrayList<Item> sort_items_by_type()
+    {
+        ArrayList<Item> sortedMenuItems = (ArrayList<Item>)items_.clone();
+        sortedMenuItems.sort(Comparator.comparing(Item::getType));
+
+        return sortedMenuItems;
+    }
+
+    public ArrayList<Item> sort_items_by_id()
+    {
+        ArrayList<Item> sortedMenuItems = (ArrayList<Item>)items_.clone();
+        sortedMenuItems.sort(Comparator.comparing(Item::getId));
+
+        return sortedMenuItems;
+    }
+
+    public ArrayList<PromoSet> sort_sets_by_id()
+    {
+        ArrayList<PromoSet> sortedMenuPromoSets = (ArrayList<PromoSet>)sets_.clone();
+        sortedMenuPromoSets.sort(Comparator.comparing(PromoSet::getPromoSetId));
+
+        return sortedMenuPromoSets;
+    }
+
 
 
 }
