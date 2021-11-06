@@ -246,6 +246,11 @@ public class Order
 		printLine += subTotal + " ||";
 		System.out.println(printLine);
 
+		if(hasMembership)
+		{
+
+		}
+
 		printLine = "|| SVC CHARGE 10%";
 		spaces = 58 - String.valueOf(Math.round(svcCharge * 100.0)/100.0).length() - 20;
 		for(int j = 0; j < spaces; j++)
@@ -266,15 +271,19 @@ public class Order
 		System.out.println("|========================================================|");
 
 		printLine = "|| TOTAL";
-		spaces = 58 - String.valueOf(subTotal - memberDiscount + svcCharge + gst).length() - 11;
+		spaces = 58 - String.valueOf(Math.round((subTotal - memberDiscount + svcCharge + gst) * 100.0) / 100.0).length() - 11;
 		for(int j = 0; j < spaces; j++)
 		{
 			printLine += " ";
 		}
-		printLine += subTotal - memberDiscount  + svcCharge + gst + " ||";
+		printLine += Math.round((subTotal - memberDiscount + svcCharge + gst) * 100.0) / 100.0 + " ||";
 		System.out.println(printLine);
 
 		System.out.println("|========================================================|");
+	}
+	public float getBaseCost()
+	{
+		return baseCost;
 	}
 	public float getSubTotal()
 	{
@@ -290,6 +299,6 @@ public class Order
 	}
 	public float getTotal()
 	{
-		return subTotal + svcCharge + gst;
+		return subTotal - memberDiscount + svcCharge + gst;
 	}
 }
