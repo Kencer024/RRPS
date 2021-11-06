@@ -15,7 +15,7 @@ public class test
         menu = sth.importExcel(menu);
 
         PromoSet tmpSet = new PromoSet();
-        tmpSet.setId(menu.getNewSetId("Promotion Set"));
+        tmpSet.setId(menu.getNewSetId());
         tmpSet.setName("Classic Angus cheese burger meal");
         tmpSet.setSaleCost(10.95f);
         tmpSet.setallItemIds(new ArrayList<String>(Arrays.asList("1000", "6001", "5001")));
