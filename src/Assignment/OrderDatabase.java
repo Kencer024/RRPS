@@ -100,8 +100,8 @@ public class OrderDatabase
 	public Order removeOrder(String tableId)
 	{
 		int orderIndex = getOrderIndex(tableId);
-		Order tmp;
 		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return null;
+		Order tmp;
 		tmp = currentOrders.get(orderIndex);
 		currentOrders.remove(orderIndex);
 		return tmp;
