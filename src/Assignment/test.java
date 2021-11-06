@@ -1,6 +1,8 @@
 
 package Assignment;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 public class test
 {
@@ -10,21 +12,29 @@ public class test
 
         MenuList menu = new MenuList();
         MenuImporter sth = new MenuImporter();
-        menu = sth.importExcel(menu); 
+        menu = sth.importExcel(menu);
+
+        PromoSet tmpSet = new PromoSet();
+        tmpSet.setId(menu.getNewSetId("Promotion Set"));
+        tmpSet.setName("Classic Angus cheese burger meal");
+        tmpSet.setSaleCost(10.95f);
+        tmpSet.setallItemIds(new ArrayList<String>(Arrays.asList("1000", "6001", "5001")));
+        menu.appendSet(tmpSet);
         menu.printItems();
+        menu.printSets();
 
         OrderDatabase orders = new OrderDatabase();
         int select = -1;
         Boolean newTable = false;
         String tableId = "0";
 
-        orders.newOrder("12", 6);
+        orders.newOrder("12", 4);
         orders.addItem("12", "1000", 1);
         orders.addItem("12", "6000", 2);
-//        orders.printItems("12");
+        orders.printItems("12");
         orders.printBill("12", menu);
 
-        while(true)
+        while(select != -2)
         {
             System.out.print("Choice : ");
             select = sc.nextInt();

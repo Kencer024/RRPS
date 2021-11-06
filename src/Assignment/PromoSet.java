@@ -5,7 +5,10 @@ import java.util.*;
 
 public class PromoSet{
 
+    private String name_;
+    private String setDesc_;
     private List<String> itemList_ = new ArrayList<String>();
+    private float saleCost_;
     private String promoSetId_;
     public int promo_availability_;
     
@@ -16,19 +19,33 @@ public class PromoSet{
 
     public PromoSet()
     {
+        this.name_ = "";
+        this.setDesc_ = "";
         this.promoSetId_ = "";
         this.promo_availability_ = 1;
     }
 
-    public void setPromoSetId(String id_input)
+    public void setName(String nameInput) { this.name_ = nameInput; }
+
+    public String getName() { return this.name_; }
+
+    public void setDesc(String descInput) { this.setDesc_ = descInput; }
+
+    public String getDesc() { return this.setDesc_; }
+
+    public void setId(String idInput)
     {
-        this.promoSetId_ = id_input;
+        this.promoSetId_ = idInput;
     }
 
-    public String getPromoSetId()
+    public String getId()
     {
         return this.promoSetId_;
     }
+
+    public void setSaleCost(float saleInput) {this.saleCost_ = saleInput; }
+
+    public float getSaleCost() { return this.saleCost_; }
 
     public List<String> getallItemIds()
     {
