@@ -3,6 +3,9 @@ package Assignment;
 import java.lang.reflect.Array;
 import java.util.*;
 
+/**
+ * A class for holding all the full objects of items and promotional sets in the menu.
+ */
 public class MenuList
 {
     private ArrayList<Item> items_ = new ArrayList<Item>();
@@ -68,6 +71,12 @@ public class MenuList
         return left;
     }
 
+    /**
+     * Returns a new item ID string starting that is available within this MenuList with the character associated to the inputted category. This ID can be used as
+     * an index for a new item.
+     * @param type the full category name that the new ID string would be generated based on
+     * @return the new item ID string
+     */
     public String getNewItemId(String type)
     {
         if(items_.size() == 0)
@@ -117,7 +126,11 @@ public class MenuList
         }
     }
 
-    public String getNewSetId(String type)
+    /**
+     * Returns a new set ID string that is available within this MenuList. This ID can be used as an index for a new promotional set.
+     * @return the new set ID string
+     */
+    public String getNewSetId()
     {
         if(sets_.size() == 0)
         {
