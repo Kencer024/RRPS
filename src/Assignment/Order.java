@@ -2,6 +2,7 @@ package Assignment;
 
 import java.util.ArrayList;
 import java.time.LocalDateTime;
+import java.text.DateFormat;  
 
 public class Order
 {
@@ -12,6 +13,7 @@ public class Order
 	private ArrayList<Pair<String, Integer>> items;
 	private ArrayList<Pair<String, Integer>> sets;
 	private float bill;
+	private String orderID;
 
 	public Order(String tableId_, int pax_)
 	{
@@ -21,6 +23,16 @@ public class Order
 		sets = new ArrayList<Pair<String, Integer>>(0);
 		dateTime = LocalDateTime.now();
 		bill = 0;
+		this.generate_orderID();
+	}
+
+	public void generate_orderID()
+	{
+		orderID = tableId + dateTime.toString();
+	}
+	public String getOrderID()
+	{
+		return orderID;
 	}
 	public String getTableId()
 	{
@@ -179,6 +191,17 @@ public class Order
 			System.out.println("Bill: " + this.bill);
 		}
 		return this.bill;
+	}
+
+	public void printBill(MenuList menu)
+	{
+		// width = 58
+		System.out.print("|========================================================|\n"
+				+ "|                      RECIEPT                           |\n"
+				+ "|========================================================|\n");
+		System.out.println("|| " + dateTime.toString().substring(0, 19) + "                                  ||");
+
+//		for(int i = 0; i < items.size())
 	}
 
 	public float getBill(){ 
