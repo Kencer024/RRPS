@@ -1,4 +1,6 @@
 // import java.io.*;
+package Assignment;
+
 import java.util.*;
 
 public class PromoSet{

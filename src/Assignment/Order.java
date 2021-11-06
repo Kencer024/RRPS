@@ -1,3 +1,5 @@
+package Assignment;
+
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 
@@ -9,7 +11,7 @@ public class Order
 	Boolean hasMembership;
 	ArrayList<Pair<String, Integer>> items;
 	ArrayList<Pair<String, Integer>> sets;
-	private double bill;
+	private float bill;
 
 	public Order(String tableId_, int pax_)
 	{
@@ -18,7 +20,7 @@ public class Order
 		items = new ArrayList<Pair<String, Integer>>(0);
 		sets = new ArrayList<Pair<String, Integer>>(0);
 		dateTime = LocalDateTime.now();
-		bill = 0.0;
+		bill = 0;
 	}
 
 	private int getItemIndex(String id)
@@ -158,8 +160,13 @@ public class Order
 			Item local_item = menu.getItem(local_item_id);
 			double cost_local_item = local_item.getSaleCost();
 			this.bill+= (cost_local_item*local_pair.getSecond());
-			System.out.print();
+			System.out.println("Bill: " + this.bill);
 		}
 		return this.bill;
 	}
+
+	public float getBill(){ 
+		System.out.println("Bill: " + this.bill);
+		return this.bill;}
+
 }

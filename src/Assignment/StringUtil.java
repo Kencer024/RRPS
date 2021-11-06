@@ -1,3 +1,5 @@
+package Assignment;
+
 public final class StringUtil
 {
 	private static int alphaNumeralToValue(char ch)

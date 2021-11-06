@@ -1,3 +1,5 @@
+package Assignment;
+
 public class MenuImporter {
 	public MenuList importExcel(MenuList menu) {
 		Item tmp_item = new Item();
@@ -101,7 +103,7 @@ public class MenuImporter {
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Chicken"));
-		tmp_item.setName("McSpicy – single");
+		tmp_item.setName("McSpicy ï¿½ single");
 		tmp_item.setType("Chicken");
 		tmp_item.setSaleCost(5.25f);
 		tmp_item.setBaseCost(3.15f);
@@ -109,7 +111,7 @@ public class MenuImporter {
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Chicken"));
-		tmp_item.setName("McSpicy – double");
+		tmp_item.setName("McSpicy ï¿½ double");
 		tmp_item.setType("Chicken");
 		tmp_item.setSaleCost(7.2f);
 		tmp_item.setBaseCost(4.32f);
@@ -125,7 +127,7 @@ public class MenuImporter {
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Chicken"));
-		tmp_item.setName("McWings – 4pc");
+		tmp_item.setName("McWings ï¿½ 4pc");
 		tmp_item.setType("Chicken");
 		tmp_item.setSaleCost(4.2f);
 		tmp_item.setBaseCost(2.52f);
@@ -133,7 +135,7 @@ public class MenuImporter {
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Chicken"));
-		tmp_item.setName("Chicken nuggets – 6pc");
+		tmp_item.setName("Chicken nuggets ï¿½ 6pc");
 		tmp_item.setType("Chicken");
 		tmp_item.setSaleCost(4.6f);
 		tmp_item.setBaseCost(2.76f);
@@ -141,7 +143,7 @@ public class MenuImporter {
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Chicken"));
-		tmp_item.setName("Chicken nuggets – 9pc");
+		tmp_item.setName("Chicken nuggets ï¿½ 9pc");
 		tmp_item.setType("Chicken");
 		tmp_item.setSaleCost(6.2f);
 		tmp_item.setBaseCost(3.7199999999999998f);

@@ -1,3 +1,5 @@
+package Assignment;
+
 import java.util.ArrayList;
 
 
@@ -14,7 +16,7 @@ public class Sales {
         for(int i = 0; i< all_orders.size();i++)
         {
             Order local_order = all_orders.get(i);
-            total_revenue+= local_order.getbill();
+            total_revenue+= local_order.getBill();
         }
     }
 }

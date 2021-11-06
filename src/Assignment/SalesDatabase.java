@@ -1,3 +1,5 @@
+package Assignment;
+
 import java.util.ArrayList;
 
 public class SalesDatabase
