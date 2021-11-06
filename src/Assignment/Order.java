@@ -2,6 +2,7 @@ package Assignment;
 
 import java.util.ArrayList;
 import java.time.LocalDateTime;
+import java.text.DateFormat;  
 
 public class Order
 {
@@ -12,6 +13,7 @@ public class Order
 	private ArrayList<Pair<String, Integer>> items;
 	private ArrayList<Pair<String, Integer>> sets;
 	private float bill;
+	private String orderID;
 
 	public Order(String tableId_, int pax_)
 	{
@@ -21,6 +23,12 @@ public class Order
 		sets = new ArrayList<Pair<String, Integer>>(0);
 		dateTime = LocalDateTime.now();
 		bill = 0;
+		this.generate_orderID();
+	}
+
+	public void generate_orderID()
+	{
+		orderID = tableId + dateTime.toString();
 	}
 	public String getTableId()
 	{
