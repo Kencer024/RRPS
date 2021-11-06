@@ -3,6 +3,13 @@ package Assignment;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/*
+* Change the number of pax per table at the constructor
+* Reservation for the individual slot(1 hr)
+* Each slot there are 30 tables, everyone is assumed to reserve
+* only for 1 hour
+* */
+
 public class Reservation {
     private Table[] table = new Table[30];      //assume 30 tables
 
@@ -49,11 +56,17 @@ public class Reservation {
     public void removeReservation(int tableId){
         for(int i =0; i< table.length;i++){             //brute force search
             if(table[i].getTableId() == tableId){       //if table[i] is tableid
-                table[i].setReserved(false);             //set it to !reserved
-                table[i].setName(null);
+                if(table[i].getName() != null){         //if a reservation is found
+                    table[i].setReserved(false);        //set it to !reserved
+                    table[i].setName(null);
+                    System.out.println("Table reservation removed");
+                }else{
+                    System.out.println("No reservation found");
+                }
+
             }
         }
-        System.out.println("Table reservation removed");
+
     }
 
     public boolean checkReservation(int tableId){       //checks whether a certain table is reserved
@@ -95,7 +108,8 @@ public class Reservation {
         Table[] eTable = new Table[0];
         for(int i =0;i< table.length; i++){
             if(!table[i].getreserved() && table[i].getpax() >= pax){
-                System.out.println(table[i].getTableId() + " is empty ");
+                System.out.println(table[i].getTableId() + "["
+                            + table[i].getpax() +"pax] is empty");
                 eTable = Arrays.copyOf(eTable, eTable.length+1);        //append eTable array
                 eTable[eTable.length-1] = table[i];
             }

@@ -32,7 +32,7 @@ public class Order
 
 	public void generate_orderID()
 	{
-		orderID = tableId + dateTime.toString();
+		orderID = dateTime.toString()+ tableId;
 	}
 	public String getOrderID()
 	{
