@@ -14,12 +14,12 @@ public class Order
 	private ArrayList<Pair<String, Integer>> items;
 	private ArrayList<Pair<String, Integer>> sets;
 	private float baseCost, subTotal, memberDiscount, svcCharge, gst;
-	private String orderID;
+	private String orderId;
 
-	public Order(String tableId_, int pax_)
+	public Order(String tableId, int pax)
 	{
-		tableId = tableId_;
-		pax = pax_;
+		this.tableId = tableId;
+		this.pax = pax;
 		items = new ArrayList<Pair<String, Integer>>(0);
 		sets = new ArrayList<Pair<String, Integer>>(0);
 		dateTime = LocalDateTime.now();
@@ -28,16 +28,16 @@ public class Order
 		baseCost = 0;
 		svcCharge = 0;
 		gst = 0;
-		this.generate_orderID();
+		this.generateOrderId();
 	}
 
-	public void generate_orderID()
+	public void generateOrderId()
 	{
-		orderID = dateTime.toString()+ tableId;
+		orderId = dateTime.toString()+ tableId;
 	}
-	public String getOrderID()
+	public String getOrderId()
 	{
-		return orderID;
+		return orderId;
 	}
 	public String getTableId()
 	{

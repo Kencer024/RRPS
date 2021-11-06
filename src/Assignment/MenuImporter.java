@@ -11,7 +11,7 @@ public class MenuImporter {
 		tmp_item.setType("Dessert");
 		tmp_item.setSaleCost(2.7f);
 		tmp_item.setBaseCost(1.62f);
-		menu.appendItem(tmp_item);
+		menu.insertItem(tmp_item);
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Dessert"));
@@ -19,7 +19,7 @@ public class MenuImporter {
 		tmp_item.setType("Dessert");
 		tmp_item.setSaleCost(3.0f);
 		tmp_item.setBaseCost(1.7999999999999998f);
-		menu.appendItem(tmp_item);
+		menu.insertItem(tmp_item);
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Dessert"));
@@ -27,7 +27,7 @@ public class MenuImporter {
 		tmp_item.setType("Dessert");
 		tmp_item.setSaleCost(1.7f);
 		tmp_item.setBaseCost(1.02f);
-		menu.appendItem(tmp_item);
+		menu.insertItem(tmp_item);
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Dessert"));
@@ -35,7 +35,7 @@ public class MenuImporter {
 		tmp_item.setType("Dessert");
 		tmp_item.setSaleCost(0.8f);
 		tmp_item.setBaseCost(0.48f);
-		menu.appendItem(tmp_item);
+		menu.insertItem(tmp_item);
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Dessert"));
@@ -43,7 +43,7 @@ public class MenuImporter {
 		tmp_item.setType("Dessert");
 		tmp_item.setSaleCost(1.0f);
 		tmp_item.setBaseCost(0.6f);
-		menu.appendItem(tmp_item);
+		menu.insertItem(tmp_item);
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Beef"));
@@ -51,7 +51,7 @@ public class MenuImporter {
 		tmp_item.setType("Beef");
 		tmp_item.setSaleCost(8.95f);
 		tmp_item.setBaseCost(5.369999999999999f);
-		menu.appendItem(tmp_item);
+		menu.insertItem(tmp_item);
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Beef"));
@@ -59,7 +59,7 @@ public class MenuImporter {
 		tmp_item.setType("Beef");
 		tmp_item.setSaleCost(3.5f);
 		tmp_item.setBaseCost(2.1f);
-		menu.appendItem(tmp_item);
+		menu.insertItem(tmp_item);
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Beef"));
@@ -67,7 +67,7 @@ public class MenuImporter {
 		tmp_item.setType("Beef");
 		tmp_item.setSaleCost(5.75f);
 		tmp_item.setBaseCost(3.4499999999999997f);
-		menu.appendItem(tmp_item);
+		menu.insertItem(tmp_item);
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Beef"));
@@ -75,7 +75,7 @@ public class MenuImporter {
 		tmp_item.setType("Beef");
 		tmp_item.setSaleCost(6.2f);
 		tmp_item.setBaseCost(3.7199999999999998f);
-		menu.appendItem(tmp_item);
+		menu.insertItem(tmp_item);
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Fish"));
@@ -83,7 +83,7 @@ public class MenuImporter {
 		tmp_item.setType("Fish");
 		tmp_item.setSaleCost(5.4f);
 		tmp_item.setBaseCost(3.24f);
-		menu.appendItem(tmp_item);
+		menu.insertItem(tmp_item);
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Salads & Wraps"));
@@ -91,7 +91,7 @@ public class MenuImporter {
 		tmp_item.setType("Salads & Wraps");
 		tmp_item.setSaleCost(5.8f);
 		tmp_item.setBaseCost(3.48f);
-		menu.appendItem(tmp_item);
+		menu.insertItem(tmp_item);
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Salads & Wraps"));
@@ -99,7 +99,7 @@ public class MenuImporter {
 		tmp_item.setType("Salads & Wraps");
 		tmp_item.setSaleCost(5.8f);
 		tmp_item.setBaseCost(3.48f);
-		menu.appendItem(tmp_item);
+		menu.insertItem(tmp_item);
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Chicken"));
@@ -107,7 +107,7 @@ public class MenuImporter {
 		tmp_item.setType("Chicken");
 		tmp_item.setSaleCost(5.25f);
 		tmp_item.setBaseCost(3.15f);
-		menu.appendItem(tmp_item);
+		menu.insertItem(tmp_item);
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Chicken"));
@@ -115,7 +115,7 @@ public class MenuImporter {
 		tmp_item.setType("Chicken");
 		tmp_item.setSaleCost(7.2f);
 		tmp_item.setBaseCost(4.32f);
-		menu.appendItem(tmp_item);
+		menu.insertItem(tmp_item);
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Chicken"));
@@ -123,7 +123,7 @@ public class MenuImporter {
 		tmp_item.setType("Chicken");
 		tmp_item.setSaleCost(6.95f);
 		tmp_item.setBaseCost(4.17f);
-		menu.appendItem(tmp_item);
+		menu.insertItem(tmp_item);
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Chicken"));
@@ -131,7 +131,7 @@ public class MenuImporter {
 		tmp_item.setType("Chicken");
 		tmp_item.setSaleCost(4.2f);
 		tmp_item.setBaseCost(2.52f);
-		menu.appendItem(tmp_item);
+		menu.insertItem(tmp_item);
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Chicken"));
@@ -139,7 +139,7 @@ public class MenuImporter {
 		tmp_item.setType("Chicken");
 		tmp_item.setSaleCost(4.6f);
 		tmp_item.setBaseCost(2.76f);
-		menu.appendItem(tmp_item);
+		menu.insertItem(tmp_item);
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Chicken"));
@@ -147,7 +147,7 @@ public class MenuImporter {
 		tmp_item.setType("Chicken");
 		tmp_item.setSaleCost(6.2f);
 		tmp_item.setBaseCost(3.7199999999999998f);
-		menu.appendItem(tmp_item);
+		menu.insertItem(tmp_item);
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Drinks"));
@@ -155,7 +155,7 @@ public class MenuImporter {
 		tmp_item.setType("Drinks");
 		tmp_item.setSaleCost(2.0f);
 		tmp_item.setBaseCost(1.2f);
-		menu.appendItem(tmp_item);
+		menu.insertItem(tmp_item);
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Drinks"));
@@ -163,7 +163,7 @@ public class MenuImporter {
 		tmp_item.setType("Drinks");
 		tmp_item.setSaleCost(2.0f);
 		tmp_item.setBaseCost(1.2f);
-		menu.appendItem(tmp_item);
+		menu.insertItem(tmp_item);
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Drinks"));
@@ -171,7 +171,7 @@ public class MenuImporter {
 		tmp_item.setType("Drinks");
 		tmp_item.setSaleCost(2.5f);
 		tmp_item.setBaseCost(1.5f);
-		menu.appendItem(tmp_item);
+		menu.insertItem(tmp_item);
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Sides"));
@@ -179,7 +179,7 @@ public class MenuImporter {
 		tmp_item.setType("Sides");
 		tmp_item.setSaleCost(1.9f);
 		tmp_item.setBaseCost(1.14f);
-		menu.appendItem(tmp_item);
+		menu.insertItem(tmp_item);
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Sides"));
@@ -187,7 +187,7 @@ public class MenuImporter {
 		tmp_item.setType("Sides");
 		tmp_item.setSaleCost(2.4f);
 		tmp_item.setBaseCost(1.44f);
-		menu.appendItem(tmp_item);
+		menu.insertItem(tmp_item);
 
 		tmp_item = new Item();
 		tmp_item.setId(menu.getNewItemId("Sides"));
@@ -195,7 +195,7 @@ public class MenuImporter {
 		tmp_item.setType("Sides");
 		tmp_item.setSaleCost(2.5f);
 		tmp_item.setBaseCost(1.5f);
-		menu.appendItem(tmp_item);
+		menu.insertItem(tmp_item);
 		return menu;
 	}
 }

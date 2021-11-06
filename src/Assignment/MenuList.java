@@ -142,16 +142,31 @@ public class MenuList
         }
     }
 
+    /**
+     * Returns the item object corresponding to the item ID string
+     * @param id the item ID string
+     * @return the item corresponding to the set ID string
+     */
     public Item getItem(String id)
     {
         return items_.get(searchItemIndex(id));
     }
 
+    /**
+     * Returns the promotional set object corresponding to the set ID string
+     * @param id the set ID string
+     * @return the promotional set corresponding to the set ID string
+     */
     public PromoSet getSet(String id)
     {
         return sets_.get(searchSetIndex(id));
     }
 
+    /**
+     * Returns an ArrayList of items with the corresponding item IDs starting with a certain pattern
+     * @param id_start the pattern for filtering items within this MenuList
+     * @return the ArrayList with the item IDs starting with the given pattern
+     */
     public ArrayList<Item> getItems(char id_start)
     {
         ArrayList<Item> items_type = new ArrayList<Item>();
@@ -165,8 +180,8 @@ public class MenuList
                 items_type.add(local_item_type);
             }
         }
-        return items_type;    
-    
+        return items_type;
+
     }
 
     public ArrayList<Item> getAllItems()
@@ -179,27 +194,36 @@ public class MenuList
         return this.sets_;
     }
 
-    public void appendItem(Item item_append)
+    /**
+     * Insert a new item into this MenuList. A valid item ID for this MenuList must have already been set for the item
+     * before insertion.
+     * @param item_insert the item to be inserted
+     */
+    public void insertItem(Item item_insert)
     {
         int appendIndex;
         if(items_.size() == 0)
         {
-            items_.add(item_append);
+            items_.add(item_insert);
         }
         else
         {
-            appendIndex = searchItemIndex(item_append.getId());
-            if(items_.get(appendIndex).getId().compareTo(item_append.getId()) < 0)
+            appendIndex = searchItemIndex(item_insert.getId());
+            if(items_.get(appendIndex).getId().compareTo(item_insert.getId()) < 0)
             {
-                items_.add(item_append);
+                items_.add(item_insert);
             }
             else
             {
-                items_.add(appendIndex, item_append);
+                items_.add(appendIndex, item_insert);
             }
         }
-    } 
-
+    }
+    /**
+     * Removes an item within this MenuList. This will remove the data for the item entirely and could not be used as
+     * reference later on when calculating previous sales data if the item has been ordered before.
+     * @param id the item ID of the item to be removed
+     */
     public void removeItem(String id)
     {
         for(int i = 0; i< this.items_.size();i++)
@@ -212,7 +236,11 @@ public class MenuList
             }
         }
     }
-
+    /**
+     * Removes a promotional set within this MenuList. This will remove the data for the set entirely and could not be
+     * referenced later on when calculating previous sales data if the item has been ordered before.
+     * @param id the set ID of the promotional set to be removed
+     */
     public void removeSet(String id)
     {
         for(int i = 0; i< this.sets_.size();i++)

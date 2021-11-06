@@ -53,7 +53,7 @@ public class SalesDatabase
 		for(int i = 0; i< this.all_orders_.size();i++)
         {
 			Order local_order = this.all_orders_.get(i);
-			if(order_id == local_order.getOrderID())
+			if(order_id == local_order.getOrderId())
 				{
 					this.all_orders_.remove(local_order);
 				}
@@ -92,7 +92,7 @@ public class SalesDatabase
 			boolean isBefore = order_datetime.isBefore(end);
 			if(isBefore && isAfter)
 			{
-				searched_orders.add(local_order.getOrderID());
+				searched_orders.add(local_order.getOrderId());
 			}
 		}
 		return sort_ids(searched_orders);
@@ -118,7 +118,7 @@ public class SalesDatabase
 		for(int i=0; i<this.all_orders_.size() ;i++)
 		{
 			Order local_order = this.all_orders_.get(i);
-			if(orderId_input == local_order.getOrderID())
+			if(orderId_input == local_order.getOrderId())
 				{
 					return local_order;
 				}
@@ -139,10 +139,10 @@ public class SalesDatabase
 	{
 		for( int i = 0; i< this.all_orders_.size();i++)
 		{
-			System.out.println("Order ID: " + this.all_orders_.get(i).getOrderID());
+			System.out.println("Order ID: " + this.all_orders_.get(i).getOrderId());
 		}
 	}
-	
+
 	// not used
 	// public ArrayList<String> getOrderstimePeriod(int time_start, int time_end,int date_start, int date_end, int month_start, int month_end)
 	// {
