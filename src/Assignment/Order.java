@@ -221,7 +221,7 @@ public class Order
 
 		// width = 58
 		System.out.print("|========================================================|\n"
-				+ "|                      RECIEPT                           |\n"
+				+ "|                      RECEIPT                           |\n"
 				+ "|========================================================|\n");
 		System.out.println("|  " + dateTime.toString().substring(0, 19) + "                                   |");
 		System.out.println("|  Cashier :                                             |");
