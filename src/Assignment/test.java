@@ -19,8 +19,9 @@ public class test
         String tableId = "0";
 
         orders.newOrder("12", 6);
-        orders.addItem("12", "1001", 2);
-        orders.addItem("12", "6003", 2);
+        orders.addItem("12", "1000", 1);
+        orders.addItem("12", "6000", 2);
+//        orders.printItems("12");
         orders.printBill("12", menu);
 
         while(true)

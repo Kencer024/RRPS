@@ -126,15 +126,16 @@ public class MenuList
     public Item getItem(String id)
     {
 
-        for(int i = 0; i< this.items_.size(); i++)
-        {
-            Item local_item = this.items_.get(i);
-            if(local_item.getId() == id)
-            {
-                return local_item;
-            }
-        }
-        return null;
+//        for(int i = 0; i< this.items_.size(); i++)
+//        {
+//            Item local_item = this.items_.get(i);
+//            if(local_item.getId() == id)
+//            {
+//                return local_item;
+//            }
+//        }
+//        return null;
+        return items_.get(searchItemIndex(id));
     }
 
     public PromoSet getSet(String promoSetId_input)
