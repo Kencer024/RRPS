@@ -221,7 +221,7 @@ public class Order
 
 		// width = 58
 		System.out.print("|========================================================|\n"
-				+ "|                      RECEIPT                           |\n"
+				+ "|                         RECEIPT                        |\n"
 				+ "|========================================================|\n");
 		System.out.println("|  " + dateTime.toString().substring(0, 19) + "                                   |");
 		System.out.println("|  Cashier :                                             |");
@@ -345,4 +345,27 @@ public class Order
 	{
 		return subTotal - memberDiscount + svcCharge + gst;
 	}
+
+//	// For Cloning
+//	private String tableId;
+//	private int pax;
+//	private LocalDateTime dateTime = LocalDateTime.now();
+//	private Boolean hasMembership;
+//	private ArrayList<Pair<String, Integer>> items;
+//	private ArrayList<Pair<String, Integer>> sets;
+//	private float baseCost, subTotal, memberDiscount, svcCharge, gst;
+//	private String orderID;
+//
+//	public void setDateTime(LocalDateTime dt)
+//	{
+//		dateTime = dt;
+//	}
+//	public void
+//	public Order clone()
+//	{
+//		Order cloneObj = new Order(tableId, pax);
+//		cloneObj.setd
+//
+//
+//	}
 }
