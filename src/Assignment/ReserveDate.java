@@ -39,9 +39,32 @@ public class ReserveDate {
         }
     }
 
+    /*  time is the original time slot
+    *   date is the original date slot
+    *   pax is the NEW pax wanted
+    *   table is the original table index
+    * */
     public void updateReservation(int time, int date, int pax, int table){
         Reservation[] r = t[time].getR();
+        Scanner sc = new Scanner(System.in);
+
         int tableId = r[date-1].getTable()[table].getTableId();
-        r[date-1].updateReservation(tableId, pax);
+        System.out.println( "Change Time/Date ? Your current reservation is table " + table + " at "
+                + time+ " for "+r[date-1].getTable()[table].getName());
+        System.out.println(
+                "0 for just change table/pax\n" +
+                "1 for change time/date");
+        int choice = sc.nextInt();
+        switch(choice){
+            case 0 :
+                r[date-1].updateReservation(tableId, pax);
+            case 1 :
+                System.out.println("Which date ?");
+                String name = r[date-1].getTable()[table].getName();
+                int date2 = sc.nextInt();
+                r[date2-1].reserve(pax, name);
+                r[date-1].removeReservation(table);
+        }
+        System.out.println("Table updated");
     }
 }
