@@ -188,20 +188,63 @@ public class Order
 			Item local_item = menu.getItem(local_item_id);
 			double cost_local_item = local_item.getSaleCost();
 			this.bill+= (cost_local_item*local_pair.getSecond());
-			System.out.println("Bill: " + this.bill);
+//			System.out.println("Bill: " + this.bill);
 		}
 		return this.bill;
 	}
 
 	public void printBill(MenuList menu)
 	{
+		String printLine = "";
+		int spaces = 0;
+
 		// width = 58
 		System.out.print("|========================================================|\n"
 				+ "|                      RECIEPT                           |\n"
 				+ "|========================================================|\n");
-		System.out.println("|| " + dateTime.toString().substring(0, 19) + "                                  ||");
+		System.out.println("|  " + dateTime.toString().substring(0, 19) + "                                   |");
+		System.out.println("|  Cashier :                                             |");
+		printLine = "|  Table : " + tableId + "\tPax : " + pax;
+		spaces = 58 - printLine.length() - 4;
+		for(int j = 0; j < spaces; j++)
+		{
+			printLine += " ";
+		}
+		printLine += " |";
+		System.out.println(printLine);
+		System.out.println("|========================================================|");
 
-//		for(int i = 0; i < items.size())
+
+		for(int i = 0; i < items.size(); i++)
+		{
+			printLine = "|| " + items.get(i).getSecond() + "\t" + menu.getItem(items.get(i).getFirst()).getName();
+			String saleCost = String.valueOf(menu.getItem(items.get(i).getFirst()).getSaleCost());
+			spaces = 58 - printLine.length() - saleCost.length() - 6;
+			for(int j = 0; j < spaces; j++)
+			{
+				printLine += " ";
+			}
+			printLine += saleCost + " ||";
+			System.out.println(printLine);
+		}
+//		System.out.println("||                                                      ||");
+		printLine = "|| SUBTOTAL";
+		computeBill(menu);
+		spaces = 58 - String.valueOf(bill).length() - 14;
+		for(int j = 0; j < spaces; j++)
+		{
+			printLine += " ";
+		}
+		printLine += bill + " ||";
+		System.out.println(printLine);
+		printLine = "|| SVC CHARGE 10%";
+//		float subtotal
+		spaces = 58 - String.valueOf(bill).length() - 14;
+		for(int j = 0; j < spaces; j++)
+		{
+			printLine += " ";
+		}
+		System.out.println("|========================================================|");
 	}
 
 	public float getBill(){ 
