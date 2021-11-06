@@ -1,42 +1,29 @@
 package Assignment;
 
+/**
+ * Groups a pair of 2 objects into 1
+ * @param <A> Datatype of the first object
+ * @param <B> Datatype of the second object
+ */
 public class Pair<A, B> {
     private A first;
     private B second;
 
+    /**
+     * Constructs a pair of 2 objects
+     * @param first An object representing the first object
+     * @param second An object representing the second object
+     */
     public Pair(A first, B second) {
         super();
         this.first = first;
         this.second = second;
     }
 
-    public int hashCode() {
-        int hashFirst = first != null ? first.hashCode() : 0;
-        int hashSecond = second != null ? second.hashCode() : 0;
-
-        return (hashFirst + hashSecond) * hashSecond + hashFirst;
-    }
-
-    public boolean equals(Object other) {
-        if (other instanceof Pair) {
-            Pair otherPair = (Pair) other;
-            return 
-            ((  this.first == otherPair.first ||
-                ( this.first != null && otherPair.first != null &&
-                  this.first.equals(otherPair.first))) &&
-             (  this.second == otherPair.second ||
-                ( this.second != null && otherPair.second != null &&
-                  this.second.equals(otherPair.second))) );
-        }
-
-        return false;
-    }
-
-    public String toString()
-    { 
-           return "(" + first + ", " + second + ")"; 
-    }
-
+    /**
+     * A method for retrieving the first object
+     * @return The value of the first object
+     */
     public A getFirst() {
         return first;
     }
@@ -45,6 +32,10 @@ public class Pair<A, B> {
         this.first = first;
     }
 
+    /**
+     * A method for retrieving the second object
+     * @return The value of the second object
+     */
     public B getSecond() {
         return second;
     }
