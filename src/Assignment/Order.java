@@ -3,8 +3,10 @@ package Assignment;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.util.List;
-//*
 
+/** A class of order object to represent each order
+ *
+ */
 public class Order
 {
 	private String tableId;
@@ -16,6 +18,10 @@ public class Order
 	private float baseCost, subTotal, memberDiscount, svcCharge, gst;
 	private String orderId;
 
+	/** creating the order
+	 * @param tableId represents the table identity no.
+	 * @param pax represents the no. of customer(s)
+	 */
 	public Order(String tableId, int pax)
 	{
 		this.tableId = tableId;
@@ -31,31 +37,62 @@ public class Order
 		this.generateOrderId();
 	}
 
+	/**
+	 * Generates the order identity no.
+	 */
 	public void generateOrderId()
 	{
 		orderId = dateTime.toString()+ tableId;
 	}
+
+	/** Getting the order identity no.
+	 *
+	 * @return A string that represents the order identity
+	 */
 	public String getOrderId()
 	{
 		return orderId;
 	}
+
+	/** Getting the table identity no.
+	 *
+	 * @return A string that represents the table identity
+	 */
 	public String getTableId()
 	{
 		return tableId;
 	}
+
+	/** Getting the no. of customer(s)
+	 *
+	 * @return An integer that represents the no. of customer
+	 */
 	public int getPax()
 	{
 		return pax;
 	}
+
+	/** Getting the local date and time
+	 *
+	 * @return LocalDateTime of the current date time
+	 */
 	public LocalDateTime getDateTime()
 	{
 		return dateTime;
 	}
+
+	/** Checks for membership
+	 *
+	 * @return A boolean representing the membership status
+	 */
 	public Boolean hasMembership()
 	{
 		return hasMembership;
 	}
 
+	/**
+	 * Printing the date and time
+	 */
 	public void printDateTime()
 	{
 		System.out.println(dateTime);
@@ -115,12 +152,23 @@ public class Order
 			return left;
 	}
 
+	/** adding the number of item ordered
+	 *
+	 * @param id A string that represents the identity of the item that is going to be added
+	 * @param amount An integer that represents the no. of item ordered
+	 */
 	public void addItem(String id, int amount)
 	{
 		Pair<String, Integer> tmp = new Pair<String, Integer>(id, amount);
 		if(items.size() == 0)items.add(tmp);
 		else items.add(getItemIndex(id), tmp);
 	}
+
+	/** Removes an item from the order
+	 *
+	 * @param id A string that represents the identity of the item that is going to be removed
+	 * @return Boolean that returns true if the item exists and is found and returns false otherwise
+	 */
 	public Boolean removeItem(String id)
 	{
 		if(items.size() == 0)return false;
@@ -129,12 +177,24 @@ public class Order
 		items.remove(itemIndex);
 		return true;
 	}
+
+	/** Adding a set into the order
+	 *
+	 * @param id A string that represents the identity of the item that is going to be added
+	 * @param amount An integer that represents the no. of item ordered
+	 */
 	public void addSet(String id, int amount)
 	{
 		Pair<String, Integer> tmp = new Pair<String, Integer>(id, amount);
 		if(sets.size() == 0)sets.add(tmp);
 		else sets.add(getSetIndex(id), tmp);
 	}
+
+	/** Removing the set from the order
+	 *
+	 * @param id A string that represents the identity of the item that is going to be removed
+	 * @return
+	 */
 	public Boolean removeSet(String id)
 	{
 		if(sets.size() == 0)return false;
@@ -143,6 +203,7 @@ public class Order
 		sets.remove(setIndex);
 		return true;
 	}
+
 
 	public ArrayList<Pair<String, Integer>> listItems()
 	{
@@ -154,12 +215,18 @@ public class Order
 		return sets;
 	}
 
+	/**
+	 * Clearing all the item(s) and/or set(s)
+	 */
 	public void clearAll()
 	{
 		items.clear();
 		sets.clear();
 	}
 
+	/**
+	 * Prints all the items
+	 */
 	public void printItems()
 	{
 		System.out.println("Items : ");
@@ -169,6 +236,9 @@ public class Order
 		}
 	}
 
+	/**
+	 * Prints all the sets
+	 */
 	public void printSets()
 	{
 		System.out.println("Sets : ");
@@ -178,11 +248,19 @@ public class Order
 		}
 	}
 
+	/** Applies membership for the customer, where attribute hasMembership will be true once called
+	 *
+	 */
 	public void applyMembership()
 	{
 		hasMembership = true;
 	}
 
+	/** Computing the bill which is (subTotal - memberDiscount + svcCharge + gst)
+	 *
+	 * @param menu MenuList object that represents list of items in menu
+	 * @return A float that represents the computed bill
+	 */
 	public float computeBill(MenuList menu)
 	{
 		this.subTotal = 0f;
@@ -215,6 +293,10 @@ public class Order
 		return subTotal - memberDiscount + svcCharge + gst;
 	}
 
+	/** Prints the bill for a MenuList object
+	 *
+	 * @param menu MenuList object that represents an array of item
+	 */
 	public void printBill(MenuList menu)
 	{
 		String printLine = "";
@@ -326,22 +408,47 @@ public class Order
 
 		System.out.println("|========================================================|");
 	}
+
+	/** Gets the base cost of an order
+	 *
+	 * @return A float representing base cost
+	 */
 	public float getBaseCost()
 	{
 		return baseCost;
 	}
+
+	/** Gets the subtotal of an order
+	 *
+	 * @return A float representing subtotal
+	 */
 	public float getSubTotal()
 	{
 		return subTotal;
 	}
+
+	/** Gets the membership discount of an order
+	 *
+	 * @return A float representing membership discount
+	 */
 	public float getMemberDiscount()
 	{
 		return memberDiscount;
 	}
+
+	/** Gets the service charge of an order
+	 *
+	 * @return A float representing service charge
+	 */
 	public float getSvcCharge()
 	{
 		return svcCharge;
 	}
+
+	/** Gets the total cost of an order
+	 *
+	 * @return A float representing total cost
+	 */
 	public float getTotal()
 	{
 		return subTotal - memberDiscount + svcCharge + gst;
