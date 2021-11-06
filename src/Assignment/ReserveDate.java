@@ -59,11 +59,16 @@ public class ReserveDate {
             case 0 :
                 r[date-1].updateReservation(tableId, pax);
             case 1 :
-                System.out.println("Which date ?");
                 String name = r[date-1].getTable()[table].getName();
-                int date2 = sc.nextInt();
-                r[date2-1].reserve(pax, name);
                 r[date-1].removeReservation(table);
+                System.out.println("Which date ?");
+                int date2 = sc.nextInt();
+                System.out.println("What time ?");
+                int time2 = sc.nextInt();
+                Reservation[] r2 = t[time2].getR();
+
+                r2[date2-1].reserve(pax, name);
+
         }
         System.out.println("Table updated");
     }
