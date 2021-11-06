@@ -266,19 +266,30 @@ public class Order
 		System.out.println("|========================================================|");
 
 		printLine = "|| TOTAL";
-		spaces = 58 - String.valueOf(subTotal + svcCharge + gst).length() - 11;
+		spaces = 58 - String.valueOf(subTotal - memberDiscount + svcCharge + gst).length() - 11;
 		for(int j = 0; j < spaces; j++)
 		{
 			printLine += " ";
 		}
-		printLine += subTotal + svcCharge + gst + " ||";
+		printLine += subTotal - memberDiscount  + svcCharge + gst + " ||";
 		System.out.println(printLine);
 
 		System.out.println("|========================================================|");
 	}
-
-	public float getBill(){ 
-		System.out.println("Bill: " + subTotal + svcCharge + gst);
-		return subTotal + svcCharge + gst;}
-
+	public float getSubTotal()
+	{
+		return subTotal;
+	}
+	public float getMemberDiscount()
+	{
+		return memberDiscount;
+	}
+	public float getSvcCharge()
+	{
+		return svcCharge;
+	}
+	public float getTotal()
+	{
+		return subTotal + svcCharge + gst;
+	}
 }

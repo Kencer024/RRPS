@@ -25,7 +25,7 @@ public class SalesDatabase
         for(int i = 0; i< this.all_orders_.size();i++)
         {
             Order local_order = this.all_orders_.get(i);
-            total_revenue+= local_order.getBill();
+            total_revenue+= local_order.getTotal();
         }
     }
 
