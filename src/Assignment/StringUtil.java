@@ -1,5 +1,8 @@
 package Assignment;
 
+/**
+ * Utility class for manipulating items and promotional sets' alphanumeric ID strings
+ */
 public final class StringUtil
 {
 	private static int alphaNumeralToValue(char ch)
@@ -16,6 +19,15 @@ public final class StringUtil
 		else if(val <= 61)return (char)(val - 36 + 'a');
 		else return '0';
 	}
+
+	/**
+	 * Generates a new string corresponding to the incremented alpha-numeric ID string.
+	 * Additional digits will be added if the incrementation overflows.
+	 *
+	 * @param str A string representing an alphanumeric ID string
+	 * @param value An integer representing the value to be incremented
+	 * @return A string representing the incremented alphanumeric ID string
+	 */
 	public static String incrementString(String str, int value)
 	{
 		StringBuilder strIncremented = new StringBuilder();
