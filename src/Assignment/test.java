@@ -17,6 +17,12 @@ public class test
         int select = -1;
         Boolean newTable = false;
         String tableId = "0";
+
+        orders.newOrder("12", 6);
+        orders.addItem("12", "1001", 2);
+        orders.addItem("12", "6003", 2);
+        orders.printBill("12", menu);
+
         while(true)
         {
             System.out.print("Choice : ");
