@@ -3,11 +3,18 @@ package Assignment;
 
 import java.util.ArrayList;
 
+/**
+ * 	Stores all the keys and category names used as the starting digit for indexing items and promotional sets in the menu.
+ * 	Can hold a maximum of 62 categories limited by the single alpha-numeric key
+ */
 public class CategoryKeyMap
 {
 	private ArrayList<Pair<String, String>> categoriesToKeys;
 	private ArrayList<Pair<String, String>> keysToCategories;
 
+	/**e
+	 * 	Constructor to initialize the containers used to store the keys and category names.
+	 */
 	public CategoryKeyMap()
 	{
 		categoriesToKeys = new ArrayList<Pair<String, String>>();
@@ -65,18 +72,32 @@ public class CategoryKeyMap
 			return left;
 	}
 
+	/** Converts a full category name to its corresponding shortened key.
+	 *
+	 * @param type A String representing the full category name of the items/promotional sets in the menu.
+	 * @return A 1-character String representing the Shortened key associated to the category name.
+	 */
 	public String getKey(String type)
 	{
-		// System.out.println(type);
-		// System.out.println(categoriesToKeys.get(binarySearchCategory(type)).getSecond());
 		return categoriesToKeys.get(binarySearchCategory(type)).getSecond();
 	}
 
+	/** Converts a shortened key to its corresponding full category name.
+	 *
+	 * @param key A 1-character String representing the shortened key associated to the category name.
+	 * @return A String representing the full category name for the items/promotional sets in the menu.
+	 */
 	public String getCategory(String key)
 	{
 		return keysToCategories.get(binarySearchKey(key)).getSecond();
 	}
 
+	/** Appends a new category to the object's library as well as automatically generates a new corresponding key.
+	 * Prints an error message when there is an attempt to call the method when the maximum number of stored categories
+	 * has already been reached.
+	 *
+	 * @param type A String representing the full category name for the items/promotional sets in the menu.
+	 */
 	public void addCategory(String type)
 	{
 		String previousKey;
@@ -100,16 +121,5 @@ public class CategoryKeyMap
 			}
 		}
 	}
-	public void printkey()
-	{
-		for(int i = 0; i < keysToCategories.size(); i++)
-		{
-			System.out.println(keysToCategories.get(i).getFirst() + " : " + keysToCategories.get(i).getSecond());
-		}
-		System.out.print("\n");
-		for(int i = 0; i < categoriesToKeys.size(); i++)
-		{
-			System.out.println(categoriesToKeys.get(i).getFirst() + " : " + categoriesToKeys.get(i).getSecond());
-		}
-	}
+
 }
