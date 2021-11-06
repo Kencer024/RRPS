@@ -5,6 +5,9 @@ import java.time.LocalDate; // import the LocalDate class
 
 // do the auto removal by making those past the period null
 
+/** Reserve according to date
+ *
+ */
 public class ReserveDate {
     private time[] t = new time[10];            //0 for 12pm, 1 for 1pm etc until 10pm
 
