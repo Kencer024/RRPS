@@ -31,6 +31,7 @@ public class test
         orders.newOrder("12", 4);
         orders.addItem("12", "1000", 1);
         orders.addItem("12", "6000", 2);
+        orders.addSet("12", "7000", 2);
         orders.printItems("12");
         orders.printBill("12", menu);
 

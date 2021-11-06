@@ -134,17 +134,9 @@ public class MenuList
         return items_.get(searchItemIndex(id));
     }
 
-    public PromoSet getSet(String promoSetId_input)
+    public PromoSet getSet(String id)
     {
-        for(int i = 0; i< this.sets_.size(); i++)
-        {
-            PromoSet local_set = this.sets_.get(i);
-            if(local_set.getId() == promoSetId_input)
-            {
-                return local_set;
-            }
-        }
-        return null;
+        return sets_.get(searchSetIndex(id));
     }
 
     public ArrayList<Item> getItems(char id_start)
@@ -344,8 +336,7 @@ public class MenuList
             System.out.println(sets_.get(i).getName());
             for(int j = 0; j < sets_.get(i).getallItemIds().size(); j++)
             {
-                System.out.print(sets_.get(i).getallItemIds().get(j) + " ");
-                System.out.println(sets_.get(i).getName());
+                System.out.println(" - " + getItem(sets_.get(i).getallItemIds().get(j)).getName());
             }
         }
     }

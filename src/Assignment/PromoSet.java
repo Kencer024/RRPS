@@ -70,6 +70,10 @@ public class PromoSet{
         System.out.println(itemList_);
     }
 
+    public int size()
+    {
+        return itemList_.size();
+    }
 
 
 

@@ -2,7 +2,7 @@ package Assignment;
 
 import java.util.ArrayList;
 import java.time.LocalDateTime;
-import java.text.DateFormat;  
+import java.util.List;
 
 public class Order
 {
@@ -185,6 +185,7 @@ public class Order
 	public float computeBill(MenuList menu)
 	{
 		this.subTotal = 0f;
+		this.baseCost = 0f;
 		for(int i=0; i<items.size(); i++)
 		{
 			Pair<String,Integer>  local_pair = items.get(i); 
@@ -195,6 +196,17 @@ public class Order
 			subTotal += (cost_local_item*local_pair.getSecond());
 			baseCost += (base_local_item*local_pair.getSecond());
 //			System.out.println("Bill: " + this.bill);
+		}
+		for(int i=0; i<sets.size(); i++)
+		{
+			Pair<String, Integer> local_set_pair = sets.get(i);
+			List<String> local_set = menu.getSet(local_set_pair.getFirst()).getallItemIds();
+			for(int j = 0; j < local_set.size(); j++)
+			{
+				subTotal += menu.getItem(local_set.get(j)).getSaleCost() * local_set_pair.getSecond();
+				baseCost += menu.getItem(local_set.get(j)).getBaseCost() * local_set_pair.getSecond();
+			}
+
 		}
 		if(hasMembership) memberDiscount = (float) (subTotal * 0.1);
 		svcCharge = (float) ((subTotal - memberDiscount) * 0.1);
@@ -235,6 +247,31 @@ public class Order
 			printLine += saleCost + " ||";
 			System.out.println(printLine);
 		}
+		for(int i = 0; i < sets.size(); i++)
+		{
+			printLine = "|| " + sets.get(i).getSecond() + "\t" + menu.getSet(sets.get(i).getFirst()).getName();
+			String saleCost = String.valueOf(menu.getSet(items.get(i).getFirst()).getSaleCost() * sets.get(i).getSecond());
+			spaces = 58 - printLine.length() - saleCost.length() - 6;
+			for(int j = 0; j < spaces; j++)
+			{
+				printLine += " ";
+			}
+			printLine += saleCost + " ||";
+			System.out.println(printLine);
+
+			List<String> local_set = menu.getSet(sets.get(i).getFirst()).getallItemIds();
+			for(int j = 0; j < local_set.size(); j++)
+			{
+				printLine = "||        - " + menu.getItem(local_set.get(j)).getName();
+				spaces = 58 - printLine.length() - 2;
+				for(int k = 0; k < spaces; k++)
+				{
+					printLine += " ";
+				}
+				printLine += "||";
+				System.out.println(printLine);
+			}
+		}
 //		System.out.println("||                                                      ||");
 		printLine = "|| SUBTOTAL";
 		computeBill(menu);
@@ -248,7 +285,14 @@ public class Order
 
 		if(hasMembership)
 		{
-
+			printLine = "|| MEMBERSHIP DSCT -10%";
+			spaces = 58 - String.valueOf(-Math.round(memberDiscount * 100.0)/100.0).length() - 26;
+			for(int j = 0; j < spaces; j++)
+			{
+				printLine += " ";
+			}
+			printLine += "-" + Math.round(memberDiscount * 100.0)/100.0 + " ||";
+			System.out.println(printLine);
 		}
 
 		printLine = "|| SVC CHARGE 10%";
