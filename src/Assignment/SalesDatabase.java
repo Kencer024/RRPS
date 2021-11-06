@@ -5,7 +5,7 @@ public class SalesDatabase
 	// ArrayList
 	private ArrayList<Order> previousOrders;
 
-	public OrderDatabase()
+	public SalesDatabase()
 	{
 		previousOrders = new ArrayList<Order>(0);
 	}
