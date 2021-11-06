@@ -12,17 +12,14 @@ public class MenuList
     public MenuList()
     {
         map.addCategory("Dessert");
-        // System.out.println(map.getKey("Dessert"));
-        // map.printkey();
         map.addCategory("Beef");
-        // map.printkey();
         map.addCategory("Fish");
-        // map.printkey();
         map.addCategory("Salads & Wraps");
         map.addCategory("Chicken");
         map.addCategory("Drinks");
         map.addCategory("Sides");
 
+        map.addCategory("Promotion Set");
         // map.printkey();
     }
     private int searchItemIndex(String id)
@@ -55,11 +52,11 @@ public class MenuList
         while(left < right)
         {
             center = (left + right) / 2;
-            if(sets_.get(center).getPromoSetId().compareTo(id) == 0)
+            if(sets_.get(center).getId().compareTo(id) == 0)
             {
                 return center;
             }
-            else if(sets_.get(center).getPromoSetId().compareTo(id) < 0)
+            else if(sets_.get(center).getId().compareTo(id) < 0)
             {
                 left = center + 1;
             }
@@ -91,8 +88,6 @@ public class MenuList
 
             lastId = items_.get(searchItemIndex(nextType)).getId();
             // End of Array, category not found
-            // System.out.print(type);
-            // System.out.println(" "+lastId);
             if(lastId.charAt(0) < map.getKey(type).charAt(0))
             {
                 return map.getKey(type) + "000";
@@ -120,35 +115,28 @@ public class MenuList
                     return StringUtil.incrementString(lastId, 1);
             }
         }
-        
+    }
+
+    public String getNewSetId(String type)
+    {
+        if(sets_.size() == 0)
+        {
+            return map.getKey("Promotion Set") + "000";
+        }
+        else
+        {
+            return StringUtil.incrementString(sets_.get(sets_.size() - 1).getId(), 1);
+        }
     }
 
     public Item getItem(String id)
     {
-
-//        for(int i = 0; i< this.items_.size(); i++)
-//        {
-//            Item local_item = this.items_.get(i);
-//            if(local_item.getId() == id)
-//            {
-//                return local_item;
-//            }
-//        }
-//        return null;
         return items_.get(searchItemIndex(id));
     }
 
-    public PromoSet getSet(String promoSetId_input)
+    public PromoSet getSet(String id)
     {
-        for(int i = 0; i< this.sets_.size(); i++)
-        {
-            PromoSet local_set = this.sets_.get(i);
-            if(local_set.getPromoSetId() == promoSetId_input)
-            {
-                return local_set;
-            }
-        }
-        return null;
+        return sets_.get(searchSetIndex(id));
     }
 
     public ArrayList<Item> getItems(char id_start)
@@ -188,8 +176,6 @@ public class MenuList
         else
         {
             appendIndex = searchItemIndex(item_append.getId());
-            // System.out.print(appendIndex);
-            // System.out.println(" " + item_append.getId());
             if(items_.get(appendIndex).getId().compareTo(item_append.getId()) < 0)
             {
                 items_.add(item_append);
@@ -219,7 +205,7 @@ public class MenuList
         for(int i = 0; i< this.sets_.size();i++)
         {
             PromoSet local_set = this.sets_.get(i);
-            String local_set_id = local_set.getPromoSetId();
+            String local_set_id = local_set.getId();
             if(local_set_id == id)
             {   
                 this.sets_.remove(local_set);
@@ -243,7 +229,23 @@ public class MenuList
 
     public void appendSet(PromoSet set_append)
     {
-        this.sets_.add(set_append);
+        int appendIndex;
+        if(sets_.size() == 0)
+        {
+            sets_.add(set_append);
+        }
+        else
+        {
+            appendIndex = searchItemIndex(set_append.getId());
+            if(sets_.get(appendIndex).getId().compareTo(set_append.getId()) < 0)
+            {
+                sets_.add(set_append);
+            }
+            else
+            {
+                sets_.add(appendIndex, set_append);
+            }
+        }
     } 
 
 
@@ -252,8 +254,8 @@ public class MenuList
         for(int i = 0; i< this.sets_.size();i++)
         {
             PromoSet local_set_type = this.sets_.get(i);
-            String local_set_id = local_set_type.getPromoSetId();
-            if(local_set_id == set_update.getPromoSetId())
+            String local_set_id = local_set_type.getId();
+            if(local_set_id == set_update.getId())
             {   local_set_type.promo_availability_ = 0;
                 this.sets_.add(i,local_set_type);
             }
@@ -295,7 +297,7 @@ public class MenuList
         {
             PromoSet local_set = this.sets_.get(i);
             
-            if(local_set.getPromoSetId() == setid)
+            if(local_set.getId() == setid)
             {
                 local_set.promo_availability_ = 0;
                 this.sets_.add(i,local_set);
@@ -309,7 +311,7 @@ public class MenuList
         {
             PromoSet local_set = this.sets_.get(i);
             
-            if(local_set.getPromoSetId() == setid)
+            if(local_set.getId() == setid)
             {
                 local_set.promo_availability_ = 1;
                 this.sets_.add(i,local_set);
@@ -319,10 +321,23 @@ public class MenuList
 
     public void printItems()
     {
-        for(int i = 0; i<this.items_.size(); i++)
+        for(int i = 0; i<items_.size(); i++)
         {
-            System.out.print(this.items_.get(i).getId() + " ");
-            System.out.println(this.items_.get(i).getName());
+            System.out.print(items_.get(i).getId() + " ");
+            System.out.println(items_.get(i).getName());
+        }
+    }
+
+    public void printSets()
+    {
+        for(int i = 0; i<sets_.size(); i++)
+        {
+            System.out.print(sets_.get(i).getId() + " ");
+            System.out.println(sets_.get(i).getName());
+            for(int j = 0; j < sets_.get(i).getallItemIds().size(); j++)
+            {
+                System.out.println(" - " + getItem(sets_.get(i).getallItemIds().get(j)).getName());
+            }
         }
     }
 
@@ -346,11 +361,8 @@ public class MenuList
     public ArrayList<PromoSet> sort_sets_by_id()
     {
         ArrayList<PromoSet> sortedMenuPromoSets = (ArrayList<PromoSet>)sets_.clone();
-        sortedMenuPromoSets.sort(Comparator.comparing(PromoSet::getPromoSetId));
+        sortedMenuPromoSets.sort(Comparator.comparing(PromoSet::getId));
 
         return sortedMenuPromoSets;
     }
-
-
-
 }

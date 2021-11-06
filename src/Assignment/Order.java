@@ -2,7 +2,7 @@ package Assignment;
 
 import java.util.ArrayList;
 import java.time.LocalDateTime;
-import java.text.DateFormat;  
+import java.util.List;
 
 public class Order
 {
@@ -12,7 +12,7 @@ public class Order
 	private Boolean hasMembership;
 	private ArrayList<Pair<String, Integer>> items;
 	private ArrayList<Pair<String, Integer>> sets;
-	private float bill;
+	private float baseCost, subTotal, memberDiscount, svcCharge, gst;
 	private String orderID;
 
 	public Order(String tableId_, int pax_)
@@ -22,13 +22,17 @@ public class Order
 		items = new ArrayList<Pair<String, Integer>>(0);
 		sets = new ArrayList<Pair<String, Integer>>(0);
 		dateTime = LocalDateTime.now();
-		bill = 0;
+		hasMembership = true;
+		subTotal = 0;
+		baseCost = 0;
+		svcCharge = 0;
+		gst = 0;
 		this.generate_orderID();
 	}
 
 	public void generate_orderID()
 	{
-		orderID = tableId + dateTime.toString();
+		orderID = dateTime.toString()+ tableId;
 	}
 	public String getOrderID()
 	{
@@ -180,17 +184,34 @@ public class Order
 
 	public float computeBill(MenuList menu)
 	{
-		this.bill = 0f;
+		this.subTotal = 0f;
+		this.baseCost = 0f;
 		for(int i=0; i<items.size(); i++)
 		{
 			Pair<String,Integer>  local_pair = items.get(i); 
 			String local_item_id = local_pair.getFirst();
 			Item local_item = menu.getItem(local_item_id);
-			double cost_local_item = local_item.getSaleCost();
-			this.bill+= (cost_local_item*local_pair.getSecond());
+			float cost_local_item = local_item.getSaleCost();
+			float base_local_item = local_item.getBaseCost();
+			subTotal += (cost_local_item*local_pair.getSecond());
+			baseCost += (base_local_item*local_pair.getSecond());
 //			System.out.println("Bill: " + this.bill);
 		}
-		return this.bill;
+		for(int i=0; i<sets.size(); i++)
+		{
+			Pair<String, Integer> local_set_pair = sets.get(i);
+			List<String> local_set = menu.getSet(local_set_pair.getFirst()).getallItemIds();
+			for(int j = 0; j < local_set.size(); j++)
+			{
+				subTotal += menu.getItem(local_set.get(j)).getSaleCost() * local_set_pair.getSecond();
+				baseCost += menu.getItem(local_set.get(j)).getBaseCost() * local_set_pair.getSecond();
+			}
+
+		}
+		if(hasMembership) memberDiscount = (float) (subTotal * 0.1);
+		svcCharge = (float) ((subTotal - memberDiscount) * 0.1);
+		gst = (float) ((subTotal - memberDiscount + svcCharge) * 0.07);
+		return subTotal - memberDiscount + svcCharge + gst;
 	}
 
 	public void printBill(MenuList menu)
@@ -200,7 +221,7 @@ public class Order
 
 		// width = 58
 		System.out.print("|========================================================|\n"
-				+ "|                      RECIEPT                           |\n"
+				+ "|                      RECEIPT                           |\n"
 				+ "|========================================================|\n");
 		System.out.println("|  " + dateTime.toString().substring(0, 19) + "                                   |");
 		System.out.println("|  Cashier :                                             |");
@@ -214,11 +235,10 @@ public class Order
 		System.out.println(printLine);
 		System.out.println("|========================================================|");
 
-
 		for(int i = 0; i < items.size(); i++)
 		{
 			printLine = "|| " + items.get(i).getSecond() + "\t" + menu.getItem(items.get(i).getFirst()).getName();
-			String saleCost = String.valueOf(menu.getItem(items.get(i).getFirst()).getSaleCost());
+			String saleCost = String.valueOf(menu.getItem(items.get(i).getFirst()).getSaleCost() * items.get(i).getSecond());
 			spaces = 58 - printLine.length() - saleCost.length() - 6;
 			for(int j = 0; j < spaces; j++)
 			{
@@ -227,28 +247,102 @@ public class Order
 			printLine += saleCost + " ||";
 			System.out.println(printLine);
 		}
+		for(int i = 0; i < sets.size(); i++)
+		{
+			printLine = "|| " + sets.get(i).getSecond() + "\t" + menu.getSet(sets.get(i).getFirst()).getName();
+			String saleCost = String.valueOf(menu.getSet(items.get(i).getFirst()).getSaleCost() * sets.get(i).getSecond());
+			spaces = 58 - printLine.length() - saleCost.length() - 6;
+			for(int j = 0; j < spaces; j++)
+			{
+				printLine += " ";
+			}
+			printLine += saleCost + " ||";
+			System.out.println(printLine);
+
+			List<String> local_set = menu.getSet(sets.get(i).getFirst()).getallItemIds();
+			for(int j = 0; j < local_set.size(); j++)
+			{
+				printLine = "||        - " + menu.getItem(local_set.get(j)).getName();
+				spaces = 58 - printLine.length() - 2;
+				for(int k = 0; k < spaces; k++)
+				{
+					printLine += " ";
+				}
+				printLine += "||";
+				System.out.println(printLine);
+			}
+		}
 //		System.out.println("||                                                      ||");
 		printLine = "|| SUBTOTAL";
 		computeBill(menu);
-		spaces = 58 - String.valueOf(bill).length() - 14;
+		spaces = 58 - String.valueOf(subTotal).length() - 14;
 		for(int j = 0; j < spaces; j++)
 		{
 			printLine += " ";
 		}
-		printLine += bill + " ||";
+		printLine += subTotal + " ||";
 		System.out.println(printLine);
+
+		if(hasMembership)
+		{
+			printLine = "|| MEMBERSHIP DSCT -10%";
+			spaces = 58 - String.valueOf(-Math.round(memberDiscount * 100.0)/100.0).length() - 26;
+			for(int j = 0; j < spaces; j++)
+			{
+				printLine += " ";
+			}
+			printLine += "-" + Math.round(memberDiscount * 100.0)/100.0 + " ||";
+			System.out.println(printLine);
+		}
+
 		printLine = "|| SVC CHARGE 10%";
-//		float subtotal
-		spaces = 58 - String.valueOf(bill).length() - 14;
+		spaces = 58 - String.valueOf(Math.round(svcCharge * 100.0)/100.0).length() - 20;
 		for(int j = 0; j < spaces; j++)
 		{
 			printLine += " ";
 		}
+		printLine += Math.round(svcCharge * 100.0)/100.0 + " ||";
+		System.out.println(printLine);
+		printLine = "|| GST 7%";
+		spaces = 58 - String.valueOf(Math.round(gst * 100.0)/100.0).length() - 12;
+		for(int j = 0; j < spaces; j++)
+		{
+			printLine += " ";
+		}
+		printLine += Math.round(gst * 100.0)/100.0 + " ||";
+		System.out.println(printLine);
+
+		System.out.println("|========================================================|");
+
+		printLine = "|| TOTAL";
+		spaces = 58 - String.valueOf(Math.round((subTotal - memberDiscount + svcCharge + gst) * 100.0) / 100.0).length() - 11;
+		for(int j = 0; j < spaces; j++)
+		{
+			printLine += " ";
+		}
+		printLine += Math.round((subTotal - memberDiscount + svcCharge + gst) * 100.0) / 100.0 + " ||";
+		System.out.println(printLine);
+
 		System.out.println("|========================================================|");
 	}
-
-	public float getBill(){ 
-		System.out.println("Bill: " + this.bill);
-		return this.bill;}
-
+	public float getBaseCost()
+	{
+		return baseCost;
+	}
+	public float getSubTotal()
+	{
+		return subTotal;
+	}
+	public float getMemberDiscount()
+	{
+		return memberDiscount;
+	}
+	public float getSvcCharge()
+	{
+		return svcCharge;
+	}
+	public float getTotal()
+	{
+		return subTotal - memberDiscount + svcCharge + gst;
+	}
 }
