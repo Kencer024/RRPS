@@ -26,8 +26,8 @@ public class SalesDatabase
 	private HashMap<Integer, Float> month_orders = new HashMap<Integer, Float>();
 
 	/** Overriding the default constructor to initialise the array list and all the private variables 
-	 * used for analysis to 0  */
-	
+	 * used for analysis to 0
+	 */
 	public SalesDatabase()
 	{
 		this.all_orders_ = new ArrayList<Order>();
