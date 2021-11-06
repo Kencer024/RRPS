@@ -31,6 +31,7 @@ public class test
                     int pax = sc.nextInt();
                     orders.newOrder(tableId, pax);
                     newTable = true;
+                    orders.printDateTime(tableId);
                 case 2:
                     if(!newTable)
                     {
