@@ -10,11 +10,19 @@ import java.util.Scanner;
 * only for 1 hour
 * */
 
+/**
+ * Represents the reservations available per timeslot e.g. 1pm has 30 tables
+ */
 public class Reservation {
     private Table[] table = new Table[30];      //assume 30 tables
 
     Scanner sc = new Scanner(System.in);
 
+    /**
+     * Constructor to set all tables to be unreserved, and give table identity
+     * as its index. It also sets the maximum pax of each table, example table 0 to 10
+     * has a maximum pax of 4 etc
+     */
     public Reservation(){
             for(int i =0; i< table.length;i++){
                 table[i] = new Table(i);
@@ -32,27 +40,40 @@ public class Reservation {
             }
     }
 
-
-    public void reserve(int pax, String Name){
+    /** Displays all empty tables that are more than or equals to
+     * the pax specified. It then reserves the table based on the name
+     *
+     * @param pax An integer representing the number of pax to book
+     * @param name A string representing the name of the person that would be
+     *             reserving the table
+     */
+    public void reserve(int pax, String name){
         checkEmptyTable(pax);
 
         boolean doesTableExist = false;
         System.out.println("Enter choice of Table : ");
         int tableId = sc.nextInt();
         for(int i =0; i< table.length;i++){             //brute force search
-            if(table[i].getTableId() == tableId && !table[i].getreserved()) {       //if table[i] is tableid
+            if(table[i].getTableId() == tableId && !table[i].getReserved()) {       //if table[i] is tableid
                 table[i].setReserved(true);             //set it to reserved
-                table[i].setName(Name);
+                table[i].setName(name);
                 System.out.println("Table is reserved");
                 doesTableExist = true;
 
             }
-        }if(doesTableExist == false){
+        }if(!doesTableExist){
             System.out.println("Cannot book table");
         }
 
     }
 
+    /** Removes reservation based on the tableId by searching through the array
+     * to find its id then setting all its values like reservation status to false and
+     * name to null
+     *
+     * @param tableId An integer representing the table identity, it could also be
+     *
+     */
     public void removeReservation(int tableId){
         for(int i =0; i< table.length;i++){             //brute force search
             if(table[i].getTableId() == tableId){       //if table[i] is tableid
@@ -69,10 +90,16 @@ public class Reservation {
 
     }
 
+    /** Checks the status of the table whether it is reserved.
+     *
+     * @param tableId An integer representing the identity of the table
+     * @return A boolean where true means it is reserved and false means
+     *            it is not
+     */
     public boolean checkReservation(int tableId){       //checks whether a certain table is reserved
         for(int i =0; i< table.length;i++){             //brute force search
             if(table[i].getTableId() == tableId){       //if table[i] is tableid
-                return table[i].getreserved();             //set it to !reserved
+                return table[i].getReserved();             //set it to !reserved
             }
             else{
                 System.out.println("Table doesn't exist");
@@ -80,6 +107,14 @@ public class Reservation {
         }return false;
     }
 
+    /** Updates the reservation, for example, change in date or time or increase
+     * number of pax
+     *
+     * @param tableId An integer representing the identity of the table
+     * @param pax An integer representing the new number of pax required
+     *            e.g. originally reserved for 2 pax but now wants 8pax
+     *            hence the parameter takes in 8
+     */
     public void updateReservation(int tableId, int pax){    //change table not change time
         String Name;
         int i;
@@ -92,24 +127,22 @@ public class Reservation {
             }
         }
         System.out.println("Table updated");
-
-        /*
-        checkEmptyTable(pax);
-        System.out.println("Enter choice of Table : ");
-        int tableId2 = sc.nextInt();
-        for(int i =0; i< table.length;i++){
-            if(table[i].getTableId() == tableId2){
-                reserve(pax,Name);
-            }
-        }*/
     }
 
+    /** Checks for empty table in accordance to the number of pax required
+     * e.g. if it requires 3 pax, the function will display all tables with
+     * attribute pax of 3 or more
+     *
+     * @param pax An integer representing the number of pax required
+     * @return Array of tables that are empty with attribute pax more than or
+     * equal to the pax defined
+     */
     public Table[] checkEmptyTable(int pax){
         Table[] eTable = new Table[0];
         for(int i =0;i< table.length; i++){
-            if(!table[i].getreserved() && table[i].getpax() >= pax){
+            if(!table[i].getReserved() && table[i].getPax() >= pax){
                 System.out.println(table[i].getTableId() + "["
-                            + table[i].getpax() +"pax] is empty");
+                            + table[i].getPax() +"pax] is empty");
                 eTable = Arrays.copyOf(eTable, eTable.length+1);        //append eTable array
                 eTable[eTable.length-1] = table[i];
             }
@@ -117,9 +150,12 @@ public class Reservation {
         return eTable;
     }
 
+    /** Checks all the tables that are reserved and prints it out
+     *
+     */
     public void checkReservedTable(){
         for(int i =0;i<table.length;i++){
-            if(table[i].getreserved()){
+            if(table[i].getReserved()){
                 System.out.println("table " + i + " is reserved for " + table[i].getName() );
                 return;
             }
@@ -127,6 +163,12 @@ public class Reservation {
         System.out.println("No reservations");
     }
 
+    /** Gets the array of table because the reservation class has
+     * an array of table
+     *
+     * @return An array of table to represent the total number of table per
+     * reservation slot
+     */
     public Table[] getTable(){
         return table;
     }
