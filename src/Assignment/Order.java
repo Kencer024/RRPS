@@ -30,6 +30,10 @@ public class Order
 	{
 		orderID = tableId + dateTime.toString();
 	}
+	public String getOrderID()
+	{
+		return orderID;
+	}
 	public String getTableId()
 	{
 		return tableId;
