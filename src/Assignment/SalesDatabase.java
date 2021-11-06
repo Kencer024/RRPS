@@ -35,6 +35,13 @@ public class SalesDatabase
 		}
 	}
 	
+	public float getTotalRevenue() { return this.total_revenue;}
+	public float getTotalProfit() { return this.total_profit;}
+	public float getTotalBaseCost() { return this.total_basecost;}
+	public float getTotalMembershipDiscount() { return this.total_membership_discount;}
+	public HashMap<Integer, Float> getMonthwiseRevenue() { return this.year_revenue;}
+	public HashMap<Integer, Float> getMonthwiseProfit() { return this.year_profit;}
+
 	public void analyseTotalOrders()
     {
         for(int i = 0; i< this.all_orders_.size();i++)
@@ -107,7 +114,6 @@ public class SalesDatabase
 		Collections.sort(orderIds_input_unsorted);
 		return orderIds_input_unsorted;
 	}
-
 	
 	// not used
 	// public ArrayList<String> getOrderstimePeriod(int time_start, int time_end,int date_start, int date_end, int month_start, int month_end)
