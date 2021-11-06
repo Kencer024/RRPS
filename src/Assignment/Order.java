@@ -5,12 +5,12 @@ import java.time.LocalDateTime;
 
 public class Order
 {
-	String tableId;
-	int pax;
-	LocalDateTime dateTime = LocalDateTime.now();
-	Boolean hasMembership;
-	ArrayList<Pair<String, Integer>> items;
-	ArrayList<Pair<String, Integer>> sets;
+	private String tableId;
+	private int pax;
+	private LocalDateTime dateTime = LocalDateTime.now();
+	private Boolean hasMembership;
+	private ArrayList<Pair<String, Integer>> items;
+	private ArrayList<Pair<String, Integer>> sets;
 	private float bill;
 
 	public Order(String tableId_, int pax_)
@@ -21,6 +21,27 @@ public class Order
 		sets = new ArrayList<Pair<String, Integer>>(0);
 		dateTime = LocalDateTime.now();
 		bill = 0;
+	}
+	public String getTableId()
+	{
+		return tableId;
+	}
+	public int getPax()
+	{
+		return pax;
+	}
+	public LocalDateTime getDateTime()
+	{
+		return dateTime;
+	}
+	public Boolean hasMembership()
+	{
+		return hasMembership;
+	}
+
+	public void printDateTime()
+	{
+		System.out.println(dateTime);
 	}
 
 	private int getItemIndex(String id)
@@ -143,11 +164,6 @@ public class Order
 	public void applyMembership()
 	{
 		hasMembership = true;
-	}
-
-	public String getTableId()
-	{
-		return tableId;
 	}
 
 	public float computeBill(MenuList menu)

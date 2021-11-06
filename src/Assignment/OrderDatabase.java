@@ -8,7 +8,7 @@ public class OrderDatabase
 
 	public OrderDatabase()
 	{
-		currentOrders = new ArrayList<Order>(0);
+		currentOrders = new ArrayList<Order>();
 	}
 
 	private int getOrderIndex(String tableId)
@@ -19,11 +19,11 @@ public class OrderDatabase
 		while(left < right)
 		{
 			middle = (left + right)/2;
-			if(tableId.compareTo(currentOrders.get(middle).tableId) == 0)
+			if(tableId.compareTo(currentOrders.get(middle).getTableId()) == 0)
 			{
 				return middle;
 			}
-			else if(tableId.compareTo(currentOrders.get(middle).tableId) > 0)
+			else if(tableId.compareTo(currentOrders.get(middle).getTableId()) > 0)
 			{
 				left = middle + 1;
 			}
@@ -40,7 +40,7 @@ public class OrderDatabase
 		int index;
 		for(index = 0; index < currentOrders.size(); index++)
 		{
-			if(currentOrders.get(index).tableId.matches(tableId))
+			if(currentOrders.get(index).getTableId().matches(tableId))
 			{
 				return currentOrders.get(index);
 			}
@@ -75,12 +75,12 @@ public class OrderDatabase
 		while(left < right)
 		{
 			middle = (left + right)/2;
-			if(tableId.compareTo(currentOrders.get(middle).tableId) == 0)
+			if(tableId.compareTo(currentOrders.get(middle).getTableId()) == 0)
 			{
 				System.out.println("Duplicate Order!");
 				return;
 			}
-			else if(tableId.compareTo(currentOrders.get(middle).tableId) > 0)
+			else if(tableId.compareTo(currentOrders.get(middle).getTableId()) > 0)
 			{
 				left = middle + 1;
 			}
@@ -89,7 +89,7 @@ public class OrderDatabase
 				right = middle;
 			}
 		}
-		if(tableId.compareTo(currentOrders.get(left).tableId) == 0)
+		if(tableId.compareTo(currentOrders.get(left).getTableId()) == 0)
 		{
 			System.out.println("Duplicate Order!");
 			return;
@@ -97,10 +97,20 @@ public class OrderDatabase
 		currentOrders.add(left, newOrder);
 	}
 
+	public Order removeOrder(String tableId)
+	{
+		int orderIndex = getOrderIndex(tableId);
+		Order tmp;
+		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return null;
+		tmp = currentOrders.get(orderIndex);
+		currentOrders.remove(orderIndex);
+		return tmp;
+	}
+
 	public Boolean addItem(String tableId, String itemId, int amount)
 	{
 		int orderIndex = getOrderIndex(tableId);
-		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return false;
+		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return false;
 		currentOrders.get(orderIndex).addItem(itemId, amount);
 		return true;
 	}
@@ -109,7 +119,7 @@ public class OrderDatabase
 	{
 		if(currentOrders.size() == 0)return false;
 		int orderIndex = getOrderIndex(tableId);
-		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return false;
+		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return false;
 		currentOrders.get(getOrderIndex(tableId)).removeItem(itemId);
 		return true;
 	}
@@ -117,7 +127,7 @@ public class OrderDatabase
 	public Boolean addSet(String tableId, String setId, int amount)
 	{
 		int orderIndex = getOrderIndex(tableId);
-		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return false;
+		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return false;
 		currentOrders.get(getOrderIndex(tableId)).addSet(setId, amount);
 		return true;
 	}
@@ -125,7 +135,7 @@ public class OrderDatabase
 	public Boolean removeSet(String tableId, String setId)
 	{
 		int orderIndex = getOrderIndex(tableId);
-		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return false;
+		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return false;
 		currentOrders.get(getOrderIndex(tableId)).removeSet(setId);
 		return true;
 	}
@@ -133,19 +143,19 @@ public class OrderDatabase
 	public ArrayList<Pair<String, Integer>> listItems(String tableId)
 	{
 		int orderIndex = getOrderIndex(tableId);
-		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return null;
+		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return null;
 		return currentOrders.get(getOrderIndex(tableId)).listItems();
 	}
 	public ArrayList<Pair<String, Integer>> listSets(String tableId)
 	{
 		int orderIndex = getOrderIndex(tableId);
-		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return null;
+		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return null;
 		return currentOrders.get(getOrderIndex(tableId)).listSets();
 	}
 	public Boolean clearAll(String tableId)
 	{
 		int orderIndex = getOrderIndex(tableId);
-		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return false;
+		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return false;
 		currentOrders.get(getOrderIndex(tableId)).clearAll();
 		return true;
 	}
@@ -153,7 +163,7 @@ public class OrderDatabase
 	public Boolean printItems(String tableId)
 	{
 		int orderIndex = getOrderIndex(tableId);
-		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return false;
+		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return false;
 		currentOrders.get(getOrderIndex(tableId)).printItems();
 		return true;
 	}
@@ -161,7 +171,7 @@ public class OrderDatabase
 	public Boolean printSets(String tableId)
 	{
 		int orderIndex = getOrderIndex(tableId);
-		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return false;
+		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return false;
 		currentOrders.get(getOrderIndex(tableId)).printSets();
 		return true;
 	}
@@ -169,7 +179,7 @@ public class OrderDatabase
 	public Boolean applyMembership(String tableId)
 	{
 		int orderIndex = getOrderIndex(tableId);
-		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return false;
+		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return false;
 		currentOrders.get(getOrderIndex(tableId)).applyMembership();
 		return true;
 	}
@@ -177,15 +187,22 @@ public class OrderDatabase
 	public Boolean isInOrderList(String tableId)
 	{
 		int orderIndex = getOrderIndex(tableId);
-		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return false;
+		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return false;
 		return true;
 	}
 
 	public float computeBill(String tableId, MenuList menu)
 	{
 		int orderIndex = getOrderIndex(tableId);
-		if(!currentOrders.get(orderIndex).tableId.matches(tableId)) return 0;
+		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return 0;
 		return currentOrders.get(getOrderIndex(tableId)).computeBill(menu);
+	}
+
+	public void printDateTime(String tableId)
+	{
+		int orderIndex = getOrderIndex(tableId);
+		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return;
+		currentOrders.get(getOrderIndex(tableId)).printDateTime();
 	}
 
 	public int size()
