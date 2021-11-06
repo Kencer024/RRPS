@@ -13,11 +13,11 @@ public class Reservation {
                 table[i] = new Table(i);
                 table[i].setTableId(i);
                 table[i].setReserved(false);
-                if(i < 10){                     //1st 10 tables 2 pax
+                if(i < 10){                     //1st 10 tables 2=4 pax
                     table[i].setPax(4);
 
                 }
-                else if(i<20){                  //2nd 10 tables 4 pax
+                else if(i<20){                  //2nd 10 tables 6 pax
                     table[i].setPax(6);
                 }
                 else
@@ -53,6 +53,7 @@ public class Reservation {
                 table[i].setName(null);
             }
         }
+        System.out.println("Table reservation removed");
     }
 
     public boolean checkReservation(int tableId){       //checks whether a certain table is reserved
@@ -61,23 +62,24 @@ public class Reservation {
                 return table[i].getreserved();             //set it to !reserved
             }
             else{
-                System.out.println("Table doesnt exist");
+                System.out.println("Table doesn't exist");
             }
         }return false;
     }
 
-    public void updateReservation(int tableId, int pax){
+    public void updateReservation(int tableId, int pax){    //change table not change time
         String Name;
-        for(int i =0; i< table.length;i++) {             //brute force search
+        int i;
+        for(i =0; i< table.length;i++) {             //brute force search
             if (table[i].getTableId() == tableId) {       //if table[i] is tableid
                 Name = table[i].getName();
                 removeReservation(i);
                 reserve(pax,Name);
-            }
-            else{
-                System.out.println("Cant find table");
+                return;
             }
         }
+        System.out.println("Table updated");
+
         /*
         checkEmptyTable(pax);
         System.out.println("Enter choice of Table : ");
@@ -105,8 +107,10 @@ public class Reservation {
         for(int i =0;i<table.length;i++){
             if(table[i].getreserved()){
                 System.out.println("table " + i + " is reserved for " + table[i].getName() );
+                return;
             }
         }
+        System.out.println("No reservations");
     }
 
     public Table[] getTable(){
