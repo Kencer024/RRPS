@@ -2,8 +2,6 @@ package Assignment;
 
 import java.util.ArrayList;
 
-import javax.sound.sampled.SourceDataLine;
-
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashMap;  
@@ -135,6 +133,14 @@ public class SalesDatabase
 	{
 		Collections.sort(orderIds_input_unsorted);
 		return orderIds_input_unsorted;
+	}
+
+	public void printAllOrders()
+	{
+		for( int i = 0; i< this.all_orders_.size();i++)
+		{
+			System.out.println("Order ID: " + this.all_orders_.get(i).getOrderID());
+		}
 	}
 	
 	// not used
