@@ -181,6 +181,17 @@ public class Order
 		return this.bill;
 	}
 
+	public void printBill(MenuList menu)
+	{
+		// width = 58
+		System.out.print("|========================================================|\n"
+				+ "|                      RECIEPT                           |\n"
+				+ "|========================================================|\n");
+		System.out.println("|| " + dateTime.toString().substring(0, 19) + "                                  ||");
+
+//		for(int i = 0; i < items.size())
+	}
+
 	public float getBill(){ 
 		System.out.println("Bill: " + this.bill);
 		return this.bill;}
