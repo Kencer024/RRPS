@@ -198,6 +198,14 @@ public class OrderDatabase
 		return currentOrders.get(getOrderIndex(tableId)).computeBill(menu);
 	}
 
+	public Boolean printBill(String tableId, MenuList menu)
+	{
+		int orderIndex = getOrderIndex(tableId);
+		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return false;
+		currentOrders.get(getOrderIndex(tableId)).printBill(menu);
+		return true;
+	}
+
 	public void printDateTime(String tableId)
 	{
 		int orderIndex = getOrderIndex(tableId);
@@ -209,4 +217,5 @@ public class OrderDatabase
 	{
 		return currentOrders.size();
 	}
+
 }
