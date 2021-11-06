@@ -17,12 +17,13 @@ public class SalesDatabase
 	private float total_profit;
 	private float total_basecost;
 	private float total_membership_discount;
-	private HashMap<Integer, Float> year_revenue = new HashMap<Integer, Float>();
-	private HashMap<Integer, Float> year_profit = new HashMap<Integer, Float>();
+	private HashMap<Integer, Float> month_revenue = new HashMap<Integer, Float>();
+	private HashMap<Integer, Float> month_profit = new HashMap<Integer, Float>();
+	private HashMap<Integer, Float> month_orders = new HashMap<Integer, Float>();
 
 	public SalesDatabase()
 	{
-		all_orders_ = new ArrayList<Order>();
+		this.all_orders_ = new ArrayList<Order>();
 		this.total_revenue = 0;
 		this.total_basecost = 0;
 		this.total_profit = 0;
@@ -30,8 +31,9 @@ public class SalesDatabase
 
 		for(int i = 1; i<13 ; i++)
 		{
-			year_revenue.put(i, 0f);
-			year_profit.put(i,0f);
+			this.month_revenue.put(i, 0f);
+			this.month_profit.put(i,0f);
+			this.month_orders.put(i,0f);
 		}
 	}
 	
@@ -39,23 +41,43 @@ public class SalesDatabase
 	public float getTotalProfit() { return this.total_profit;}
 	public float getTotalBaseCost() { return this.total_basecost;}
 	public float getTotalMembershipDiscount() { return this.total_membership_discount;}
-	public HashMap<Integer, Float> getMonthwiseRevenue() { return this.year_revenue;}
-	public HashMap<Integer, Float> getMonthwiseProfit() { return this.year_profit;}
+	public HashMap<Integer, Float> getMonthwiseRevenue() { return this.month_revenue;}
+	public HashMap<Integer, Float> getMonthwiseProfit() { return this.month_profit;}
+	public HashMap<Integer, Float> getMonthwiseOrders() { return this.month_orders;}
 
+	public void appendOrder(Order order_add)
+	{
+		this.all_orders_.add(order_add);
+	}
+
+	public void removeOrder(String order_id)
+	{
+		for(int i = 0; i< this.all_orders_.size();i++)
+        {
+			Order local_order = this.all_orders_.get(i);
+			if(order_id == local_order.getOrderID())
+				{
+					this.all_orders_.remove(local_order);
+				}
+		}
+
+	}
+	
 	public void analyseTotalOrders()
     {
         for(int i = 0; i< this.all_orders_.size();i++)
         {
             Order local_order = this.all_orders_.get(i);
-            total_revenue+= local_order.getTotal();
-			total_basecost+= local_order.getBaseCost();
-			total_membership_discount+= local_order.getMemberDiscount();
+            this.total_revenue+= local_order.getTotal();
+			this.total_basecost+= local_order.getBaseCost();
+			this.total_membership_discount+= local_order.getMemberDiscount();
 			float profit = local_order.getTotal() - local_order.getBaseCost();
-			total_profit+= profit ;
+			this.total_profit+= profit ;
 
 			int month = local_order.getDateTime().getMonthValue();
-			year_revenue.put(month, year_revenue.get(month) + local_order.getTotal());
-			year_profit.put(month, year_revenue.get(month) + profit);
+			this.month_revenue.put(month, this.month_revenue.get(month) + local_order.getTotal());
+			this.month_profit.put(month, this.month_profit.get(month) + profit);
+			this.month_orders.put(month,this.month_orders.get(month)+1);
 
         }
     }
@@ -64,9 +86,9 @@ public class SalesDatabase
 	public ArrayList<String> getOrderstimePeriod(LocalDateTime start, LocalDateTime end)
 	{
 		ArrayList<String> searched_orders = new ArrayList<String>();
-		for(int i=0; i<all_orders_.size() ;i++)
+		for(int i=0; i<this.all_orders_.size() ;i++)
 		{
-			Order local_order = all_orders_.get(i);
+			Order local_order = this.all_orders_.get(i);
 			LocalDateTime order_datetime = local_order.getDateTime();
 			boolean isAfter = order_datetime.isAfter(start);
 			boolean isBefore = order_datetime.isBefore(end);
@@ -95,9 +117,9 @@ public class SalesDatabase
 
 	public Order getOrderInfo(String orderId_input)
 	{
-		for(int i=0; i<all_orders_.size() ;i++)
+		for(int i=0; i<this.all_orders_.size() ;i++)
 		{
-			Order local_order = all_orders_.get(i);
+			Order local_order = this.all_orders_.get(i);
 			if(orderId_input == local_order.getOrderID())
 				{
 					return local_order;
