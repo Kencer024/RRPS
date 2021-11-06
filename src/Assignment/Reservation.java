@@ -50,6 +50,7 @@ public class Reservation {
         for(int i =0; i< table.length;i++){             //brute force search
             if(table[i].getTableId() == tableId){       //if table[i] is tableid
                 table[i].setReserved(false);             //set it to !reserved
+                table[i].setName(null);
             }
         }
     }
@@ -66,17 +67,26 @@ public class Reservation {
     }
 
     public void updateReservation(int tableId, int pax){
+        String Name;
+        for(int i =0; i< table.length;i++) {             //brute force search
+            if (table[i].getTableId() == tableId) {       //if table[i] is tableid
+                Name = table[i].getName();
+                removeReservation(i);
+                reserve(pax,Name);
+            }
+            else{
+                System.out.println("Cant find table");
+            }
+        }
+        /*
         checkEmptyTable(pax);
         System.out.println("Enter choice of Table : ");
         int tableId2 = sc.nextInt();
-        for(int i =0; i< table.length;i++){             //brute force search
-            if(table[i].getTableId() == tableId) {       //if table[i] is tableid
-                    table[i].setReserved(false);
-            }
+        for(int i =0; i< table.length;i++){
             if(table[i].getTableId() == tableId2){
-                table[i].setReserved(true);
+                reserve(pax,Name);
             }
-        }
+        }*/
     }
 
     public Table[] checkEmptyTable(int pax){
