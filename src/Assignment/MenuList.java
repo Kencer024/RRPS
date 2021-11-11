@@ -230,7 +230,7 @@ public class MenuList
         {
             Item local_item_type = this.items_.get(i);
             String local_item_id = local_item_type.getId();
-            if(local_item_id == id)
+            if(local_item_id.equals(id))
             {   
                 this.items_.remove(local_item_type);
             }
@@ -247,7 +247,7 @@ public class MenuList
         {
             PromoSet local_set = this.sets_.get(i);
             String local_set_id = local_set.getId();
-            if(local_set_id == id)
+            if(local_set_id.equals(id))
             {   
                 this.sets_.remove(local_set);
             }
@@ -260,9 +260,9 @@ public class MenuList
         {
             Item local_item_type = this.items_.get(i);
             String local_item_id = local_item_type.getId();
-            if(local_item_id == item_update.getId())
+            if(local_item_id.equals(item_update.getId()))
             {   local_item_type.availability_ = 0;
-                this.items_.add(i,local_item_type);
+                this.items_.set(i,local_item_type);
             }
         }
         this.items_.add(item_update);
@@ -296,9 +296,9 @@ public class MenuList
         {
             PromoSet local_set_type = this.sets_.get(i);
             String local_set_id = local_set_type.getId();
-            if(local_set_id == set_update.getId())
+            if(local_set_id.equals(set_update.getId()))
             {   local_set_type.promo_availability_ = 0;
-                this.sets_.add(i,local_set_type);
+                this.sets_.set(i,local_set_type);
             }
         }
         this.sets_.add(set_update);
@@ -309,11 +309,11 @@ public class MenuList
         for(int i = 0; i< this.items_.size();i++)
         {
             Item local_item = this.items_.get(i);
-            
-            if(local_item.getId() == id)
+            if(local_item.getId().equals(id))
             {
                 local_item.availability_ = 0;
-                this.items_.add(i,local_item);
+                this.items_.set(i,local_item);
+                System.out.println(id + " " + local_item.getAvailability());
             }
         }
     }
@@ -324,10 +324,10 @@ public class MenuList
         {
             Item local_item = this.items_.get(i);
             
-            if(local_item.getId() == id)
+            if(local_item.getId().equals(id))
             {
                 local_item.availability_ = 1;
-                this.items_.add(i,local_item);
+                this.items_.set(i,local_item);
             }
         }
     }
@@ -338,10 +338,10 @@ public class MenuList
         {
             PromoSet local_set = this.sets_.get(i);
             
-            if(local_set.getId() == setid)
+            if(local_set.getId().equals(setid))
             {
                 local_set.promo_availability_ = 0;
-                this.sets_.add(i,local_set);
+                this.sets_.set(i,local_set);
             }
         }
     }
@@ -352,10 +352,10 @@ public class MenuList
         {
             PromoSet local_set = this.sets_.get(i);
             
-            if(local_set.getId() == setid)
+            if(local_set.getId().equals(setid))
             {
                 local_set.promo_availability_ = 1;
-                this.sets_.add(i,local_set);
+                this.sets_.set(i,local_set);
             }
         }
     }
@@ -364,8 +364,11 @@ public class MenuList
     {
         for(int i = 0; i<items_.size(); i++)
         {
-            System.out.print(items_.get(i).getId() + " ");
+            if(items_.get(i).getAvailability() == 1)
+            {
+            System.out.print(items_.get(i).getId() + " " + items_.get(i).getAvailability()+" ");
             System.out.println(items_.get(i).getName());
+            }
         }
     }
 

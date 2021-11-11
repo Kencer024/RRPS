@@ -80,6 +80,11 @@ public class Item {
         return this.isValid_;
     }
 
+    public int getAvailability()
+    {
+        return this.availability_;
+    }
+
     public void setId(String id_input)
     {
         this.id_ = id_input;

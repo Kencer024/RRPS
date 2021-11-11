@@ -20,8 +20,12 @@ public class test
         tmpSet.setSaleCost(10.95f);
         tmpSet.setallItemIds(new ArrayList<String>(Arrays.asList("1000", "6001", "5001")));
         menu.appendSet(tmpSet);
-//        menu.printItems();
-//        menu.printSets();
+       menu.printItems();
+       menu.printSets();
+       menu.invalidateItem("1000");
+       System.out.println("\n===================================================");
+       menu.printItems();
+       menu.printSets();       
 
         OrderDatabase orders = new OrderDatabase();
         int select = -1;
@@ -35,7 +39,7 @@ public class test
         orders.addItem("12", "6000", 2);
         orders.addSet("12", "7000", 2);
 //        orders.printItems("12");
-        orders.printBill("12", menu);
+        // orders.printBill("12", menu);
 //        sales.appendOrder(orders.removeOrder("12"));
 //        System.out.println(orders.removeOrder("12").getTotal());
 
@@ -44,7 +48,7 @@ public class test
         orders.addItem("10", "6000", 2);
         orders.addSet("10", "7000", 2);
 //        orders.printItems("10");
-        orders.printBill("10", menu);
+        // orders.printBill("10", menu);
 //        sales.appendOrder(orders.removeOrder("12"));
 
 //        sales.analyseTotalOrders();
