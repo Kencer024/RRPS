@@ -22,7 +22,7 @@ public class test
         menu.appendSet(tmpSet);
        menu.printItems();
        menu.printSets();
-       menu.invalidateItem("1000");
+       menu.removeSet("7000");
        System.out.println("\n===================================================");
        menu.printItems();
        menu.printSets();       

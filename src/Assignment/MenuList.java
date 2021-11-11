@@ -376,11 +376,14 @@ public class MenuList
     {
         for(int i = 0; i<sets_.size(); i++)
         {
-            System.out.print(sets_.get(i).getId() + " ");
-            System.out.println(sets_.get(i).getName());
-            for(int j = 0; j < sets_.get(i).getallItemIds().size(); j++)
+            if(sets_.get(i).getAvailability() == 1)
             {
-                System.out.println(" - " + getItem(sets_.get(i).getallItemIds().get(j)).getName());
+             System.out.print(sets_.get(i).getId() + " ");
+             System.out.println(sets_.get(i).getName());
+             for(int j = 0; j < sets_.get(i).getallItemIds().size(); j++)
+             {
+                 System.out.println(" - " + getItem(sets_.get(i).getallItemIds().get(j)).getName());
+             }
             }
         }
     }
