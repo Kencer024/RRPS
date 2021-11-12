@@ -99,7 +99,7 @@ public class SalesDatabase implements DatabaseInterface
 		for(int i = 0; i< this.all_orders_.size();i++)
        {
 			Order local_order = this.all_orders_.get(i);
-			if(order_id == local_order.getOrderId())
+			if(order_id.equals(local_order.getOrderId()))
 				{
 					this.all_orders_.remove(local_order);
                     return local_order;
@@ -175,7 +175,7 @@ public class SalesDatabase implements DatabaseInterface
 		for(int i =0; i<all_orders_period.size(); i++)
 		{
 			String local_order_id = all_orders_period.get(i);
-			if(local_order_id.substring(local_order_id.length() - 3) == tableId_input)
+			if(local_order_id.substring(local_order_id.length() - 3).equals( tableId_input))
 			{
 				orders_table.add(local_order_id);
 			}
@@ -193,7 +193,7 @@ public class SalesDatabase implements DatabaseInterface
 		for(int i=0; i<this.all_orders_.size() ;i++)
 		{
 			Order local_order = this.all_orders_.get(i);
-			if(orderId_input == local_order.getOrderId())
+			if(orderId_input.equals(local_order.getOrderId()))
 				{
 					return local_order;
 				}

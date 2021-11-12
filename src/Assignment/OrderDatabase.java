@@ -23,7 +23,7 @@ public class OrderDatabase implements DatabaseInterface
 		for(int i=0; i<this.currentOrders.size() ;i++)
 		{
 			Order local_order = this.currentOrders.get(i);
-			if(orderId_input == local_order.getOrderId())
+			if(orderId_input.equals(local_order.getOrderId()))
 				{
 					return local_order;
 				}
