@@ -1,6 +1,6 @@
 package Assignment;
 
-public abstract class food {
+public abstract class Food {
 
     private String id_;
     private String name_;
@@ -88,7 +88,4 @@ public abstract class food {
         }
         
     }
-
-
-    
 }
