@@ -2,6 +2,10 @@ package Assignment;
 
 import java.util.*;
 
+/**Represents a class that is used to have Promotional combos in the Menu.
+ * It inherits from the abstract class Food as Food serves as a basic template for the
+ * components to be listed on the Menu
+ */
 public class PromoSet extends Food{
 
     private List<String> itemList_ = new ArrayList<String>();

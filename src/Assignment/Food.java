@@ -137,7 +137,7 @@ public abstract class Food {
             this.baseCost_ = baseCost_input;
         }
         else{
-            System.out.println("Enter a valid baseprice( > 0)");
+            System.out.println("Enter a valid baseprice( > 0). You entered: " + baseCost_input);
         }
 
     }

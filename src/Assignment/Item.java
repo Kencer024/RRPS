@@ -1,5 +1,9 @@
 package Assignment;
 
+/**Represents a class that is used to have Food items in the Menu.
+ * It inherits from the abstract class Food as Food serves as a basic template for the
+ * components to be listed on the Menu
+ */
 public class Item extends Food{
     
     /** Overriding the default constructor 
@@ -14,7 +18,6 @@ public class Item extends Food{
         if(saleCost_input >0)
         {
             super.setSaleCost(saleCost_input);
-            System.out.println("Entered");
         }
         else{
             System.out.println("Set a valid saleprice( > 0). You entered: " + saleCost_input);
