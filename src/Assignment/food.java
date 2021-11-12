@@ -10,6 +10,11 @@ public abstract class Food {
     private float baseCost_;
     public int availability_;
 
+    
+    public String getClassName(){
+        return "Item";
+    }
+    
     public String getId()
     {
         return this.id_;

@@ -3,7 +3,7 @@ package Assignment;
 
 import java.util.*;
 
-public class PromoSet extends food{
+public class PromoSet extends Food{
 
     // private String name_;
     // private String setDesc_;
@@ -31,6 +31,10 @@ public class PromoSet extends food{
         return this.itemList_;
     }
     
+    @Override
+    public String getClassName(){
+        return "PromoSet";
+    }    
     public void setallItemIds(List<String> addallitems_input)
 
     {

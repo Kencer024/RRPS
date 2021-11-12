@@ -1,6 +1,6 @@
 package Assignment;
 
-public class Item extends food{
+public class Item extends Food{
 
     // private String id_;
     // private boolean isValid_;
