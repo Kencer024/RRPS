@@ -12,6 +12,7 @@ public class test
 
         MenuList menu = new MenuList();
         MenuImporter sth = new MenuImporter();
+
         menu = sth.importExcel(menu);
 
         PromoSet tmpSet = new PromoSet();

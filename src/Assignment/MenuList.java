@@ -297,7 +297,7 @@ public class MenuList
             PromoSet local_set_type = this.sets_.get(i);
             String local_set_id = local_set_type.getId();
             if(local_set_id.equals(set_update.getId()))
-            {   local_set_type.promo_availability_ = 0;
+            {   local_set_type.availability_ = 0;
                 this.sets_.set(i,local_set_type);
             }
         }
@@ -340,7 +340,7 @@ public class MenuList
             
             if(local_set.getId().equals(setid))
             {
-                local_set.promo_availability_ = 0;
+                local_set.availability_ = 0;
                 this.sets_.set(i,local_set);
             }
         }
@@ -354,7 +354,7 @@ public class MenuList
             
             if(local_set.getId().equals(setid))
             {
-                local_set.promo_availability_ = 1;
+                local_set.availability_ = 1;
                 this.sets_.set(i,local_set);
             }
         }
