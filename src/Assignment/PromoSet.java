@@ -24,8 +24,7 @@ public class PromoSet extends Food{
         super.setId("");
         super.availability_ = 1;
     }
-
-   
+    @Override
     public List<String> getallItemIds()
     {
         return this.itemList_;
