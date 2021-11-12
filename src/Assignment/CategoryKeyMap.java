@@ -72,24 +72,38 @@ public class CategoryKeyMap
 			return left;
 	}
 
-	/** Converts a full category name to its corresponding shortened key.
+	/** Converts a full category name to its corresponding shortened key. Prints an error message if the category isn't
+	 * found in this CategoryKeyMap and returns an empty string.
 	 *
 	 * @param type A String representing the full category name of the items/promotional sets in the menu.
 	 * @return A 1-character String representing the Shortened key associated to the category name.
 	 */
 	public String getKey(String type)
 	{
-		return categoriesToKeys.get(binarySearchCategory(type)).getSecond();
+		String key = categoriesToKeys.get(binarySearchCategory(type)).getSecond();
+		if(key.compareTo(type) == 0)
+		{
+			System.out.println("Invalid Type");
+			return "";
+		}
+		else return key;
 	}
 
-	/** Converts a shortened key to its corresponding full category name.
+	/** Converts a shortened key to its corresponding full category name. Prints an error message if the key isn't
+	 * found in this CategoryKeyMap and returns an empty string.
 	 *
 	 * @param key A 1-character String representing the shortened key associated to the category name.
 	 * @return A String representing the full category name for the items/promotional sets in the menu.
 	 */
 	public String getCategory(String key)
 	{
-		return keysToCategories.get(binarySearchKey(key)).getSecond();
+		String type =  keysToCategories.get(binarySearchKey(key)).getSecond();
+		if(type.compareTo(key) == 0)
+		{
+			System.out.println("Invalid Key");
+			return "";
+		}
+		else return type;
 	}
 
 	/** Appends a new category to the object's library as well as automatically generates a new corresponding key.
