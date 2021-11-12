@@ -10,6 +10,7 @@ public class MenuList
 {
     private ArrayList<Item> items_ = new ArrayList<Item>();
     private ArrayList<PromoSet> sets_ = new ArrayList<PromoSet>();
+    private ArrayList<food> food_ = new ArrayList<food>();
     private CategoryKeyMap map = new CategoryKeyMap();
 
     public MenuList()
@@ -147,9 +148,14 @@ public class MenuList
      * @param id the item ID string
      * @return the item corresponding to the set ID string
      */
-    public Item getItem(String id)
+    // public Item getItem(String id)
+    // {
+    //     return items_.get(searchItemIndex(id));
+    // }
+
+    public food getFood(String id)
     {
-        return items_.get(searchItemIndex(id));
+        return food_.get(searchItemIndex(id));
     }
 
     /**
@@ -157,42 +163,42 @@ public class MenuList
      * @param id the set ID string
      * @return the promotional set corresponding to the set ID string
      */
-    public PromoSet getSet(String id)
-    {
-        return sets_.get(searchSetIndex(id));
-    }
+    // public PromoSet getSet(String id)
+    // {
+    //     return sets_.get(searchSetIndex(id));
+    // }
 
     /**
      * Returns an ArrayList of items with the corresponding item IDs starting with a certain pattern
      * @param id_start the pattern for filtering items within this MenuList
      * @return the ArrayList with the item IDs starting with the given pattern
      */
-    public ArrayList<Item> getItems(char id_start)
+    public ArrayList<food> getFood(char id_start)
     {
-        ArrayList<Item> items_type = new ArrayList<Item>();
+        ArrayList<food> food_type = new ArrayList<food>();
 
-        for(int i = 0; i< this.items_.size();i++)
+        for(int i = 0; i< this.food_.size();i++)
         {
-            Item local_item_type = this.items_.get(i);
-            String local_item_id = local_item_type.getId();
-            if(local_item_id.charAt(0) == id_start)
+            food local_item_type = this.food_.get(i);
+            String food_id = local_item_type.getId();
+            if(food_id.charAt(0) == id_start)
             {
-                items_type.add(local_item_type);
+                food_type.add(local_item_type);
             }
         }
-        return items_type;
+        return food_type;
 
     }
 
-    public ArrayList<Item> getAllItems()
+    public ArrayList<food> getAllFood()
     {
-        return this.items_;
+        return this.food_;
     }
 
-    public ArrayList<PromoSet> getAllPromoSets()
-    {
-        return this.sets_;
-    }
+    // public ArrayList<PromoSet> getAllPromoSets()
+    // {
+    //     return this.sets_;
+    // }
 
     /**
      * Insert a new item into this MenuList. A valid item ID for this MenuList must have already been set for the item
@@ -224,15 +230,15 @@ public class MenuList
      * reference later on when calculating previous sales data if the item has been ordered before.
      * @param id the item ID of the item to be removed
      */
-    public void removeItem(String id)
+    public void removeFood(String id)
     {
-        for(int i = 0; i< this.items_.size();i++)
+        for(int i = 0; i< this.food_.size();i++)
         {
-            Item local_item_type = this.items_.get(i);
+            food local_item_type = this.food_.get(i);
             String local_item_id = local_item_type.getId();
             if(local_item_id.equals(id))
             {   
-                this.items_.remove(local_item_type);
+                this.food_.remove(local_item_type);
             }
         }
     }
@@ -241,175 +247,175 @@ public class MenuList
      * referenced later on when calculating previous sales data if the item has been ordered before.
      * @param id the set ID of the promotional set to be removed
      */
-    public void removeSet(String id)
-    {
-        for(int i = 0; i< this.sets_.size();i++)
-        {
-            PromoSet local_set = this.sets_.get(i);
-            String local_set_id = local_set.getId();
-            if(local_set_id.equals(id))
-            {   
-                this.sets_.remove(local_set);
-            }
-        }
-    }
+    // public void removeSet(String id)
+    // {
+    //     for(int i = 0; i< this.sets_.size();i++)
+    //     {
+    //         PromoSet local_set = this.sets_.get(i);
+    //         String local_set_id = local_set.getId();
+    //         if(local_set_id.equals(id))
+    //         {   
+    //             this.sets_.remove(local_set);
+    //         }
+    //     }
+    // }
 
-    public void updateItem(Item item_update)
+    public void updateFood(food item_update)
     {
-        for(int i = 0; i< this.items_.size();i++)
+        for(int i = 0; i< this.food_.size();i++)
         {
-            Item local_item_type = this.items_.get(i);
+            food local_item_type = this.food_.get(i);
             String local_item_id = local_item_type.getId();
             if(local_item_id.equals(item_update.getId()))
             {   local_item_type.availability_ = 0;
-                this.items_.set(i,local_item_type);
+                this.food_.set(i,local_item_type);
             }
         }
-        this.items_.add(item_update);
+        this.food_.add(item_update);
     } 
 
-    public void appendSet(PromoSet set_append)
-    {
-        int appendIndex;
-        if(sets_.size() == 0)
-        {
-            sets_.add(set_append);
-        }
-        else
-        {
-            appendIndex = searchItemIndex(set_append.getId());
-            if(sets_.get(appendIndex).getId().compareTo(set_append.getId()) < 0)
-            {
-                sets_.add(set_append);
-            }
-            else
-            {
-                sets_.add(appendIndex, set_append);
-            }
-        }
-    } 
+    // public void appendSet(PromoSet set_append)
+    // {
+    //     int appendIndex;
+    //     if(sets_.size() == 0)
+    //     {
+    //         sets_.add(set_append);
+    //     }
+    //     else
+    //     {
+    //         appendIndex = searchItemIndex(set_append.getId());
+    //         if(sets_.get(appendIndex).getId().compareTo(set_append.getId()) < 0)
+    //         {
+    //             sets_.add(set_append);
+    //         }
+    //         else
+    //         {
+    //             sets_.add(appendIndex, set_append);
+    //         }
+    //     }
+    // } 
 
 
-    public void updateSet(PromoSet set_update)
-    {
-        for(int i = 0; i< this.sets_.size();i++)
-        {
-            PromoSet local_set_type = this.sets_.get(i);
-            String local_set_id = local_set_type.getId();
-            if(local_set_id.equals(set_update.getId()))
-            {   local_set_type.availability_ = 0;
-                this.sets_.set(i,local_set_type);
-            }
-        }
-        this.sets_.add(set_update);
-    } 
+    // public void updateSet(PromoSet set_update)
+    // {
+    //     for(int i = 0; i< this.sets_.size();i++)
+    //     {
+    //         PromoSet local_set_type = this.sets_.get(i);
+    //         String local_set_id = local_set_type.getId();
+    //         if(local_set_id.equals(set_update.getId()))
+    //         {   local_set_type.availability_ = 0;
+    //             this.sets_.set(i,local_set_type);
+    //         }
+    //     }
+    //     this.sets_.add(set_update);
+    // } 
 
-    public void invalidateItem(String id)
+    public void invalidateFood(String id)
     {
-        for(int i = 0; i< this.items_.size();i++)
+        for(int i = 0; i< this.food_.size();i++)
         {
-            Item local_item = this.items_.get(i);
+            food local_item = this.food_.get(i);
             if(local_item.getId().equals(id))
             {
                 local_item.availability_ = 0;
-                this.items_.set(i,local_item);
+                this.food_.set(i,local_item);
                 System.out.println(id + " " + local_item.getAvailability());
             }
         }
     }
 
-    public void validateItem(String id)
+    public void validateFood(String id)
     {
-        for(int i = 0; i< this.items_.size();i++)
+        for(int i = 0; i< this.food_.size();i++)
         {
-            Item local_item = this.items_.get(i);
+            food local_item = this.food_.get(i);
             
             if(local_item.getId().equals(id))
             {
                 local_item.availability_ = 1;
-                this.items_.set(i,local_item);
+                this.food_.set(i,local_item);
             }
         }
     }
 
-    public void invalidateSet(String setid)
-    {
-        for(int i = 0; i< this.sets_.size();i++)
-        {
-            PromoSet local_set = this.sets_.get(i);
+    // public void invalidateSet(String setid)
+    // {
+    //     for(int i = 0; i< this.sets_.size();i++)
+    //     {
+    //         PromoSet local_set = this.sets_.get(i);
             
-            if(local_set.getId().equals(setid))
-            {
-                local_set.availability_ = 0;
-                this.sets_.set(i,local_set);
-            }
-        }
-    }
+    //         if(local_set.getId().equals(setid))
+    //         {
+    //             local_set.availability_ = 0;
+    //             this.sets_.set(i,local_set);
+    //         }
+    //     }
+    // }
 
-    public void validateSet(String setid)
-    {
-        for(int i = 0; i< this.sets_.size();i++)
-        {
-            PromoSet local_set = this.sets_.get(i);
+    // public void validateSet(String setid)
+    // {
+    //     for(int i = 0; i< this.sets_.size();i++)
+    //     {
+    //         PromoSet local_set = this.sets_.get(i);
             
-            if(local_set.getId().equals(setid))
-            {
-                local_set.availability_ = 1;
-                this.sets_.set(i,local_set);
-            }
-        }
-    }
+    //         if(local_set.getId().equals(setid))
+    //         {
+    //             local_set.availability_ = 1;
+    //             this.sets_.set(i,local_set);
+    //         }
+    //     }
+    // }
 
-    public void printItems()
+    public void printFood()
     {
-        for(int i = 0; i<items_.size(); i++)
+        for(int i = 0; i<food_.size(); i++)
         {
-            if(items_.get(i).getAvailability() == 1)
+            if(food_.get(i).getAvailability() == 1)
             {
-            System.out.print(items_.get(i).getId() + " " + items_.get(i).getAvailability()+" ");
-            System.out.println(items_.get(i).getName());
+            System.out.print(food_.get(i).getId() + " " + food_.get(i).getAvailability()+" ");
+            System.out.println(food_.get(i).getName());
             }
         }
     }
 
-    public void printSets()
-    {
-        for(int i = 0; i<sets_.size(); i++)
-        {
-            if(sets_.get(i).getAvailability() == 1)
-            {
-             System.out.print(sets_.get(i).getId() + " ");
-             System.out.println(sets_.get(i).getName());
-             for(int j = 0; j < sets_.get(i).getallItemIds().size(); j++)
-             {
-                 System.out.println(" - " + getItem(sets_.get(i).getallItemIds().get(j)).getName());
-             }
-            }
-        }
-    }
+    // public void printSets()
+    // {
+    //     for(int i = 0; i<sets_.size(); i++)
+    //     {
+    //         if(sets_.get(i).getAvailability() == 1)
+    //         {
+    //          System.out.print(sets_.get(i).getId() + " ");
+    //          System.out.println(sets_.get(i).getName());
+    //          for(int j = 0; j < sets_.get(i).getallItemIds().size(); j++)
+    //          {
+    //              System.out.println(" - " + getItem(sets_.get(i).getallItemIds().get(j)).getName());
+    //          }
+    //         }
+    //     }
+    // }
 
-    public ArrayList<Item> sort_items_by_type()
+    public ArrayList<food> sort_food_by_type()
     {
-        ArrayList<Item> sortedMenuItems = (ArrayList<Item>)items_.clone();
-        sortedMenuItems.sort(Comparator.comparing(Item::getType));
+        ArrayList<food> sortedMenuItems = (ArrayList<food>)food_.clone();
+        sortedMenuItems.sort(Comparator.comparing(food::getType));
 
         return sortedMenuItems;
     }
 
     // Not necessary
-    public ArrayList<Item> sort_items_by_id()
-    {
-        ArrayList<Item> sortedMenuItems = (ArrayList<Item>)items_.clone();
-        sortedMenuItems.sort(Comparator.comparing(Item::getId));
+    // public ArrayList<Item> sort_food_by_id()
+    // {
+    //     ArrayList<Item> sortedMenuItems = (ArrayList<Item>)items_.clone();
+    //     sortedMenuItems.sort(Comparator.comparing(Item::getId));
 
-        return sortedMenuItems;
-    }
+    //     return sortedMenuItems;
+    // }
 
-    public ArrayList<PromoSet> sort_sets_by_id()
-    {
-        ArrayList<PromoSet> sortedMenuPromoSets = (ArrayList<PromoSet>)sets_.clone();
-        sortedMenuPromoSets.sort(Comparator.comparing(PromoSet::getId));
+    // public ArrayList<PromoSet> sort_sets_by_id()
+    // {
+    //     ArrayList<PromoSet> sortedMenuPromoSets = (ArrayList<PromoSet>)sets_.clone();
+    //     sortedMenuPromoSets.sort(Comparator.comparing(PromoSet::getId));
 
-        return sortedMenuPromoSets;
-    }
+    //     return sortedMenuPromoSets;
+    // }
 }
