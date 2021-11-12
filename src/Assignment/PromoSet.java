@@ -29,6 +29,11 @@ public class PromoSet{
 
     public String getName() { return this.name_; }
 
+    public int getAvailability()
+    {
+        return this.promo_availability_;
+    }
+
     public void setDesc(String descInput) { this.setDesc_ = descInput; }
 
     public String getDesc() { return this.setDesc_; }
