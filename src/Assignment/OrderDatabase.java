@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * to act as a data storage
  *
  */
-public class OrderDatabase
+public class OrderDatabase implements DatabaseInterface
 {
 	private ArrayList<Order> currentOrders;
 
@@ -16,6 +16,32 @@ public class OrderDatabase
 	public OrderDatabase()
 	{
 		currentOrders = new ArrayList<Order>();
+	}
+
+    public Order getOrderInfo(String orderId_input)
+	{
+		for(int i=0; i<this.currentOrders.size() ;i++)
+		{
+			Order local_order = this.currentOrders.get(i);
+			if(orderId_input == local_order.getOrderId())
+				{
+					return local_order;
+				}
+
+		}
+		System.out.println("OrderID : " + orderId_input + " not found");
+		return null;
+	}
+
+	//NOT USED
+    public void appendOrder(Order order_add)
+	{
+		currentOrders.add(order_add);
+	}
+
+    public int getTotalNumelements()
+	{
+		return this.currentOrders.size();
 	}
 
 	private int getOrderIndex(String tableId)
@@ -72,7 +98,7 @@ public class OrderDatabase
 	/**
 	 * Prints all the customer orders at that instance
 	 */
-	public void printCurrentOrders()
+	public void printDatabase()
 	{
 		int index;
 		for(index = 0; index < currentOrders.size(); index++)

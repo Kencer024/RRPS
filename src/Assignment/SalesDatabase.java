@@ -94,7 +94,7 @@ public class SalesDatabase implements DatabaseInterface
 	/** Fuction is used to remove the orders from the database
 	 * @param order_id of type String is used to find the unique order from the order database
     */
-	public void removeOrder(String order_id)
+	public Order removeOrder(String order_id)
 	{
 		for(int i = 0; i< this.all_orders_.size();i++)
        {
@@ -102,9 +102,10 @@ public class SalesDatabase implements DatabaseInterface
 			if(order_id == local_order.getOrderId())
 				{
 					this.all_orders_.remove(local_order);
+                    return local_order;
 				}
 		}
-        
+        return null;
 	}
 
 	/** Fuction is used to analyse all orders from the database
