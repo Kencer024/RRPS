@@ -1,5 +1,7 @@
 package Assignment;
 
+import java.util.List;
+
 public abstract class Food {
 
     private String id_;
@@ -92,5 +94,10 @@ public abstract class Food {
             System.out.println("Enter a valid baseprice( > 0)");
         }
         
+    }
+
+    public List<String> getallItemIds()
+    {
+        return null;
     }
 }
