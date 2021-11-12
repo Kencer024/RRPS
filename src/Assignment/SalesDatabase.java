@@ -3,7 +3,8 @@ package Assignment;
 //javadocs
 
 /**Represents a class where all the records of Orders are stored
-* and analysis is performed to generate SalesReport
+* and analysis is performed to generate SalesReport.
+* It implements DatabaseInterface that serves as a template for Database
 *
 */
 import java.util.ArrayList;
@@ -83,6 +84,7 @@ public class SalesDatabase implements DatabaseInterface
 	public HashMap<Integer, Float> getMonthwiseOrders() { return this.month_orders;}
 
 	/** Fuction is used to add the orders to the database
+     * Implements the appendOrder Function from the DatabaseInterface
 	 * @param order_add object of type Order that has all the information about the order including time stamps
     */
 
@@ -92,8 +94,10 @@ public class SalesDatabase implements DatabaseInterface
 	}
 
 	/** Fuction is used to remove the orders from the database
+     * Implements the removeOrder Function from the DatabaseInterface
 	 * @param order_id of type String is used to find the unique order from the order database
-    */
+     * @return Order Object of the Food to be removed    
+     */
 	public Order removeOrder(String order_id)
 	{
 		for(int i = 0; i< this.all_orders_.size();i++)
@@ -184,10 +188,11 @@ public class SalesDatabase implements DatabaseInterface
 	}
 
 	/** Fuction is used to retrieve the full Order information given the OrderID
-	 * It loops through all the orders and returns the Order object that matches the given given OrderID
+	 * It searches through all the orders and returns the Order object that matches the given given OrderID
 	 * @param orderId_input of the type String represents the unique OrderID to be searched for in the database
 	 * @return An object of the type Order that matches with the input OrderID
-    */
+     * Implements the getOrderInfo Function from the DatabaseInterface
+     */
 	public Order getOrderInfo(String orderId_input)
 	{
 		for(int i=0; i<this.all_orders_.size() ;i++)
@@ -216,7 +221,8 @@ public class SalesDatabase implements DatabaseInterface
 	}
 
 	/** Fuction is used print all the OrderIds in the database
-    */
+     * Implements the printDatabase Function from the DatabaseInterface
+     */
 	public void printDatabase()
 	{
 		for( int i = 0; i< this.all_orders_.size();i++)
@@ -224,6 +230,10 @@ public class SalesDatabase implements DatabaseInterface
 			System.out.println("Order ID: " + this.all_orders_.get(i).getOrderId());
 		}
 	}
+
+	/** Fuction is used return the total number of orders in the database
+     * Implements the getTotalNumelements Function from the DatabaseInterface
+     */
 
     public int getTotalNumelements()
     {
