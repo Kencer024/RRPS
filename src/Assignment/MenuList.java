@@ -363,30 +363,43 @@ public class MenuList
     //         }
     //     }
     // }
+    private void printFood(int index, Boolean showUnavailable)
+    {
+        if(foods_.get(index).getClassName() == "Item")
+        {
+            System.out.print(foods_.get(index).getId() + " ");
 
+            System.out.println(foods_.get(index).getName());
+
+        }
+        else
+        {
+            System.out.print(foods_.get(index).getId() + " ");
+            if(foods_.get(index).getAvailability() == 0) System.out.println("(unavailable/old) ");
+            System.out.println(foods_.get(index).getName());
+            for(int i = 0; i < foods_.get(index).getallItemIds().size(); i++)
+            {
+                System.out.println(" - " + getFood(foods_.get(index).getallItemIds().get(i)).getName());
+            }
+        }
+    }
     public void printFoods()
     {
         for(int i = 0; i<foods_.size(); i++)
         {
-            if(foods_.get(i).getClassName() == "Item")
+            printFood(i, true);
+        }
+    }
+
+    public void printMenu(String type)
+    {
+        String startCode = map.getKey(type);
+        if(startCode != "")
+        {
+            for(int i = searchFoodIndex(startCode + "000"); i < foods_.size(); i++)
             {
-                if(foods_.get(i).getAvailability() == 1)
-                {
-                    System.out.print(foods_.get(i).getId() + " " + foods_.get(i).getAvailability()+" ");
-                    System.out.println(foods_.get(i).getName());
-                }
-            }
-            else
-            {
-                if(foods_.get(i).getAvailability() == 1)
-                {
-                    System.out.print(foods_.get(i).getId() + " ");
-                    System.out.println(foods_.get(i).getName());
-                    for(int j = 0; j < foods_.get(i).getallItemIds().size(); j++)
-                    {
-                        System.out.println(" - " + getFood(foods_.get(i).getallItemIds().get(j)).getName());
-                    }
-                }
+                if(foods_.get(i).getId().substring(0, 1).compareTo(startCode) == 0)
+                printFood(i, false);
             }
         }
     }

@@ -24,6 +24,7 @@ public class test
         tmpSet.setallItemIds(new ArrayList<String>(Arrays.asList("1000", "6001", "5001")));
         menu.insertFood(tmpSet);
         menu.printFoods();
+        menu.printMenu("Promotion Set");
 //        menu.printSets();
 //        menu.removeSet("7000");
 //        System.out.println("\n===================================================");
