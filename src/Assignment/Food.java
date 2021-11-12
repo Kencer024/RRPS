@@ -4,8 +4,6 @@ package Assignment;
 * any kind of food that needs to be listed on the menu.
 */
 
-import java.util.List;
-
 public abstract class Food {
     private String id_;
     private String name_;
@@ -83,31 +81,41 @@ public abstract class Food {
         return this.availability_;
     }
 
-	/** Sets the Id of Food */
+	/** Sets the Id of Food 
+     * @param id_input is of type String that represents the Id of the Food
+     */
     public void setId(String id_input)
     {
         this.id_ = id_input;
     }
 
-    /** Sets the Name of Food */
+    /** Sets the Name of Food 
+     * @param name_input is of type String that represents the name of the Food
+     */
     public void setName(String name_input)
     {
         this.name_ = name_input;
     }
 
-    /** Sets the description of Food */
+    /** Sets the description of Food 
+     * @param item_input is of type String that represents the description of the Food
+     */
     public void setFoodDesc(String item_input)
     {
         this.foodDesc_ = item_input;
     }
 
-    /** Sets the Type of Food */
+    /** Sets the Type of Food 
+     * @param type_input is of type String that represents the type of the Food
+     */
     public void setType(String type_input)
     {
         this.type_ = type_input;
     }
 
-    /** Sets the selling price of Food */
+    /** Sets the selling price of Food 
+     * @param saleCost_input is of type float that represents the selling price of the Food
+     */
     public void setSaleCost(float saleCost_input)
     {
         if(saleCost_input > 0)
@@ -119,7 +127,9 @@ public abstract class Food {
         }
     }
 
-    /** Sets the cost price of Food */
+    /** Sets the cost price of Food 
+     * @param baseCost_input is of type float that represents the cost price of the Food
+     */
     public void setBaseCost(float baseCost_input)
     {
         if(baseCost_input > 0)

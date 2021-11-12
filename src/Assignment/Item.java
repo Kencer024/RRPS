@@ -28,14 +28,14 @@ public class Item extends Food{
         }          
     }
 
-	/** Overriding the default constructor to initialise all the private variables */
+	/** Overriding the default constructor to initialise all the private variables 
+     * and the availability to 1
+     */
     public Item(){
         super.setId(""); 
         super.setName(""); 
         super.setFoodDesc(""); 
         super.setType("");
-        // super.setSaleCost(0);
-        // super.setBaseCost(0);
         super.availability_ = 1;
     }
 
