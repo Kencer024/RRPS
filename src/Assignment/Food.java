@@ -1,5 +1,9 @@
 package Assignment;
 
+/**Represents an abstract class that serves as a Parent class for
+* any kind of food that needs to be listed on the menu.
+*/
+
 import java.util.List;
 
 public abstract class Food {
@@ -11,66 +15,99 @@ public abstract class Food {
     private float baseCost_;
     public int availability_;
 
-    public String getClassName(){
-        return "Item";
-    }
+    /** An abstract function that needs to be implemented
+    * by all other classes that would be inheriting from Food 
+    * to facilitate the printing of the bill.   
+    */
+    abstract public String getClassName();
 
+	/** Gets the Id of Food
+    * @return A String representing the Id
+    */
     public String getId()
     {
         return this.id_;
     }
 
+	/** Gets the Name of Food
+    * @return A String representing the name of the food
+    */
     public String getName()
     {
         return this.name_;
 
     }
 
+	/** Gets the Description of the Food
+    * @return A String representing the description of the Food
+    */
     public String getFoodDesc()
     {
         return this.foodDesc_;
     }
 
+	/** Gets the Type of Food
+    * @return A String representing the type of the food
+    * This attribute is just for more clearer understanding 
+    * of the classification of Food 
+    */
     public String getType()
     {
         return this.type_;
     }
 
+	/** Gets the selling price of Food
+    * @return A Float representing the selling price of the Food
+    */
     public float getSaleCost()
     {
         return this.saleCost_;
     }
 
+	/** Gets the cost price of Food
+    * @return A Float representing the cost price of the Food
+    */
     public float getBaseCost()
     {
         return this.baseCost_;
     }
 
+	/** Gets the availability of the Food
+    * @return An Integer representing the availability of the Food
+    * Currently, 1 - available and 0 - unavailable 
+    * Integer was chosen instead of boolean so that others can add in more integers 
+    * that can represent the special food like Chief's special(limited availability) etc
+    */
     public int getAvailability()
     {
         return this.availability_;
     }
 
+	/** Sets the Id of Food */
     public void setId(String id_input)
     {
         this.id_ = id_input;
     }
 
+    /** Sets the Name of Food */
     public void setName(String name_input)
     {
         this.name_ = name_input;
     }
 
-    public void setItemDesc(String item_input)
+    /** Sets the description of Food */
+    public void setFoodDesc(String item_input)
     {
         this.foodDesc_ = item_input;
     }
 
+    /** Sets the Type of Food */
     public void setType(String type_input)
     {
         this.type_ = type_input;
     }
 
+    /** Sets the selling price of Food */
     public void setSaleCost(float saleCost_input)
     {
         if(saleCost_input > 0)
@@ -82,6 +119,7 @@ public abstract class Food {
         }
     }
 
+    /** Sets the cost price of Food */
     public void setBaseCost(float baseCost_input)
     {
         if(baseCost_input > 0)
@@ -94,8 +132,4 @@ public abstract class Food {
 
     }
 
-    public List<String> getallItemIds()
-    {
-        return null;
-    }
 }

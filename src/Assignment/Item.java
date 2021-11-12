@@ -1,16 +1,13 @@
 package Assignment;
 
 public class Item extends Food{
-
-    // private String id_;
-    // private boolean isValid_;
-    // private String name_;
-    // private String itemDesc_;
-    // private String type_;
-    // private float saleCost_;
-    // private float baseCost_;
-    // public int availability_;
     
+    /** Overriding the default constructor 
+     *  to initialise the Item easily 
+     * @param name_input of type String takes in the name of the Item
+     * @param saleCost_input of type float takes in the selling price of the Item
+     * @param baseCost of type float takes in the cost price of the Item
+     */
     public Item(String name_input, float saleCost_input, float baseCost_input) {
         this();
         super.setName(name_input); 
@@ -31,14 +28,23 @@ public class Item extends Food{
         }          
     }
 
+	/** Overriding the default constructor to initialise all the private variables */
     public Item(){
         super.setId(""); 
         super.setName(""); 
-        super.setItemDesc(""); 
+        super.setFoodDesc(""); 
         super.setType("");
         // super.setSaleCost(0);
         // super.setBaseCost(0);
         super.availability_ = 1;
+    }
+
+	/**(Implementation of abstract function) Gets the Class name 
+    * @return A String representing the class name
+    */
+    public String getClassName(){
+
+        return "Item";
     }
 
     
