@@ -254,7 +254,15 @@ public class MenuList
         }
     }
 
-    public void updateItem(Item item_update)
+    /**
+     * Updates the item within this MenuList by appending an updated version with new id and data to the list while
+     * setting the availability of the old version to be unavailable. This is to keep the old version as a reference
+     * when calculating previous sales data.
+     * @param old_id the id of the old version of the item
+     * @param item_update the new version of the item to be updated (a new id must have already been assigned to this)
+     */
+    // Still need coding
+    public void updateItem(String old_id, Item item_update)
     {
         for(int i = 0; i< this.items_.size();i++)
         {
@@ -266,8 +274,13 @@ public class MenuList
             }
         }
         this.items_.add(item_update);
-    } 
+    }
 
+    /**
+     * Insert a new set into this MenuList. A valid set ID for this MenuList must have already been set for the object
+     * before insertion.
+     * @param set_append the set to be inserted
+     */
     public void appendSet(PromoSet set_append)
     {
         int appendIndex;
@@ -287,10 +300,16 @@ public class MenuList
                 sets_.add(appendIndex, set_append);
             }
         }
-    } 
+    }
 
-
-    public void updateSet(PromoSet set_update)
+    /**
+     * Updates the promotional set within this MenuList by appending an updated version with new id and data to the list while
+     * setting the availability of the old version to be unavailable. This is to keep the old version as a reference
+     * when calculating previous sales data.
+     * @param old_id the id of the old version of the set
+     * @param set_update the new version of the set to be updated (a new id must have already been assigned to this)
+     */
+    public void updateSet(String old_id, PromoSet set_update)
     {
         for(int i = 0; i< this.sets_.size();i++)
         {
@@ -302,8 +321,13 @@ public class MenuList
             }
         }
         this.sets_.add(set_update);
-    } 
+    }
 
+    /**
+     * Sets the availability of the item with the given ID to 0. This removes the item from the menu and makes it unable
+     * to order the item.
+     * @param id the item ID of the item to be invalidated
+     */
     public void invalidateItem(String id)
     {
         for(int i = 0; i< this.items_.size();i++)
@@ -317,7 +341,11 @@ public class MenuList
             }
         }
     }
-
+    /**
+     * Sets the availability of the item with the given ID to 1. This adds the item back to the menu and makes it able
+     * to order the item again.
+     * @param id the item ID of the item to be validated
+     */
     public void validateItem(String id)
     {
         for(int i = 0; i< this.items_.size();i++)
@@ -332,13 +360,18 @@ public class MenuList
         }
     }
 
-    public void invalidateSet(String setid)
+    /**
+     * Sets the availability of the promotional set with the given ID to 0. This removes the item from the menu
+     * and makes it unable to order the item.
+     * @param setId the set ID of the promotional set to be invalidated
+     */
+    public void invalidateSet(String setId)
     {
         for(int i = 0; i< this.sets_.size();i++)
         {
             PromoSet local_set = this.sets_.get(i);
             
-            if(local_set.getId() == setid)
+            if(local_set.getId() == setId)
             {
                 local_set.promo_availability_ = 0;
                 this.sets_.add(i,local_set);
@@ -346,13 +379,18 @@ public class MenuList
         }
     }
 
-    public void validateSet(String setid)
+    /**
+     * Sets the availability of the promotional set with the given ID to 1. This adds the set back to the menu
+     * and makes it able to order the promotional set again.
+     * @param setId the set ID of the promotional set to be validated
+     */
+    public void validateSet(String setId)
     {
         for(int i = 0; i< this.sets_.size();i++)
         {
             PromoSet local_set = this.sets_.get(i);
             
-            if(local_set.getId() == setid)
+            if(local_set.getId() == setId)
             {
                 local_set.promo_availability_ = 1;
                 this.sets_.add(i,local_set);
@@ -360,6 +398,9 @@ public class MenuList
         }
     }
 
+    /**
+     * Prints out all the items within this MenuList
+     */
     public void printItems()
     {
         for(int i = 0; i<items_.size(); i++)
@@ -369,6 +410,9 @@ public class MenuList
         }
     }
 
+    /**
+     * Prints out all the promotional sets and its items within this MenuList
+     */
     public void printSets()
     {
         for(int i = 0; i<sets_.size(); i++)
@@ -390,7 +434,6 @@ public class MenuList
         return sortedMenuItems;
     }
 
-    // Not necessary
     public ArrayList<Item> sort_items_by_id()
     {
         ArrayList<Item> sortedMenuItems = (ArrayList<Item>)items_.clone();
