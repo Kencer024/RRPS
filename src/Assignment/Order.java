@@ -13,8 +13,7 @@ public class Order
 	private int pax;
 	private LocalDateTime dateTime = LocalDateTime.now();
 	private Boolean hasMembership;
-	private ArrayList<Pair<String, Integer>> items;
-	private ArrayList<Pair<String, Integer>> sets;
+	private ArrayList<Pair<String, Integer>> foods_;
 	private float baseCost, subTotal, memberDiscount, svcCharge, gst;
 	private String orderId;
 
@@ -26,8 +25,7 @@ public class Order
 	{
 		this.tableId = tableId;
 		this.pax = pax;
-		items = new ArrayList<Pair<String, Integer>>(0);
-		sets = new ArrayList<Pair<String, Integer>>(0);
+		foods_ = new ArrayList<Pair<String, Integer>>(0);
 		dateTime = LocalDateTime.now();
 		hasMembership = true;
 		subTotal = 0;
@@ -98,19 +96,19 @@ public class Order
 		System.out.println(dateTime);
 	}
 
-	private int getItemIndex(String id)
+	private int getFoodIndex(String id)
 	{
-		int left = 0, right = items.size() - 1, middle = 0;
+		int left = 0, right = foods_.size() - 1, middle = 0;
 
 		//Binary search
 		while(left < right)
 		{
 			middle = (left + right)/2;
-			if(id.compareTo(items.get(middle).getFirst()) == 0)
+			if(id.compareTo(foods_.get(middle).getFirst()) == 0)
 			{
 				return middle;
 			}
-			else if(id.compareTo(items.get(middle).getFirst()) > 0)
+			else if(id.compareTo(foods_.get(middle).getFirst()) > 0)
 			{
 				left = middle + 1;
 			}
@@ -119,49 +117,49 @@ public class Order
 				right = middle;
 			}
 		}
-		if(id.compareTo(items.get(middle).getFirst()) > 0)
+		if(id.compareTo(foods_.get(middle).getFirst()) > 0)
 			return left + 1;
 		else
 			return left;
 	}
 
-	private int getSetIndex(String id)
-	{
-		int left = 0, right = sets.size() - 1, middle = 0;
-
-		//Binary search
-		while(left < right)
-		{
-			middle = (left + right)/2;
-			if(id.compareTo(sets.get(middle).getFirst()) == 0)
-			{
-				return middle;
-			}
-			else if(id.compareTo(sets.get(middle).getFirst()) > 0)
-			{
-				left = middle + 1;
-			}
-			else
-			{
-				right = middle;
-			}
-		}
-		if(id.compareTo(sets.get(middle).getFirst()) > 0)
-			return left + 1;
-		else
-			return left;
-	}
+//	private int getFoodIndex(String id)
+//	{
+//		int left = 0, right = sets.size() - 1, middle = 0;
+//
+//		//Binary search
+//		while(left < right)
+//		{
+//			middle = (left + right)/2;
+//			if(id.compareTo(sets.get(middle).getFirst()) == 0)
+//			{
+//				return middle;
+//			}
+//			else if(id.compareTo(sets.get(middle).getFirst()) > 0)
+//			{
+//				left = middle + 1;
+//			}
+//			else
+//			{
+//				right = middle;
+//			}
+//		}
+//		if(id.compareTo(sets.get(middle).getFirst()) > 0)
+//			return left + 1;
+//		else
+//			return left;
+//	}
 
 	/** adding the number of item ordered
 	 *
 	 * @param id A string that represents the identity of the item that is going to be added
 	 * @param amount An integer that represents the no. of item ordered
 	 */
-	public void addItem(String id, int amount)
+	public void addFood(String id, int amount)
 	{
 		Pair<String, Integer> tmp = new Pair<String, Integer>(id, amount);
-		if(items.size() == 0)items.add(tmp);
-		else items.add(getItemIndex(id), tmp);
+		if(foods_.size() == 0)foods_.add(tmp);
+		else foods_.add(getFoodIndex(id), tmp);
 	}
 
 	/** Removes an item from the order
@@ -169,50 +167,55 @@ public class Order
 	 * @param id A string that represents the identity of the item that is going to be removed
 	 * @return Boolean that returns true if the item exists and is found and returns false otherwise
 	 */
-	public Boolean removeItem(String id)
+	public Boolean removeFood(String id)
 	{
-		if(items.size() == 0)return false;
-		int itemIndex = getItemIndex(id);
-		if(!items.get(itemIndex).getFirst().matches(id)) return false;
-		items.remove(itemIndex);
+		if(foods_.size() == 0)return false;
+		int itemIndex = getFoodIndex(id);
+		if(!foods_.get(itemIndex).getFirst().matches(id)) return false;
+		foods_.remove(itemIndex);
 		return true;
 	}
 
-	/** Adding a set into the order
-	 *
-	 * @param id A string that represents the identity of the item that is going to be added
-	 * @param amount An integer that represents the no. of item ordered
-	 */
-	public void addSet(String id, int amount)
-	{
-		Pair<String, Integer> tmp = new Pair<String, Integer>(id, amount);
-		if(sets.size() == 0)sets.add(tmp);
-		else sets.add(getSetIndex(id), tmp);
-	}
+//	/** Adding a set into the order
+//	 *
+//	 * @param id A string that represents the identity of the item that is going to be added
+//	 * @param amount An integer that represents the no. of item ordered
+//	 */
+//	public void addSet(String id, int amount)
+//	{
+//		Pair<String, Integer> tmp = new Pair<String, Integer>(id, amount);
+//		if(sets.size() == 0)sets.add(tmp);
+//		else sets.add(getSetIndex(id), tmp);
+//	}
+//
+//	/** Removing the set from the order
+//	 *
+//	 * @param id A string that represents the identity of the item that is going to be removed
+//	 * @return
+//	 */
+//	public Boolean removeSet(String id)
+//	{
+//		if(sets.size() == 0)return false;
+//		int setIndex = getSetIndex(id);
+//		if(!sets.get(setIndex).getFirst().matches(id)) return false;
+//		sets.remove(setIndex);
+//		return true;
+//	}
 
-	/** Removing the set from the order
-	 *
-	 * @param id A string that represents the identity of the item that is going to be removed
-	 * @return
-	 */
-	public Boolean removeSet(String id)
-	{
-		if(sets.size() == 0)return false;
-		int setIndex = getSetIndex(id);
-		if(!sets.get(setIndex).getFirst().matches(id)) return false;
-		sets.remove(setIndex);
-		return true;
-	}
 
+//	public ArrayList<Pair<String, Integer>> listItems()
+//	{
+//		return items;
+//	}
+//
+//	public ArrayList<Pair<String, Integer>> listSets()
+//	{
+//		return sets;
+//	}
 
-	public ArrayList<Pair<String, Integer>> listItems()
+	public ArrayList<Pair<String, Integer>> listFoods()
 	{
-		return items;
-	}
-
-	public ArrayList<Pair<String, Integer>> listSets()
-	{
-		return sets;
+		return foods_;
 	}
 
 	/**
@@ -220,31 +223,36 @@ public class Order
 	 */
 	public void clearAll()
 	{
-		items.clear();
-		sets.clear();
+		foods_.clear();
 	}
 
 	/**
 	 * Prints all the items
 	 */
-	public void printItems()
+	public void printItems(MenuList menu)
 	{
 		System.out.println("Items : ");
-		for(int i = 0; i < items.size(); i++)
+		for(int i = 0; i < foods_.size(); i++)
 		{
-			System.out.println(items.get(i).getFirst() + " Quantity = " + items.get(i).getSecond());
+            if(menu.isItem(foods_.get(i).getFirst()))
+            {
+                System.out.println(foods_.get(i).getFirst() + " Quantity = " + foods_.get(i).getSecond());
+            }
 		}
 	}
 
 	/**
 	 * Prints all the sets
 	 */
-	public void printSets()
+	public void printSets(MenuList menu)
 	{
 		System.out.println("Sets : ");
-		for(int i = 0; i < sets.size(); i++)
+		for(int i = 0; i < foods_.size(); i++)
 		{
-			System.out.println(sets.get(i).getFirst() + " Quantity = " + sets.get(i).getSecond());
+            if(menu.isPromoSet(foods_.get(i).getFirst()))
+            {
+                System.out.println(foods_.get(i).getFirst() + " Quantity = " + foods_.get(i).getSecond());
+            }
 		}
 	}
 
@@ -265,27 +273,29 @@ public class Order
 	{
 		this.subTotal = 0f;
 		this.baseCost = 0f;
-		for(int i=0; i<items.size(); i++)
+		for(int i=0; i<foods_.size(); i++)
 		{
-			Pair<String,Integer>  local_pair = items.get(i); 
-			String local_item_id = local_pair.getFirst();
-			Item local_item = menu.getItem(local_item_id);
-			float cost_local_item = local_item.getSaleCost();
-			float base_local_item = local_item.getBaseCost();
-			subTotal += (cost_local_item*local_pair.getSecond());
-			baseCost += (base_local_item*local_pair.getSecond());
-//			System.out.println("Bill: " + this.bill);
-		}
-		for(int i=0; i<sets.size(); i++)
-		{
-			Pair<String, Integer> local_set_pair = sets.get(i);
-			List<String> local_set = menu.getSet(local_set_pair.getFirst()).getallItemIds();
-			for(int j = 0; j < local_set.size(); j++)
-			{
-				subTotal += menu.getItem(local_set.get(j)).getSaleCost() * local_set_pair.getSecond();
-				baseCost += menu.getItem(local_set.get(j)).getBaseCost() * local_set_pair.getSecond();
-			}
 
+			Pair<String,Integer>  local_pair = foods_.get(i);
+            if(menu.getFood(local_pair.getFirst()).getClassName() == "Item")
+            {
+                String local_item_id = local_pair.getFirst();
+                Item local_item = (Item) menu.getFood(local_item_id);
+                float cost_local_item = local_item.getSaleCost();
+                float base_local_item = local_item.getBaseCost();
+                subTotal += (cost_local_item*local_pair.getSecond());
+                baseCost += (base_local_item*local_pair.getSecond());
+            }
+			else
+            {
+                List<String> local_set = menu.getFood(local_pair.getFirst()).getallItemIds();
+                for(int j = 0; j < local_set.size(); j++)
+                {
+                    subTotal += menu.getFood(local_set.get(j)).getSaleCost() * local_pair.getSecond();
+                    baseCost += menu.getFood(local_set.get(j)).getBaseCost() * local_pair.getSecond();
+                }
+            }
+//			System.out.println("Bill: " + this.bill);
 		}
 		if(hasMembership) memberDiscount = (float) (subTotal * 0.1);
 		svcCharge = (float) ((subTotal - memberDiscount) * 0.1);
@@ -318,43 +328,47 @@ public class Order
 		System.out.println(printLine);
 		System.out.println("|========================================================|");
 
-		for(int i = 0; i < items.size(); i++)
-		{
-			printLine = "|| " + items.get(i).getSecond() + "\t" + menu.getItem(items.get(i).getFirst()).getName();
-			String saleCost = String.valueOf(menu.getItem(items.get(i).getFirst()).getSaleCost() * items.get(i).getSecond());
-			spaces = 58 - printLine.length() - saleCost.length() - 6;
-			for(int j = 0; j < spaces; j++)
-			{
-				printLine += " ";
-			}
-			printLine += saleCost + " ||";
-			System.out.println(printLine);
-		}
-		for(int i = 0; i < sets.size(); i++)
-		{
-			printLine = "|| " + sets.get(i).getSecond() + "\t" + menu.getSet(sets.get(i).getFirst()).getName();
-			String saleCost = String.valueOf(menu.getSet(items.get(i).getFirst()).getSaleCost() * sets.get(i).getSecond());
-			spaces = 58 - printLine.length() - saleCost.length() - 6;
-			for(int j = 0; j < spaces; j++)
-			{
-				printLine += " ";
-			}
-			printLine += saleCost + " ||";
-			System.out.println(printLine);
+        for(int i = 0; i < foods_.size(); i++)
+        {
+            Pair<String,Integer>  local_pair = foods_.get(i);
+            if(menu.getFood(local_pair.getFirst()).getClassName() == "Item")
+            {
+                printLine = "|| " + local_pair.getSecond() + "\t" + menu.getFood(local_pair.getFirst()).getName();
+                String saleCost = String.valueOf(menu.getFood(local_pair.getFirst()).getSaleCost() * local_pair.getSecond());
+                spaces = 58 - printLine.length() - saleCost.length() - 6;
+                for(int j = 0; j < spaces; j++)
+                {
+                    printLine += " ";
+                }
+                printLine += saleCost + " ||";
+                System.out.println(printLine);
+            }
+            else
+            {
+                printLine = "|| " + local_pair.getSecond() + "\t" + menu.getFood(local_pair.getFirst()).getName();
+                String saleCost = String.valueOf(menu.getFood(local_pair.getFirst()).getSaleCost() * local_pair.getSecond());
+                spaces = 58 - printLine.length() - saleCost.length() - 6;
+                for(int j = 0; j < spaces; j++)
+                {
+                    printLine += " ";
+                }
+                printLine += saleCost + " ||";
+                System.out.println(printLine);
 
-			List<String> local_set = menu.getSet(sets.get(i).getFirst()).getallItemIds();
-			for(int j = 0; j < local_set.size(); j++)
-			{
-				printLine = "||        - " + menu.getItem(local_set.get(j)).getName();
-				spaces = 58 - printLine.length() - 2;
-				for(int k = 0; k < spaces; k++)
-				{
-					printLine += " ";
-				}
-				printLine += "||";
-				System.out.println(printLine);
-			}
-		}
+                List<String> local_set = menu.getFood(local_pair.getFirst()).getallItemIds();
+                for(int j = 0; j < local_set.size(); j++)
+                {
+                    printLine = "||        - " + menu.getFood(local_set.get(j)).getName();
+                    spaces = 58 - printLine.length() - 2;
+                    for(int k = 0; k < spaces; k++)
+                    {
+                        printLine += " ";
+                    }
+                    printLine += "||";
+                    System.out.println(printLine);
+                }
+            }
+        }
 //		System.out.println("||                                                      ||");
 		printLine = "|| SUBTOTAL";
 		computeBill(menu);

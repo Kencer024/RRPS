@@ -146,11 +146,11 @@ public class OrderDatabase
 	 * @return Boolean that returns true if the item is added successfully
 	 * and false if order is not found
 	 */
-	public Boolean addItem(String tableId, String itemId, int amount)
+	public Boolean addFood(String tableId, String itemId, int amount)
 	{
 		int orderIndex = getOrderIndex(tableId);
 		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return false;
-		currentOrders.get(orderIndex).addItem(itemId, amount);
+		currentOrders.get(orderIndex).addFood(itemId, amount);
 		return true;
 	}
 
@@ -161,69 +161,69 @@ public class OrderDatabase
 	 * @return Boolean that returns true if item is removed successfully and false
 	 * if order is not found
 	 */
-	public Boolean removeItem(String tableId, String itemId)
+	public Boolean removeFood(String tableId, String itemId)
 	{
 		if(currentOrders.size() == 0)return false;
 		int orderIndex = getOrderIndex(tableId);
 		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return false;
-		currentOrders.get(getOrderIndex(tableId)).removeItem(itemId);
+		currentOrders.get(getOrderIndex(tableId)).removeFood(itemId);
 		return true;
 	}
 
-	/** Adds promotion set to the order object which is saved in an array of order
-	 *
-	 * @param tableId A string representing the table identity
-	 * @param setId A string representing the type of promotion set to add
-	 * @param amount An integer representing the cost of the promotion set
-	 * @return Boolean that returns true if the order with the tableId inputted is found
-	 * hence addition is successful, else false when no such order is found
-	 */
-	public Boolean addSet(String tableId, String setId, int amount)
-	{
-		int orderIndex = getOrderIndex(tableId);
-		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return false;
-		currentOrders.get(getOrderIndex(tableId)).addSet(setId, amount);
-		return true;
-	}
+//	/** Adds promotion set to the order object which is saved in an array of order
+//	 *
+//	 * @param tableId A string representing the table identity
+//	 * @param setId A string representing the type of promotion set to add
+//	 * @param amount An integer representing the cost of the promotion set
+//	 * @return Boolean that returns true if the order with the tableId inputted is found
+//	 * hence addition is successful, else false when no such order is found
+//	 */
+//	public Boolean addSet(String tableId, String setId, int amount)
+//	{
+//		int orderIndex = getOrderIndex(tableId);
+//		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return false;
+//		currentOrders.get(getOrderIndex(tableId)).addSet(setId, amount);
+//		return true;
+//	}
+//
+//	/** Removes promotion set from the order object which is saved in an array of order
+//	 *
+//	 * @param tableId A string representing the table identity
+//	 * @param setId A string representing the type of promotion set to add
+//	 * @return Boolean that returns true if the order with the tableId inputted is found
+//	 * hence removal is successful, else false when no such order is found
+//	 */
+//	public Boolean removeSet(String tableId, String setId)
+//	{
+//		int orderIndex = getOrderIndex(tableId);
+//		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return false;
+//		currentOrders.get(getOrderIndex(tableId)).removeSet(setId);
+//		return true;
+//	}
 
-	/** Removes promotion set from the order object which is saved in an array of order
-	 *
-	 * @param tableId A string representing the table identity
-	 * @param setId A string representing the type of promotion set to add
-	 * @return Boolean that returns true if the order with the tableId inputted is found
-	 * hence removal is successful, else false when no such order is found
-	 */
-	public Boolean removeSet(String tableId, String setId)
-	{
-		int orderIndex = getOrderIndex(tableId);
-		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return false;
-		currentOrders.get(getOrderIndex(tableId)).removeSet(setId);
-		return true;
-	}
-
-	/** Getter method to retrieve array of items of tableId with its respective items
-	 *
-	 * @param tableId A string representing the identity of table
-	 * @return Array of dictionary of the tableId and its respective item
-	 */
-	public ArrayList<Pair<String, Integer>> listItems(String tableId)
-	{
-		int orderIndex = getOrderIndex(tableId);
-		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return null;
-		return currentOrders.get(getOrderIndex(tableId)).listItems();
-	}
-
-	/** Getter method to retrieve array of items of tableId with its respective sets
-	 *
-	 * @param tableId A string representing the identity of table
-	 * @return Array of dictionary of the tableId and its respective sets
-	 */
-	public ArrayList<Pair<String, Integer>> listSets(String tableId)
-	{
-		int orderIndex = getOrderIndex(tableId);
-		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return null;
-		return currentOrders.get(getOrderIndex(tableId)).listSets();
-	}
+//	/** Getter method to retrieve array of items of tableId with its respective items
+//	 *
+//	 * @param tableId A string representing the identity of table
+//	 * @return Array of dictionary of the tableId and its respective item
+//	 */
+//	public ArrayList<Pair<String, Integer>> listItems(String tableId, MenuList menu)
+//	{
+//		int orderIndex = getOrderIndex(tableId);
+//		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return null;
+//		return currentOrders.get(getOrderIndex(tableId)).listItems(MenuList menu);
+//	}
+//
+//	/** Getter method to retrieve array of items of tableId with its respective sets
+//	 *
+//	 * @param tableId A string representing the identity of table
+//	 * @return Array of dictionary of the tableId and its respective sets
+//	 */
+//	public ArrayList<Pair<String, Integer>> listSets(String tableId, MenuList menu)
+//	{
+//		int orderIndex = getOrderIndex(tableId);
+//		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return null;
+//		return currentOrders.get(getOrderIndex(tableId)).listSets(MenuList menu);
+//	}
 
 	/** Clears the order of tableId
 	 *
@@ -245,11 +245,11 @@ public class OrderDatabase
 	 * @return Boolean that returns true if the order with the tableId inputted is found
 	 * hence printing is successful, else false when no such order is found
 	 */
-	public Boolean printItems(String tableId)
+	public Boolean printItems(String tableId, MenuList menu)
 	{
 		int orderIndex = getOrderIndex(tableId);
 		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return false;
-		currentOrders.get(getOrderIndex(tableId)).printItems();
+		currentOrders.get(getOrderIndex(tableId)).printItems(menu);
 		return true;
 	}
 
@@ -259,11 +259,11 @@ public class OrderDatabase
 	 * @return Boolean that returns true if the order with the tableId inputted is found
 	 * hence printing is successful, else false when no such order is found
 	 */
-	public Boolean printSets(String tableId)
+	public Boolean printSets(String tableId, MenuList menu)
 	{
 		int orderIndex = getOrderIndex(tableId);
 		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return false;
-		currentOrders.get(getOrderIndex(tableId)).printSets();
+		currentOrders.get(getOrderIndex(tableId)).printSets(menu);
 		return true;
 	}
 

@@ -11,7 +11,6 @@ public abstract class Food {
     private float saleCost_;
     private float baseCost_;
     public int availability_;
-
     
     public String getClassName(){
         return "Item";
