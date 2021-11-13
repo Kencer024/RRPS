@@ -41,7 +41,7 @@ public class ReserveDate {
             r[time].reserve(pax,Name);             //cos date starts from 0
         }
         else{
-            System.out.println("Date has passed choose another date");
+            System.out.println("Reservation slot has passed choose another date or time");
         }
 
 
@@ -80,7 +80,7 @@ public class ReserveDate {
          * Removes reservation base on date, time and table
          *
          * @param time An integer that represents the time that the customer booked
-         *             0 means 12pm and 10 means 10pm
+         *             0 means 12pm and 9 means 9pm (after 9pm it's not allowed)
          * @param date An integer that represents a date that the customer booked
          *             1 means 1st day while 31 means the 31st day
          * @param table An integer representing the table that the staff will remove reservation from
@@ -137,16 +137,16 @@ public class ReserveDate {
             Scanner sc = new Scanner(System.in);
 
             int tableId = r[time].getTable()[table].getTableId();
-            if(r[time].getTable()[time].getReserved()){
+            if(r[time].getTable()[table].getReserved()){
                 System.out.println( "Change Time/Date ? Your current reservation is table " + table + " at "
-                        + (date-1)+ " for "+r[time].getTable()[table].getName());
+                        + (time)+ "pm for "+r[time].getTable()[table].getName());
                 System.out.println(
                         "0 for just change table/pax\n" +
                                 "1 for change time/date");
                 int choice = sc.nextInt();
                 switch(choice){
                     case 0 :
-                        r[time].updateReservation(tableId, pax);
+                        r[time].updateReservation(tableId, pax);break;
                     case 1 :
                         String name = r[time].getTable()[table].getName();
                         r[time].removeReservation(table);
@@ -155,7 +155,7 @@ public class ReserveDate {
                         System.out.println("What time ?");
                         int time2 = sc.nextInt();
                         Reservation[] r2 = t[date2-1].getList();
-                        r2[time2].reserve(pax, name);
+                        r2[time2].reserve(pax, name);break;
 
                 }
                 System.out.println("Table updated");

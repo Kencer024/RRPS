@@ -29,7 +29,9 @@ public class Reservation {
                 table[i] = new Table(i);
                 table[i].setTableId(i);
                 table[i].setReserved(false);
-                if(i < 10){                     //1st 10 tables 2=4 pax
+
+                // This is where the tables are set
+                if(i < 10){                     //1st 10 tables 4 pax
                     table[i].setPax(4);
 
                 }
@@ -151,7 +153,7 @@ public class Reservation {
 
         }
         if(!this.getIsReserveDateAllowed()){
-            System.out.println("Reservation for this date is over");
+            System.out.println("Reservation for this slot is over");
         }
         return eTable;
     }
