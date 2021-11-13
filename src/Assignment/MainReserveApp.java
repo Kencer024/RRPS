@@ -3,6 +3,9 @@ package Assignment;// package Assignment;
 
 import java.util.Scanner;
 
+/** A class to test the reservation part of the assignment
+ *
+ */
 public class MainReserveApp {
 
     public static void main(String[] args) {
