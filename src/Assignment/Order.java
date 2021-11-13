@@ -288,7 +288,7 @@ public class Order
             }
 			else
             {
-                List<String> local_set = menu.getFood(local_pair.getFirst()).getallItemIds();
+                List<String> local_set = menu.getFood(local_pair.getFirst()).getAllItemIds();
                 for(int j = 0; j < local_set.size(); j++)
                 {
                     subTotal += menu.getFood(local_set.get(j)).getSaleCost() * local_pair.getSecond();
@@ -355,7 +355,7 @@ public class Order
                 printLine += saleCost + " ||";
                 System.out.println(printLine);
 
-                List<String> local_set = menu.getFood(local_pair.getFirst()).getallItemIds();
+                List<String> local_set = menu.getFood(local_pair.getFirst()).getAllItemIds();
                 for(int j = 0; j < local_set.size(); j++)
                 {
                     printLine = "||        - " + menu.getFood(local_set.get(j)).getName();

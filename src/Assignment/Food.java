@@ -1,5 +1,7 @@
 package Assignment;
 
+import java.util.List;
+
 /**Represents an abstract class that serves as a Parent class for
 * any kind of food that needs to be listed on the menu.
 */
@@ -140,6 +142,11 @@ public abstract class Food {
             System.out.println("Enter a valid baseprice( > 0). You entered: " + baseCost_input);
         }
 
+    }
+
+    public List<String> getAllItemIds()
+    {
+        return null;
     }
 
 }

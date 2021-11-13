@@ -25,9 +25,11 @@ public class MainPage {
         Date date = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
+        int time = cal.get(Calendar.HOUR); //JAN =0
+        int day = cal.get(Calendar.DATE); //JAN =0
         int month = cal.get(Calendar.MONTH); //JAN =0
         //System.out.println(month);
-        ReserveDate reserveDate = new ReserveDate(month);
+        ReserveDate reserveDate = new ReserveDate(month, day, time);
 
         int choice; //userInputOfChoice
 
@@ -93,7 +95,7 @@ public class MainPage {
                     }
                     else if(choice==2) {
                         System.out.println("============================== Remove Order ==============================");
-                        orders.printCurrentOrders();
+                        orders.printDatabase();
                         System.out.println("Enter Table ID: ");
                         orderId = sc.next();
                         orderIndex = orders.getOrderIndex(orderId);
@@ -101,7 +103,7 @@ public class MainPage {
                     }
                     else if(choice==3) {
                         System.out.println("============================== Remove Order ==============================");
-                        orders.printCurrentOrders();
+                        orders.printDatabase();
                     }
                     else if(choice==4) {
 

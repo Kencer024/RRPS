@@ -35,7 +35,8 @@ public class PromoSet extends Food{
 	/** Gets all the Ids of the items that are a part of the promotional set
 	 * @return A ArrayList of type String
     */
-    public List<String> getallItemIds()
+    @Override
+    public List<String> getAllItemIds()
     {
         return this.itemList_;
     }
