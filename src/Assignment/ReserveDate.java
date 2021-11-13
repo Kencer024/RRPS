@@ -105,7 +105,7 @@ public class ReserveDate {
          *               true checks for empty tables and false checks for reserved tables
          * @param pax An integer representing the number of pax for the NEW reserved table
          */
-        public void checkReservation(boolean choice, int time, int date, int pax){
+        public void checkReservation(boolean choice, int date, int time, int pax){
             Reservation[] r = t[date-1].getList();
             if(choice){                                     //check empty table
                 r[time].checkEmptyTable(pax);             //cos date starts from 0
@@ -163,6 +163,22 @@ public class ReserveDate {
             else
                 System.out.println("Reservation doesn't exist");
             }
+
+    /** Checking reservation for a specific table currently
+     *
+     * @param date An integer representing current date
+     * @param time An integer representing current time
+     * @param table An integer representing original tableId
+     * @return
+     */
+    public boolean checkTableReservation(int date, int time, int table){
+        Reservation[] r = t[date-1].getList();
+        if(r[time].getTable()[table].getReserved()){
+            return true;
+        }
+        else return false;
+
+    }
 
 
     }

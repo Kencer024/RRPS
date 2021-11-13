@@ -25,7 +25,8 @@ public class MainReserveApp {
         System.out.println("0 for  reservation\n" +
                 "1 for remove reservation\n" +
                 "2 for check reservation\n" +
-                "3 for update reservation");
+                "3 for update reservation\n" +
+                "4 for checking current Table reservation");
         int choice = sc.nextInt();
         switch(choice){
             case 0 :
@@ -58,10 +59,10 @@ public class MainReserveApp {
                 if(select == 0){
                     System.out.println("Input number of pax :");
                     pax = sc.nextInt();
-                    reserveDate.checkReservation(true,time,date,pax);
+                    reserveDate.checkReservation(true,date,time,pax);
                 }
                 else if(select == 1){
-                    reserveDate.checkReservation(false,time,date,-1);
+                    reserveDate.checkReservation(false,date,time,-1);
                 }
                 else{
                     System.out.println("Invalid choice");
@@ -77,7 +78,22 @@ public class MainReserveApp {
                 tableId = sc.nextInt();
                 System.out.println("Input number of pax :");
                 pax = sc.nextInt();
-                reserveDate.updateReservation(time,date,pax,tableId); break;
+                reserveDate.updateReservation(date,time,pax,tableId); break;
+
+            case 4 :
+                // Assuming the current month, date and time is 10,6,7
+                System.out.println("TableId(0 to 29) : ?");
+                tableId = sc.nextInt();
+                boolean reserved;
+                reserved = reserveDate.checkTableReservation(6,7,tableId);
+                System.out.println("Is table reserved : " + reserved);
+                if(!reserved){
+                    System.out.println("Number of pax : ");
+                    pax = sc.nextInt();
+                    reserveDate.checkReservation(true,7,6,pax);
+                }
+                break;
+
             default:break;
         }
 
