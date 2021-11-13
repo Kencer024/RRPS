@@ -46,7 +46,7 @@ public class test
         // orders.printBill("12", menu);
 //        sales.appendOrder(orders.removeOrder("12"));
 //        System.out.println(orders.removeOrder("12").getTotal());
-
+// test
         orders.newOrder("10", 4);
         orders.addFood("10", "1000", 1);
         orders.addFood("10", "6000", 2);
