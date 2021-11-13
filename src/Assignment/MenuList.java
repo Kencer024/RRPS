@@ -265,7 +265,8 @@ public class MenuList
             Food local_item_type = this.foods_.get(i);
             String local_item_id = local_item_type.getId();
             if(local_item_id.equals(item_update.getId()))
-            {   local_item_type.availability_ = 0;
+            {
+                local_item_type.availability_ = false;
                 this.foods_.set(i,local_item_type);
             }
         }
@@ -315,7 +316,7 @@ public class MenuList
             Food local_item = this.foods_.get(i);
             if(local_item.getId().equals(id))
             {
-                local_item.availability_ = 0;
+                local_item.availability_ = false;
                 this.foods_.set(i,local_item);
                 System.out.println(id + " " + local_item.getAvailability());
             }
@@ -330,7 +331,7 @@ public class MenuList
             
             if(local_item.getId().equals(id))
             {
-                local_item.availability_ = 1;
+                local_item.availability_ = true;
                 this.foods_.set(i,local_item);
             }
         }
@@ -363,6 +364,22 @@ public class MenuList
     //         }
     //     }
     // }
+    public int getCategorySize(String type)
+    {
+        String startCode = map.getKey(type);
+        int count = 0;
+        if(startCode != "")
+        {
+            for(int i = searchFoodIndex(startCode + "000"); i < foods_.size(); i++)
+            {
+                if(foods_.get(i).getId().substring(0, 1).compareTo(startCode) == 0)
+                    if(foods_.get(i).getAvailability())
+                        count++;
+            }
+        }
+        return count;
+    }
+
     private void printFood(int index, Boolean showUnavailable)
     {
         if(foods_.get(index).getClassName() == "Item")
@@ -375,7 +392,7 @@ public class MenuList
         else
         {
             System.out.print(foods_.get(index).getId() + " ");
-            if(foods_.get(index).getAvailability() == 0) System.out.println("(unavailable/old) ");
+            if(!foods_.get(index).getAvailability()) System.out.println("(unavailable/old) ");
             System.out.println(foods_.get(index).getName());
             for(int i = 0; i < foods_.get(index).getAllItemIds().size(); i++)
             {
@@ -383,24 +400,29 @@ public class MenuList
             }
         }
     }
-    public void printFoods()
-    {
-        for(int i = 0; i<foods_.size(); i++)
-        {
-            printFood(i, true);
-        }
-    }
 
-    public void printMenu(String type)
+    public void printFoods(String type, Boolean showUnavailable)
     {
         String startCode = map.getKey(type);
         if(startCode != "")
         {
+            if(getCategorySize(type) == 0) return;
+            System.out.println("==== " + type + " ====");
             for(int i = searchFoodIndex(startCode + "000"); i < foods_.size(); i++)
             {
                 if(foods_.get(i).getId().substring(0, 1).compareTo(startCode) == 0)
-                printFood(i, false);
+                    printFood(i, showUnavailable);
             }
+        }
+    }
+
+    public void printFoods(Boolean showUnavailable)
+    {
+        ArrayList<String> categories = map.getCategoryList();
+        for(int i = 0; i<categories.size(); i++)
+        {
+            printFoods(categories.get(i), showUnavailable);
+            System.out.println();
         }
     }
 

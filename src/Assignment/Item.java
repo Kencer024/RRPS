@@ -39,7 +39,7 @@ public class Item extends Food{
         super.setName(""); 
         super.setFoodDesc(""); 
         super.setType("");
-        super.availability_ = 1;
+        super.availability_ = true;
     }
 
 	/**(Implementation of abstract function) Gets the Class name 

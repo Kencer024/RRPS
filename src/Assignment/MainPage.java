@@ -1,8 +1,6 @@
 package Assignment;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
 public class MainPage {
     public static void main (String [] args) {
@@ -48,12 +46,25 @@ public class MainPage {
         MenuList menu = new MenuList();
 
         // For Order
-        String newOrderId, orderId;
-        int newOrderPax, orderIndex;
+        String newOrderId, orderId = "";
+        int orderPax, orderIndex;
         Boolean proceedToOrder;
+
+        String orderFoodId;
+        int orderFoodQuantity;
+        Boolean successful = false;
 
         OrderDatabase orders = new OrderDatabase();
 
+        // For testing
+        menu = MenuImporter.importExcel(menu);
+
+//        PromoSet tmpSet = new PromoSet();
+//        tmpSet.setId(menu.getNewFoodId("Promotion Set"));
+//        tmpSet.setName("Classic Angus cheese burger meal");
+//        tmpSet.setSaleCost(10.95f);
+//        tmpSet.setallItemIds(new ArrayList<String>(Arrays.asList("1000", "6001", "5001")));
+//        menu.insertFood(tmpSet);
 
         do {
             System.out.print("|========================================================|\n"
@@ -65,6 +76,7 @@ public class MainPage {
                     + "||     4: Quit                                          ||\n"
                     + "|========================================================|\n");
 
+            System.out.print("Enter your action: ");
             choice = sc.nextInt();
 
             if(choice==1) { //Order
@@ -72,7 +84,7 @@ public class MainPage {
                     System.out.print("|========================================================|\n"
                             + "|                         MENU                           |\n"
                             + "|========================================================|\n"
-                            + "||     1: Create New Order                              ||\n"
+                            + "||     1: Create a New Order                            ||\n"
                             + "||     2: Manage an Order                               ||\n"
                             + "||     3: Display All Current Orders                    ||\n"
                             + "||     4: Remove Order                                  ||\n"
@@ -84,60 +96,88 @@ public class MainPage {
 
                     proceedToOrder = false;
                     if(choice==1) {
-                        System.out.println("============================== Create New Order ==============================");
-                        System.out.println("Enter Table ID: ");
-                        newOrderId = sc.next();
-                        System.out.println("Enter #pax: ");
-                        newOrderPax = sc.nextInt();
-                        orders.newOrder(newOrderId, newOrderPax);
-                        orderIndex = orders.getOrderIndex(newOrderId);
+                        System.out.println("============================== CREATE A NEW ORDER ==============================");
+                        System.out.print("Enter Table ID: ");
+                        orderId = sc.next();
+                        System.out.print("Enter #pax: ");
+                        orderPax = sc.nextInt();
+                        orders.newOrder(orderId, orderPax);
+                        orderIndex = orders.getOrderIndex(orderId);
                         proceedToOrder = true;
                     }
                     else if(choice==2) {
-                        System.out.println("============================== Remove Order ==============================");
+                        System.out.println("============================== MANAGE AN ORDER ==============================");
                         orders.printDatabase();
-                        System.out.println("Enter Table ID: ");
+                        System.out.print("Enter Table ID: ");
                         orderId = sc.next();
                         orderIndex = orders.getOrderIndex(orderId);
                         proceedToOrder = true;
                     }
                     else if(choice==3) {
-                        System.out.println("============================== Remove Order ==============================");
+                        System.out.println("============================== DISPLAY ALL CURRENT ORDERS ==============================");
                         orders.printDatabase();
                     }
                     else if(choice==4) {
-
-                    }
-                    System.out.print("|========================================================|\n"
-                            + "|                         MENU                           |\n"
-                            + "|========================================================|\n"
-                            + "||     1: Add to cart.                                  ||\n"
-                            + "||     2: Remove from cart.                             ||\n"
-                            + "||     3: Display Menu.                                 ||\n"
-                            + "||     4: Retrieve Order Info.                          ||\n"
-                            + "||     5: Checkout.                                     ||\n"
-                            + "||     6: Exit.                                         ||\n"
-                            + "|========================================================|\n");
-                    System.out.print("Enter your action: ");
-
-                    orderChoice = sc.nextInt();
-
-                    switch(orderChoice){
-                        case 1://add to cart
-                            System.out.println("============================== ADD TO CART ==============================");
-                            System.out.println(" ");
-                            break;
-                        case 2: //remove from cart
-                            break;
-                        case 3: //Display menu
-                            break;
-                        case 4: //Retrieve Order Info
-                            break;
-                        case 5: //Checkout
-                            break;
+                        System.out.println("============================== REMOVE AN ORDER ==============================");
+                        orders.printDatabase();
+                        System.out.print("Enter Table ID: ");
+                        orderId = sc.next();
+                        orderIndex = orders.getOrderIndex(orderId);
+                        orders.removeOrder(orderId);
                     }
 
-                } while(orderChoice!=6);
+                    if(proceedToOrder) {
+                        do{
+                            System.out.print("|========================================================|\n"
+                                    + "|                         MENU                           |\n"
+                                    + "|========================================================|\n"
+                                    + "||     1: Add to cart.                                  ||\n"
+                                    + "||     2: Remove from cart.                             ||\n"
+                                    + "||     3: Display Menu.                                 ||\n"
+                                    + "||     4: Display Current Order.                        ||\n"
+                                    + "||     5: Checkout.                                     ||\n"
+                                    + "||     6: Exit.                                         ||\n"
+                                    + "|========================================================|\n");
+                            System.out.print("Enter your action: ");
+
+                            orderChoice = sc.nextInt();
+
+                            switch(orderChoice){
+                                case 1://add to cart
+                                    System.out.println("============================== ADD TO CART ==============================");
+                                    System.out.print("Enter Item ID: ");
+                                    orderFoodId = sc.next();
+                                    System.out.print("Enter Quantity: ");
+                                    orderFoodQuantity = sc.nextInt();
+                                    successful = orders.addFood(orderId, orderFoodId, orderFoodQuantity);
+                                    if(!successful) {
+                                        System.out.println("Invalid Input!");
+                                    }
+                                    break;
+                                case 2: //remove from cart
+                                    System.out.println("============================== REMOVE FROM CART ==============================");
+                                    orders.printFoods(orderId, menu);
+                                    System.out.print("Enter Item ID to be Removed: ");
+                                    orderFoodId = sc.next();
+                                    successful = orders.removeFood(orderId, orderFoodId);
+                                    if(!successful) {
+                                        System.out.println("Invalid Input!");
+                                    }
+                                    break;
+                                case 3: //Display menu
+                                    System.out.println("============================== DISPLAY MENU ==============================");
+                                    menu.printFoods(false);
+                                    break;
+                                case 4: //Retrieve Order Info
+                                    System.out.println("============================== DISPLAY CURRENT ORDER ==============================");
+                                    break;
+                                case 5: //Checkout
+                                    break;
+                            }
+                        } while(orderChoice != 6);
+                    }
+
+                } while(choice!=6);
             }
 
             else if (choice==2) { //Reservation

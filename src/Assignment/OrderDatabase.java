@@ -293,6 +293,14 @@ public class OrderDatabase implements DatabaseInterface
 		return true;
 	}
 
+	public Boolean printFoods(String tableId, MenuList menu)
+	{
+		int orderIndex = getOrderIndex(tableId);
+		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return false;
+		currentOrders.get(getOrderIndex(tableId)).printFoods(menu);
+		return true;
+	}
+
 	/** Applies membership for the order with tableId
 	 *
 	 * @param tableId A string representing the identity of table
@@ -332,6 +340,14 @@ public class OrderDatabase implements DatabaseInterface
 		int orderIndex = getOrderIndex(tableId);
 		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return 0;
 		return currentOrders.get(getOrderIndex(tableId)).computeBill(menu);
+	}
+
+	public Boolean printOrder(String tableId, MenuList menu)
+	{
+		int orderIndex = getOrderIndex(tableId);
+		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return false;
+		currentOrders.get(getOrderIndex(tableId)).printOrder(menu);
+		return true;
 	}
 
 	/** Prints the bill of a specific order

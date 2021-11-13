@@ -136,4 +136,18 @@ public class CategoryKeyMap
 		}
 	}
 
+	/** Returns an ArrayList of all the categories within this CategoryKeyMap
+	 *
+	 * @return the ArrayList of all the categories
+	 */
+	public ArrayList<String> getCategoryList()
+	{
+		ArrayList<String> categories = new ArrayList<String>();
+		for(int i = 0; i < keysToCategories.size(); i++)
+		{
+			categories.add(keysToCategories.get(i).getSecond());
+		}
+		return categories;
+	}
+
 }

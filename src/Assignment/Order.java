@@ -256,6 +256,15 @@ public class Order
 		}
 	}
 
+	/**
+	 * Prints all the foods
+	 */
+	public void printFoods(MenuList menu)
+	{
+		printItems(menu);
+		printSets(menu);
+	}
+
 	/** Applies membership for the customer, where attribute hasMembership will be true once called
 	 *
 	 */
@@ -301,6 +310,23 @@ public class Order
 		svcCharge = (float) ((subTotal - memberDiscount) * 0.1);
 		gst = (float) ((subTotal - memberDiscount + svcCharge) * 0.07);
 		return subTotal - memberDiscount + svcCharge + gst;
+	}
+
+	public void printOrder(MenuList menu)
+	{
+		System.out.println("Current Items in Order:");
+		for(int i = 0; i <foods_.size(); i++)
+		{
+			Pair<String,Integer>  local_pair = foods_.get(i);
+			if(menu.getFood(local_pair.getFirst()).getClassName() == "Item")
+			{
+
+			}
+			else
+			{
+
+			}
+		}
 	}
 
 	/** Prints the bill for a MenuList object

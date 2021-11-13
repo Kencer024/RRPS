@@ -29,7 +29,7 @@ public class PromoSet extends Food{
         super.setName("");
         super.setFoodDesc(""); 
         super.setId("");
-        super.availability_ = 1;
+        super.availability_ = true;
     }
     
 	/** Gets all the Ids of the items that are a part of the promotional set

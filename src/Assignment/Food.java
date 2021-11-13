@@ -13,7 +13,7 @@ public abstract class Food {
     private String type_;
     private float saleCost_;
     private float baseCost_;
-    public int availability_;
+    public Boolean availability_;
 
     /** An abstract function that needs to be implemented
     * by all other classes that would be inheriting from Food 
@@ -78,7 +78,7 @@ public abstract class Food {
     * Integer was chosen instead of boolean so that others can add in more integers 
     * that can represent the special food like Chief's special(limited availability) etc
     */
-    public int getAvailability()
+    public Boolean getAvailability()
     {
         return this.availability_;
     }
