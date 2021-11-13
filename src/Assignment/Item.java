@@ -10,7 +10,7 @@ public class Item extends Food{
      *  to initialise the Item easily 
      * @param name_input of type String takes in the name of the Item
      * @param saleCost_input of type float takes in the selling price of the Item
-     * @param baseCost of type float takes in the cost price of the Item
+     * @param baseCost_input of type float takes in the cost price of the Item
      */
     public Item(String name_input, float saleCost_input, float baseCost_input) {
         this();

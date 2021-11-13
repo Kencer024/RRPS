@@ -98,7 +98,7 @@ public class OrderDatabase implements DatabaseInterface
 	/**
 	 * Prints all the customer orders at that instance
 	 */
-	public void printCurrentOrders()
+	public void printDatabase()
 	{
 		int index;
 		for(index = 0; index < currentOrders.size(); index++)

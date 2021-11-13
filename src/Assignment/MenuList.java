@@ -377,9 +377,9 @@ public class MenuList
             System.out.print(foods_.get(index).getId() + " ");
             if(foods_.get(index).getAvailability() == 0) System.out.println("(unavailable/old) ");
             System.out.println(foods_.get(index).getName());
-            for(int i = 0; i < foods_.get(index).getallItemIds().size(); i++)
+            for(int i = 0; i < foods_.get(index).getAllItemIds().size(); i++)
             {
-                System.out.println(" - " + getFood(foods_.get(index).getallItemIds().get(i)).getName());
+                System.out.println(" - " + getFood(foods_.get(index).getAllItemIds().get(i)).getName());
             }
         }
     }
