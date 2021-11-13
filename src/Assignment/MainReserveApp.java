@@ -3,14 +3,29 @@ package Assignment;// package Assignment;
 
 import java.util.Scanner;
 
+/** A class to test the reservation part of the assignment
+ *
+ */
 public class MainReserveApp {
 
     public static void main(String[] args) {
 	// write your code here
     Scanner sc = new Scanner(System.in);
-    ReserveDate reserveDate = new ReserveDate(10);
+
+        /**
+         * ReserveDate(Current Month,date,time) when doing the reservation, NOT the
+         * date and time that u want to reserve
+         * i.e. it's now 6th October, 7pm and you want to reserve on 10 October 4pm
+         * then its ReserveDate(10,6,7) but reserveR(4,10,pax,name)
+         * note that the date and time of both classes and methods are different
+         */
+    ReserveDate reserveDate = new ReserveDate(10,6,7);
     while(true) {
         System.out.println("Choose options");
+        System.out.println("0 for  reservation\n" +
+                "1 for remove reservation\n" +
+                "2 for check reservation\n" +
+                "3 for update reservation");
         int choice = sc.nextInt();
         switch(choice){
             case 0 :

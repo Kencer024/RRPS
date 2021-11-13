@@ -15,6 +15,7 @@ import java.util.Scanner;
  */
 public class Reservation {
     private Table[] table = new Table[30];      //assume 30 tables
+    private boolean reserveDateAllowed = true;         //boolean to see whether its eligible for reservation
 
     Scanner sc = new Scanner(System.in);
 
@@ -28,7 +29,9 @@ public class Reservation {
                 table[i] = new Table(i);
                 table[i].setTableId(i);
                 table[i].setReserved(false);
-                if(i < 10){                     //1st 10 tables 2=4 pax
+
+                // This is where the tables are set
+                if(i < 10){                     //1st 10 tables 4 pax
                     table[i].setPax(4);
 
                 }
@@ -140,26 +143,38 @@ public class Reservation {
     public Table[] checkEmptyTable(int pax){
         Table[] eTable = new Table[0];
         for(int i =0;i< table.length; i++){
-            if(!table[i].getReserved() && table[i].getPax() >= pax){
+            if(!table[i].getReserved() && table[i].getPax() >= pax
+            && this.getIsReserveDateAllowed()){
                 System.out.println(table[i].getTableId() + "["
                             + table[i].getPax() +"pax] is empty");
                 eTable = Arrays.copyOf(eTable, eTable.length+1);        //append eTable array
                 eTable[eTable.length-1] = table[i];
             }
+
+        }
+        if(!this.getIsReserveDateAllowed()){
+            System.out.println("Reservation for this slot is over");
         }
         return eTable;
     }
 
-    /** Checks all the tables that are reserved and prints it out
+    /** Checks all the tables that are reserved and not past the date, it will print it out
      *
      */
     public void checkReservedTable(){
+        if(!this.getIsReserveDateAllowed()){
+            System.out.println("Reservation for this date is over");
+            return;
+        }
         for(int i =0;i<table.length;i++){
-            if(table[i].getReserved()){
+            if(table[i].getReserved() && this.getIsReserveDateAllowed()
+            && this.getIsReserveDateAllowed()){
                 System.out.println("table " + i + " is reserved for " + table[i].getName() );
                 return;
             }
+
         }
+
         System.out.println("No reservations");
     }
 
@@ -173,5 +188,19 @@ public class Reservation {
         return table;
     }
 
+    /** Returns the status of reservation of the table
+     *
+     * @return A boolean representing whether the table is allowed to be reserved
+     */
+    public boolean getIsReserveDateAllowed() {
+        return reserveDateAllowed;
+    }
 
+    /** A method to set the reservations for that specific time to be false/true
+     *
+     * @param allowed A boolean representing whether reservation is allowed for that timeslot
+     */
+    public void setIsReserveDateAllowed(boolean allowed){
+        reserveDateAllowed = allowed;
+    }
 }
