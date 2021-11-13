@@ -44,7 +44,7 @@ public class OrderDatabase implements DatabaseInterface
 		return this.currentOrders.size();
 	}
 
-	private int getOrderIndex(String tableId)
+	public int getOrderIndex(String tableId)
 	{
 		int left = 0, right = currentOrders.size() - 1, middle;
 
@@ -68,23 +68,23 @@ public class OrderDatabase implements DatabaseInterface
 		return left;
 	}
 
-	/** Used to search for the order object by tableId
-	 *
-	 * @param tableId A string representing the identity of the table
-	 * @return Order object with the tableId input
-	 */
-	public Order searchOrder(String tableId)
-	{
-		int index;
-		for(index = 0; index < currentOrders.size(); index++)
-		{
-			if(currentOrders.get(index).getTableId().matches(tableId))
-			{
-				return currentOrders.get(index);
-			}
-		}
-		return null;
-	}
+//	/** Used to search for the order object by tableId
+//	 *
+//	 * @param tableId A string representing the identity of the table
+//	 * @return Order object with the tableId input
+//	 */
+//	public int getOrderIndex(String tableId)
+//	{
+//		int index;
+//		for(index = 0; index < currentOrders.size(); index++)
+//		{
+//			if(currentOrders.get(index).getTableId().matches(tableId))
+//			{
+//				return index;
+//			}
+//		}
+//		return -1;
+//	}
 
 	/** Getter method to retrieve an array of order objects
 	 *
@@ -98,7 +98,7 @@ public class OrderDatabase implements DatabaseInterface
 	/**
 	 * Prints all the customer orders at that instance
 	 */
-	public void printDatabase()
+	public void printCurrentOrders()
 	{
 		int index;
 		for(index = 0; index < currentOrders.size(); index++)
