@@ -43,19 +43,69 @@ public class MainPage {
 
         int orderChoice;
 
+        MenuList menu = new MenuList();
+
+        // For Order
+        String newOrderId, orderId;
+        int newOrderPax, orderIndex;
+        Boolean proceedToOrder;
+
+        OrderDatabase orders = new OrderDatabase();
+
+
         do {
             System.out.print("|========================================================|\n"
                     + "|                         MENU                           |\n"
                     + "|========================================================|\n"
-                    + "||     1: Order Category                               ||\n"
+                    + "||     1: Order Category                                ||\n"
                     + "||     2: Reservation Category                          ||\n"
-                    + "||     3: Quit                                          ||\n"
+                    + "||     3: Edit Menu Category                            ||\n"
+                    + "||     4: Quit                                          ||\n"
                     + "|========================================================|\n");
 
             choice = sc.nextInt();
 
             if(choice==1) { //Order
                 do {
+                    System.out.print("|========================================================|\n"
+                            + "|                         MENU                           |\n"
+                            + "|========================================================|\n"
+                            + "||     1: Create New Order                              ||\n"
+                            + "||     2: Manage an Order                               ||\n"
+                            + "||     3: Display All Current Orders                    ||\n"
+                            + "||     4: Remove Order                                  ||\n"
+                            + "||     5: Exit.                                         ||\n"
+                            + "|========================================================|\n");
+                    System.out.print("Enter your action: ");
+
+                    choice = sc.nextInt();
+
+                    proceedToOrder = false;
+                    if(choice==1) {
+                        System.out.println("============================== Create New Order ==============================");
+                        System.out.println("Enter Table ID: ");
+                        newOrderId = sc.next();
+                        System.out.println("Enter #pax: ");
+                        newOrderPax = sc.nextInt();
+                        orders.newOrder(newOrderId, newOrderPax);
+                        orderIndex = orders.getOrderIndex(newOrderId);
+                        proceedToOrder = true;
+                    }
+                    else if(choice==2) {
+                        System.out.println("============================== Remove Order ==============================");
+                        orders.printCurrentOrders();
+                        System.out.println("Enter Table ID: ");
+                        orderId = sc.next();
+                        orderIndex = orders.getOrderIndex(orderId);
+                        proceedToOrder = true;
+                    }
+                    else if(choice==3) {
+                        System.out.println("============================== Remove Order ==============================");
+                        orders.printCurrentOrders();
+                    }
+                    else if(choice==4) {
+
+                    }
                     System.out.print("|========================================================|\n"
                             + "|                         MENU                           |\n"
                             + "|========================================================|\n"
