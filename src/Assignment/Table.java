@@ -41,6 +41,7 @@ public class Table {
      */
     public String getName(){return this.name;}
 
+
     /** Sets the table identity
      * @param tableId An integer representing the identity of the table
      */
@@ -60,4 +61,6 @@ public class Table {
      * @param pax A boolean where true means it is reserved, false means it is not
      */
     public void setPax(int pax){this.pax = pax;}
+
+
 }
