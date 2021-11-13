@@ -1,146 +1,54 @@
 package Assignment;
 
-public class Item {
-
-    private String id_;
-    private boolean isValid_;
-    private String name_;
-    private String itemDesc_;
-    private String type_;
-    private float saleCost_;
-    private float baseCost_;
-    public int availability_;
+/**Represents a class that is used to have Food items in the Menu.
+ * It inherits from the abstract class Food as Food serves as a basic template for the
+ * components to be listed on the Menu
+ */
+public class Item extends Food{
     
+    /** Overriding the default constructor 
+     *  to initialise the Item easily 
+     * @param name_input of type String takes in the name of the Item
+     * @param saleCost_input of type float takes in the selling price of the Item
+     * @param baseCost of type float takes in the cost price of the Item
+     */
     public Item(String name_input, float saleCost_input, float baseCost_input) {
         this();
-        this.name_ = name_input;
+        super.setName(name_input); 
         if(saleCost_input >0)
         {
-            this.saleCost_ = saleCost_input;
+            super.setSaleCost(saleCost_input);
         }
         else{
-            System.out.println("Set a valid saleprice( > 0)");
+            System.out.println("Set a valid saleprice( > 0). You entered: " + saleCost_input);
         }
         if(baseCost_input > 0)
         {
-            this.baseCost_ = baseCost_input;
+            super.setBaseCost(baseCost_input);
         }      
         else{
-            System.out.println("Set a valid baseprice( > 0)");
-        }  
-        this.checkValidity();
-        this.id_ = "";
-        
+            System.out.println("Set a valid baseprice( > 0). You entered: " + baseCost_input);
+        }          
     }
 
+	/** Overriding the default constructor to initialise all the private variables 
+     * and the availability to 1
+     */
     public Item(){
-        this.id_ = "";
-        this.name_ = "";
-        this.isValid_ = false;
-        this.itemDesc_ = "";
-        this.type_ = "";
-        this.saleCost_ = 0;
-        this.baseCost_ = 0;
-        this.availability_ = 1;
+        super.setId(""); 
+        super.setName(""); 
+        super.setFoodDesc(""); 
+        super.setType("");
+        super.availability_ = 1;
     }
 
-    public String getId()
-    {
-        return this.id_;
+	/**(Implementation of abstract function) Gets the Class name 
+    * @return A String representing the class name
+    */
+    public String getClassName(){
+
+        return "Item";
     }
 
-    public String getName()
-    {
-        return this.name_;
-        
-    }
-
-    public String getItemDesc()
-    {
-        return this.itemDesc_;
-    }
-
-    public String getType()
-    {
-        return this.type_;
-    }
-
-    public float getSaleCost()
-    {
-        return this.saleCost_;
-    }
-
-    public float getBaseCost()
-    {
-        return this.baseCost_;
-    }
-
-    public boolean getValidity()
-    {
-        return this.isValid_;
-    }
-
-    public int getAvailability()
-    {
-        return this.availability_;
-    }
-
-    public void setId(String id_input)
-    {
-        this.id_ = id_input;
-    }
-
-    public void setName(String name_input)
-    {
-        this.name_ = name_input;
-        this.checkValidity();
-    }
-
-    public void setItemDesc(String item_input)
-    {
-        this.itemDesc_ = item_input;
-    }
-
-    public void setType(String type_input)
-    {
-        this.type_ = type_input;
-    }
-
-    public void setSaleCost(float saleCost_input)
-    {
-        if(saleCost_input > 0)
-        {
-            this.saleCost_ = saleCost_input;
-        }
-        else{
-            System.out.println("Enter a valid saleprice( > 0)");
-        }
-        this.checkValidity();
-    }
-
-    public void setBaseCost(float baseCost_input)
-    {
-        if(baseCost_input > 0)
-        {
-            this.baseCost_ = baseCost_input;
-        }
-        else{
-            System.out.println("Enter a valid baseprice( > 0)");
-        }
-
-        this.checkValidity();
-        
-    }
-
-    private void checkValidity()
-    {
-        if(this.getName()!="" && this.getBaseCost()>0 && this.getSaleCost()>0)
-        {
-            this.isValid_ = true;
-        }
-        else{
-            this.isValid_ = false;
-        }
-    }
     
 }

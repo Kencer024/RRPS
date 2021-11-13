@@ -9,23 +9,27 @@ public class test
 	public static void main(String[] args)
     {
         Scanner sc = new Scanner(System.in);
+        Item tmp = new Item();
+        System.out.println(tmp.getClassName() == "Item");
 
         MenuList menu = new MenuList();
         MenuImporter sth = new MenuImporter();
+//
         menu = sth.importExcel(menu);
-
+//
         PromoSet tmpSet = new PromoSet();
-        tmpSet.setId(menu.getNewSetId());
+        tmpSet.setId(menu.getNewFoodId("Promotion Set"));
         tmpSet.setName("Classic Angus cheese burger meal");
         tmpSet.setSaleCost(10.95f);
         tmpSet.setallItemIds(new ArrayList<String>(Arrays.asList("1000", "6001", "5001")));
-        menu.appendSet(tmpSet);
-       menu.printItems();
-       menu.printSets();
-       menu.removeSet("7000");
-       System.out.println("\n===================================================");
-       menu.printItems();
-       menu.printSets();       
+        menu.insertFood(tmpSet);
+        menu.printFoods();
+        menu.printMenu("Promotion Set");
+//        menu.printSets();
+//        menu.removeSet("7000");
+//        System.out.println("\n===================================================");
+//        menu.printItems();
+//        menu.printSets();
 
         OrderDatabase orders = new OrderDatabase();
         int select = -1;
@@ -35,25 +39,25 @@ public class test
 //        SalesDatabase sales = new SalesDatabase();
 
         orders.newOrder("12", 4);
-        orders.addItem("12", "1000", 1);
-        orders.addItem("12", "6000", 2);
-        orders.addSet("12", "7000", 2);
+        orders.addFood("12", "1000", 1);
+        orders.addFood("12", "6000", 2);
+        orders.addFood("12", "7000", 2);
 //        orders.printItems("12");
         // orders.printBill("12", menu);
 //        sales.appendOrder(orders.removeOrder("12"));
 //        System.out.println(orders.removeOrder("12").getTotal());
 
         orders.newOrder("10", 4);
-        orders.addItem("10", "1000", 1);
-        orders.addItem("10", "6000", 2);
-        orders.addSet("10", "7000", 2);
-//        orders.printItems("10");
-        // orders.printBill("10", menu);
+        orders.addFood("10", "1000", 1);
+        orders.addFood("10", "6000", 2);
+        orders.addFood("10", "7000", 2);
+        orders.printItems("10", menu);
+        orders.printBill("10", menu);
 //        sales.appendOrder(orders.removeOrder("12"));
-
+//
 //        sales.analyseTotalOrders();
 //        System.out.println(sales.getTotalRevenue());
-
+//
 //        while(select != -2)
 //        {
 //            System.out.print("Choice : ");

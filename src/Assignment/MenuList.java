@@ -8,12 +8,12 @@ import java.util.*;
  */
 public class MenuList
 {
-    private ArrayList<Item> items_ = new ArrayList<Item>();
-    private ArrayList<PromoSet> sets_ = new ArrayList<PromoSet>();
+    private ArrayList<Food> foods_ = new ArrayList<Food>();
     private CategoryKeyMap map = new CategoryKeyMap();
 
     public MenuList()
     {
+        // Add all the categories of the menu to the map
         map.addCategory("Dessert");
         map.addCategory("Beef");
         map.addCategory("Fish");
@@ -23,21 +23,20 @@ public class MenuList
         map.addCategory("Sides");
 
         map.addCategory("Promotion Set");
-        // map.printkey();
     }
-    private int searchItemIndex(String id)
+    private int searchFoodIndex(String id)
     {
-        int left = 0, right = items_.size() - 1, center;
+        int left = 0, right = foods_.size() - 1, center;
         while(left < right)
         {
             center = (left + right) / 2;
             // System.out.print(id + " ");
             // System.out.println(center);
-            if(items_.get(center).getId().compareTo(id) == 0)
+            if(foods_.get(center).getId().compareTo(id) == 0)
             {
                 return center;
             }
-            else if(items_.get(center).getId().compareTo(id) < 0)
+            else if(foods_.get(center).getId().compareTo(id) < 0)
             {
                 left = center + 1;
             }
@@ -49,27 +48,27 @@ public class MenuList
         return left;
     }
 
-    private int searchSetIndex(String id)
-    {
-        int left = 0, right = sets_.size() - 1, center;
-        while(left < right)
-        {
-            center = (left + right) / 2;
-            if(sets_.get(center).getId().compareTo(id) == 0)
-            {
-                return center;
-            }
-            else if(sets_.get(center).getId().compareTo(id) < 0)
-            {
-                left = center + 1;
-            }
-            else
-            {
-                right = center;
-            }
-        }
-        return left;
-    }
+//    private int searchSetIndex(String id)
+//    {
+//        int left = 0, right = sets_.size() - 1, center;
+//        while(left < right)
+//        {
+//            center = (left + right) / 2;
+//            if(sets_.get(center).getId().compareTo(id) == 0)
+//            {
+//                return center;
+//            }
+//            else if(sets_.get(center).getId().compareTo(id) < 0)
+//            {
+//                left = center + 1;
+//            }
+//            else
+//            {
+//                right = center;
+//            }
+//        }
+//        return left;
+//    }
 
     /**
      * Returns a new item ID string starting that is available within this MenuList with the character associated to the inputted category. This ID can be used as
@@ -77,9 +76,9 @@ public class MenuList
      * @param type the full category name that the new ID string would be generated based on
      * @return the new item ID string
      */
-    public String getNewItemId(String type)
+    public String getNewFoodId(String type)
     {
-        if(items_.size() == 0)
+        if(foods_.size() == 0)
         {
             return map.getKey(type) + "000";
         }
@@ -95,7 +94,7 @@ public class MenuList
                 nextType = StringUtil.incrementString(map.getKey(type), 1) + "000";
             }
 
-            lastId = items_.get(searchItemIndex(nextType)).getId();
+            lastId = foods_.get(searchFoodIndex(nextType)).getId();
             // End of Array, category not found
             if(lastId.charAt(0) < map.getKey(type).charAt(0))
             {
@@ -107,7 +106,7 @@ public class MenuList
                 return StringUtil.incrementString(lastId, 1);
             }
             // Start of Array, category not found
-            else if(searchItemIndex(nextType) == 0)
+            else if(searchFoodIndex(nextType) == 0)
             {
                 return map.getKey(type) + "000";
             }
@@ -115,7 +114,7 @@ public class MenuList
             else
             {
                 // System.out.println(nextType);
-                lastId = items_.get(searchItemIndex(nextType) - 1).getId();
+                lastId = foods_.get(searchFoodIndex(nextType) - 1).getId();
                 // Category not found
                 if(lastId.charAt(0) < map.getKey(type).charAt(0))
                     return map.getKey(type) + "000";
@@ -126,30 +125,35 @@ public class MenuList
         }
     }
 
-    /**
-     * Returns a new set ID string that is available within this MenuList. This ID can be used as an index for a new promotional set.
-     * @return the new set ID string
-     */
-    public String getNewSetId()
-    {
-        if(sets_.size() == 0)
-        {
-            return map.getKey("Promotion Set") + "000";
-        }
-        else
-        {
-            return StringUtil.incrementString(sets_.get(sets_.size() - 1).getId(), 1);
-        }
-    }
+//    /**
+//     * Returns a new set ID string that is available within this MenuList. This ID can be used as an index for a new promotional set.
+//     * @return the new set ID string
+//     */
+//    public String getNewSetId()
+//    {
+//        if(sets_.size() == 0)
+//        {
+//            return map.getKey("Promotion Set") + "000";
+//        }
+//        else
+//        {
+//            return StringUtil.incrementString(sets_.get(sets_.size() - 1).getId(), 1);
+//        }
+//    }
 
     /**
      * Returns the item object corresponding to the item ID string
      * @param id the item ID string
      * @return the item corresponding to the set ID string
      */
-    public Item getItem(String id)
+    // public Item getItem(String id)
+    // {
+    //     return items_.get(searchItemIndex(id));
+    // }
+
+    public Food getFood(String id)
     {
-        return items_.get(searchItemIndex(id));
+        return foods_.get(searchFoodIndex(id));
     }
 
     /**
@@ -157,65 +161,65 @@ public class MenuList
      * @param id the set ID string
      * @return the promotional set corresponding to the set ID string
      */
-    public PromoSet getSet(String id)
-    {
-        return sets_.get(searchSetIndex(id));
-    }
+    // public PromoSet getSet(String id)
+    // {
+    //     return sets_.get(searchSetIndex(id));
+    // }
 
     /**
      * Returns an ArrayList of items with the corresponding item IDs starting with a certain pattern
      * @param id_start the pattern for filtering items within this MenuList
      * @return the ArrayList with the item IDs starting with the given pattern
      */
-    public ArrayList<Item> getItems(char id_start)
+    public ArrayList<Food> getFood(char id_start)
     {
-        ArrayList<Item> items_type = new ArrayList<Item>();
+        ArrayList<Food> food_type = new ArrayList<Food>();
 
-        for(int i = 0; i< this.items_.size();i++)
+        for(int i = 0; i< this.foods_.size();i++)
         {
-            Item local_item_type = this.items_.get(i);
-            String local_item_id = local_item_type.getId();
-            if(local_item_id.charAt(0) == id_start)
+            Food local_item_type = this.foods_.get(i);
+            String food_id = local_item_type.getId();
+            if(food_id.charAt(0) == id_start)
             {
-                items_type.add(local_item_type);
+                food_type.add(local_item_type);
             }
         }
-        return items_type;
+        return food_type;
 
     }
 
-    public ArrayList<Item> getAllItems()
+    public ArrayList<Food> getAllFood()
     {
-        return this.items_;
+        return this.foods_;
     }
 
-    public ArrayList<PromoSet> getAllPromoSets()
-    {
-        return this.sets_;
-    }
+    // public ArrayList<PromoSet> getAllPromoSets()
+    // {
+    //     return this.sets_;
+    // }
 
     /**
      * Insert a new item into this MenuList. A valid item ID for this MenuList must have already been set for the item
      * before insertion.
      * @param item_insert the item to be inserted
      */
-    public void insertItem(Item item_insert)
+    public void insertFood(Food item_insert)
     {
         int appendIndex;
-        if(items_.size() == 0)
+        if(foods_.size() == 0)
         {
-            items_.add(item_insert);
+            foods_.add(item_insert);
         }
         else
         {
-            appendIndex = searchItemIndex(item_insert.getId());
-            if(items_.get(appendIndex).getId().compareTo(item_insert.getId()) < 0)
+            appendIndex = searchFoodIndex(item_insert.getId());
+            if(foods_.get(appendIndex).getId().compareTo(item_insert.getId()) < 0)
             {
-                items_.add(item_insert);
+                foods_.add(item_insert);
             }
             else
             {
-                items_.add(appendIndex, item_insert);
+                foods_.add(appendIndex, item_insert);
             }
         }
     }
@@ -224,229 +228,229 @@ public class MenuList
      * reference later on when calculating previous sales data if the item has been ordered before.
      * @param id the item ID of the item to be removed
      */
-    public void removeItem(String id)
+    public void removeFood(String id)
     {
-        for(int i = 0; i< this.items_.size();i++)
+        for(int i = 0; i< this.foods_.size();i++)
         {
-            Item local_item_type = this.items_.get(i);
+            Food local_item_type = this.foods_.get(i);
             String local_item_id = local_item_type.getId();
-            if(local_item_id == id)
+            if(local_item_id.equals(id))
             {   
-                this.items_.remove(local_item_type);
+                this.foods_.remove(local_item_type);
             }
         }
     }
-    /**
-     * Removes a promotional set within this MenuList. This will remove the data for the set entirely and could not be
-     * referenced later on when calculating previous sales data if the item has been ordered before.
-     * @param id the set ID of the promotional set to be removed
-     */
-    public void removeSet(String id)
-    {
-        for(int i = 0; i< this.sets_.size();i++)
-        {
-            PromoSet local_set = this.sets_.get(i);
-            String local_set_id = local_set.getId();
-            if(local_set_id == id)
-            {   
-                this.sets_.remove(local_set);
-            }
-        }
-    }
+//    /**
+//     * Removes a promotional set within this MenuList. This will remove the data for the set entirely and could not be
+//     * referenced later on when calculating previous sales data if the item has been ordered before.
+//     * @param id the set ID of the promotional set to be removed
+//     */
+    // public void removeSet(String id)
+    // {
+    //     for(int i = 0; i< this.sets_.size();i++)
+    //     {
+    //         PromoSet local_set = this.sets_.get(i);
+    //         String local_set_id = local_set.getId();
+    //         if(local_set_id.equals(id))
+    //         {   
+    //             this.sets_.remove(local_set);
+    //         }
+    //     }
+    // }
 
-    /**
-     * Updates the item within this MenuList by appending an updated version with new id and data to the list while
-     * setting the availability of the old version to be unavailable. This is to keep the old version as a reference
-     * when calculating previous sales data.
-     * @param old_id the id of the old version of the item
-     * @param item_update the new version of the item to be updated (a new id must have already been assigned to this)
-     */
-    // Still need coding
-    public void updateItem(String old_id, Item item_update)
+    public void updateFood(Food item_update)
     {
-        for(int i = 0; i< this.items_.size();i++)
+        for(int i = 0; i< this.foods_.size();i++)
         {
-            Item local_item_type = this.items_.get(i);
+            Food local_item_type = this.foods_.get(i);
             String local_item_id = local_item_type.getId();
-            if(local_item_id == item_update.getId())
+            if(local_item_id.equals(item_update.getId()))
             {   local_item_type.availability_ = 0;
-                this.items_.add(i,local_item_type);
+                this.foods_.set(i,local_item_type);
             }
         }
-        this.items_.add(item_update);
+        this.foods_.add(item_update);
+    } 
+
+    // public void appendSet(PromoSet set_append)
+    // {
+    //     int appendIndex;
+    //     if(sets_.size() == 0)
+    //     {
+    //         sets_.add(set_append);
+    //     }
+    //     else
+    //     {
+    //         appendIndex = searchItemIndex(set_append.getId());
+    //         if(sets_.get(appendIndex).getId().compareTo(set_append.getId()) < 0)
+    //         {
+    //             sets_.add(set_append);
+    //         }
+    //         else
+    //         {
+    //             sets_.add(appendIndex, set_append);
+    //         }
+    //     }
+    // } 
+
+
+    // public void updateSet(PromoSet set_update)
+    // {
+    //     for(int i = 0; i< this.sets_.size();i++)
+    //     {
+    //         PromoSet local_set_type = this.sets_.get(i);
+    //         String local_set_id = local_set_type.getId();
+    //         if(local_set_id.equals(set_update.getId()))
+    //         {   local_set_type.availability_ = 0;
+    //             this.sets_.set(i,local_set_type);
+    //         }
+    //     }
+    //     this.sets_.add(set_update);
+    // } 
+
+    public void invalidateFood(String id)
+    {
+        for(int i = 0; i< this.foods_.size();i++)
+        {
+            Food local_item = this.foods_.get(i);
+            if(local_item.getId().equals(id))
+            {
+                local_item.availability_ = 0;
+                this.foods_.set(i,local_item);
+                System.out.println(id + " " + local_item.getAvailability());
+            }
+        }
     }
 
-    /**
-     * Insert a new set into this MenuList. A valid set ID for this MenuList must have already been set for the object
-     * before insertion.
-     * @param set_append the set to be inserted
-     */
-    public void appendSet(PromoSet set_append)
+    public void validateFood(String id)
     {
-        int appendIndex;
-        if(sets_.size() == 0)
+        for(int i = 0; i< this.foods_.size();i++)
         {
-            sets_.add(set_append);
+            Food local_item = this.foods_.get(i);
+            
+            if(local_item.getId().equals(id))
+            {
+                local_item.availability_ = 1;
+                this.foods_.set(i,local_item);
+            }
+        }
+    }
+
+    // public void invalidateSet(String setid)
+    // {
+    //     for(int i = 0; i< this.sets_.size();i++)
+    //     {
+    //         PromoSet local_set = this.sets_.get(i);
+            
+    //         if(local_set.getId().equals(setid))
+    //         {
+    //             local_set.availability_ = 0;
+    //             this.sets_.set(i,local_set);
+    //         }
+    //     }
+    // }
+
+    // public void validateSet(String setid)
+    // {
+    //     for(int i = 0; i< this.sets_.size();i++)
+    //     {
+    //         PromoSet local_set = this.sets_.get(i);
+            
+    //         if(local_set.getId().equals(setid))
+    //         {
+    //             local_set.availability_ = 1;
+    //             this.sets_.set(i,local_set);
+    //         }
+    //     }
+    // }
+    private void printFood(int index, Boolean showUnavailable)
+    {
+        if(foods_.get(index).getClassName() == "Item")
+        {
+            System.out.print(foods_.get(index).getId() + " ");
+
+            System.out.println(foods_.get(index).getName());
+
         }
         else
         {
-            appendIndex = searchItemIndex(set_append.getId());
-            if(sets_.get(appendIndex).getId().compareTo(set_append.getId()) < 0)
+            System.out.print(foods_.get(index).getId() + " ");
+            if(foods_.get(index).getAvailability() == 0) System.out.println("(unavailable/old) ");
+            System.out.println(foods_.get(index).getName());
+            for(int i = 0; i < foods_.get(index).getallItemIds().size(); i++)
             {
-                sets_.add(set_append);
+                System.out.println(" - " + getFood(foods_.get(index).getallItemIds().get(i)).getName());
             }
-            else
+        }
+    }
+    public void printFoods()
+    {
+        for(int i = 0; i<foods_.size(); i++)
+        {
+            printFood(i, true);
+        }
+    }
+
+    public void printMenu(String type)
+    {
+        String startCode = map.getKey(type);
+        if(startCode != "")
+        {
+            for(int i = searchFoodIndex(startCode + "000"); i < foods_.size(); i++)
             {
-                sets_.add(appendIndex, set_append);
+                if(foods_.get(i).getId().substring(0, 1).compareTo(startCode) == 0)
+                printFood(i, false);
             }
         }
     }
 
-    /**
-     * Updates the promotional set within this MenuList by appending an updated version with new id and data to the list while
-     * setting the availability of the old version to be unavailable. This is to keep the old version as a reference
-     * when calculating previous sales data.
-     * @param old_id the id of the old version of the set
-     * @param set_update the new version of the set to be updated (a new id must have already been assigned to this)
-     */
-    public void updateSet(String old_id, PromoSet set_update)
+    public Boolean isItem(String id)
     {
-        for(int i = 0; i< this.sets_.size();i++)
-        {
-            PromoSet local_set_type = this.sets_.get(i);
-            String local_set_id = local_set_type.getId();
-            if(local_set_id == set_update.getId())
-            {   local_set_type.promo_availability_ = 0;
-                this.sets_.add(i,local_set_type);
-            }
-        }
-        this.sets_.add(set_update);
+        return getFood(id).getClassName() == "Item";
     }
 
-    /**
-     * Sets the availability of the item with the given ID to 0. This removes the item from the menu and makes it unable
-     * to order the item.
-     * @param id the item ID of the item to be invalidated
-     */
-    public void invalidateItem(String id)
+    public Boolean isPromoSet(String id)
     {
-        for(int i = 0; i< this.items_.size();i++)
-        {
-            Item local_item = this.items_.get(i);
-            
-            if(local_item.getId() == id)
-            {
-                local_item.availability_ = 0;
-                this.items_.add(i,local_item);
-            }
-        }
+        return getFood(id).getClassName() == "PromoSet";
     }
-    /**
-     * Sets the availability of the item with the given ID to 1. This adds the item back to the menu and makes it able
-     * to order the item again.
-     * @param id the item ID of the item to be validated
-     */
-    public void validateItem(String id)
-    {
-        for(int i = 0; i< this.items_.size();i++)
-        {
-            Item local_item = this.items_.get(i);
-            
-            if(local_item.getId() == id)
-            {
-                local_item.availability_ = 1;
-                this.items_.add(i,local_item);
-            }
-        }
-    }
+    // public void printSets()
+    // {
+    //     for(int i = 0; i<sets_.size(); i++)
+    //     {
+    //         if(sets_.get(i).getAvailability() == 1)
+    //         {
+    //          System.out.print(sets_.get(i).getId() + " ");
+    //          System.out.println(sets_.get(i).getName());
+    //          for(int j = 0; j < sets_.get(i).getallItemIds().size(); j++)
+    //          {
+    //              System.out.println(" - " + getItem(sets_.get(i).getallItemIds().get(j)).getName());
+    //          }
+    //         }
+    //     }
+    // }
 
-    /**
-     * Sets the availability of the promotional set with the given ID to 0. This removes the item from the menu
-     * and makes it unable to order the item.
-     * @param setId the set ID of the promotional set to be invalidated
-     */
-    public void invalidateSet(String setId)
-    {
-        for(int i = 0; i< this.sets_.size();i++)
-        {
-            PromoSet local_set = this.sets_.get(i);
-            
-            if(local_set.getId() == setId)
-            {
-                local_set.promo_availability_ = 0;
-                this.sets_.add(i,local_set);
-            }
-        }
-    }
+//    public ArrayList<Food> sort_food_by_type()
+//    {
+//        ArrayList<Food> sortedMenuItems = (ArrayList<Food>)foods_.clone();
+//        sortedMenuItems.sort(Comparator.comparing(Food::getType));
+//
+//        return sortedMenuItems;
+//    }
 
-    /**
-     * Sets the availability of the promotional set with the given ID to 1. This adds the set back to the menu
-     * and makes it able to order the promotional set again.
-     * @param setId the set ID of the promotional set to be validated
-     */
-    public void validateSet(String setId)
-    {
-        for(int i = 0; i< this.sets_.size();i++)
-        {
-            PromoSet local_set = this.sets_.get(i);
-            
-            if(local_set.getId() == setId)
-            {
-                local_set.promo_availability_ = 1;
-                this.sets_.add(i,local_set);
-            }
-        }
-    }
+    // Not necessary
+    // public ArrayList<Item> sort_food_by_id()
+    // {
+    //     ArrayList<Item> sortedMenuItems = (ArrayList<Item>)items_.clone();
+    //     sortedMenuItems.sort(Comparator.comparing(Item::getId));
 
-    /**
-     * Prints out all the items within this MenuList
-     */
-    public void printItems()
-    {
-        for(int i = 0; i<items_.size(); i++)
-        {
-            System.out.print(items_.get(i).getId() + " ");
-            System.out.println(items_.get(i).getName());
-        }
-    }
+    //     return sortedMenuItems;
+    // }
 
-    /**
-     * Prints out all the promotional sets and its items within this MenuList
-     */
-    public void printSets()
-    {
-        for(int i = 0; i<sets_.size(); i++)
-        {
-            System.out.print(sets_.get(i).getId() + " ");
-            System.out.println(sets_.get(i).getName());
-            for(int j = 0; j < sets_.get(i).getallItemIds().size(); j++)
-            {
-                System.out.println(" - " + getItem(sets_.get(i).getallItemIds().get(j)).getName());
-            }
-        }
-    }
+    // public ArrayList<PromoSet> sort_sets_by_id()
+    // {
+    //     ArrayList<PromoSet> sortedMenuPromoSets = (ArrayList<PromoSet>)sets_.clone();
+    //     sortedMenuPromoSets.sort(Comparator.comparing(PromoSet::getId));
 
-    public ArrayList<Item> sort_items_by_type()
-    {
-        ArrayList<Item> sortedMenuItems = (ArrayList<Item>)items_.clone();
-        sortedMenuItems.sort(Comparator.comparing(Item::getType));
-
-        return sortedMenuItems;
-    }
-
-    public ArrayList<Item> sort_items_by_id()
-    {
-        ArrayList<Item> sortedMenuItems = (ArrayList<Item>)items_.clone();
-        sortedMenuItems.sort(Comparator.comparing(Item::getId));
-
-        return sortedMenuItems;
-    }
-
-    public ArrayList<PromoSet> sort_sets_by_id()
-    {
-        ArrayList<PromoSet> sortedMenuPromoSets = (ArrayList<PromoSet>)sets_.clone();
-        sortedMenuPromoSets.sort(Comparator.comparing(PromoSet::getId));
-
-        return sortedMenuPromoSets;
-    }
+    //     return sortedMenuPromoSets;
+    // }
 }
