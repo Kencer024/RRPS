@@ -661,13 +661,13 @@ public class MainPage {
 
                 System.out.println("============================== SALES REPORT ==============================");
                 sales.analyseTotalOrders();
-                if(endMonth - startMonth == 1) 
+                if(endMonth - startMonth == 0) 
                 {
                     System.out.println("Sales Report for " + new DateFormatSymbols().getMonths()[startMonth - 1]);
-                    System.out.println(" - # of Orders           = " + sales.getTotalNumelements());
+                    System.out.println(" - Total Orders          = " + sales.getTotalNumelements());
                     System.out.println(" - Revenue               = $" + sales.getTotalRevenue());
                     System.out.println(" - Profit                = $" + sales.getTotalProfit());
-                    System.out.println(" - Membership Discounts  = " + sales.getTotalMembershipDiscount());
+                    System.out.println(" - Membership Discounts  = $" + sales.getTotalMembershipDiscount());
                 }
                 else 
                 {
