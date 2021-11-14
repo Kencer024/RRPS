@@ -74,7 +74,10 @@ public class MainPage {
 
         // For Sales Report
         float salesValue;
-        HashMap<Integer, Float> salesData;
+        HashMap<Integer, Float> salesData_orders;
+        HashMap<Integer, Float> salesData_revenue;
+        HashMap<Integer, Float> salesData_profit;
+        HashMap<Integer, Float> salesData_membership_discount;
 
         // For testing
         menu = MenuImporter.importExcel(menu);
@@ -224,6 +227,7 @@ public class MainPage {
                             switch(orderChoice){
                                 case 1://add to cart
                                     System.out.println("============================== ADD TO CART ==============================");
+                                    orders.printFoods(orderId, menu);
                                     System.out.print("Enter Item ID: ");
                                     orderFoodId = sc.next();
                                     System.out.print("Enter Quantity: ");
@@ -657,58 +661,64 @@ public class MainPage {
 
                 System.out.println("============================== SALES REPORT ==============================");
                 sales.analyseTotalOrders();
-                if(endMonth - startMonth == 1) 
+                if(endMonth - startMonth == 0) 
                 {
                     System.out.println("Sales Report for " + new DateFormatSymbols().getMonths()[startMonth - 1]);
-                    System.out.println(" - # of Orders           = " + sales.getTotalNumelements());
+                    System.out.println(" - Total Orders          = " + sales.getTotalNumelements());
                     System.out.println(" - Revenue               = $" + sales.getTotalRevenue());
                     System.out.println(" - Profit                = $" + sales.getTotalProfit());
-                    System.out.println(" - Membership Discounts  = " + sales.getTotalMembershipDiscount());
+                    System.out.println(" - Membership Discounts  = $" + sales.getTotalMembershipDiscount());
                 }
                 else 
                 {
                     System.out.println("Sales Report for "
                         + new DateFormatSymbols().getMonths()[startMonth - 1]
                         + " until " + new DateFormatSymbols().getMonths()[endMonth - 1]  + " : ");
-                    System.out.println(" - # of Orders           = " + sales.getTotalNumelements());
+                    System.out.println(" - Total Orders          =  " + sales.getTotalNumelements());
                     System.out.println(" - Revenue               = $" + sales.getTotalRevenue());
                     System.out.println(" - Profit                = $" + sales.getTotalProfit());
-                    System.out.println(" - Membership Discounts  = " + sales.getTotalMembershipDiscount());
-
-                salesValue = 0f;
-                salesData = sales.getMonthwiseOrders();
-                System.out.println("\nMonthwise Analysis Orders");
-                for(int i = startMonth; i < endMonth + 1; i++){
-                    salesValue += salesData.get(i);
-                    System.out.println("Month " + new DateFormatSymbols().getMonths()[i - 1] + " got " + salesData.get(i)+ " orders");
-                }
-                // System.out.println(" - # of Orders           = " + (Integer)Math.round(salesValue));
+                    System.out.println(" - Membership Discounts  = $" + sales.getTotalMembershipDiscount());
                 
-                System.out.println("\nMonthwise Analysis Revenue");
-                salesValue = 0f;
-                salesData = sales.getMonthwiseRevenue();
-                for(int i = startMonth; i < endMonth + 1; i++){
-                    salesValue += salesData.get(i);
-                    System.out.println("Month " + new DateFormatSymbols().getMonths()[i - 1] + " got $" + salesData.get(i)+ " as revenue");
-                }
-                
-                System.out.println("\nMonthwise Analysis Profit");
-                salesValue = 0f;
-                salesData = sales.getMonthwiseProfit();
-                for(int i = startMonth; i < endMonth + 1; i++){
-                    salesValue += salesData.get(i);
-                    System.out.println("Month " + new DateFormatSymbols().getMonths()[i - 1] + " got $" + salesData.get(i)+ " as profit");
-                }
-                // System.out.println(" - Profit                = $" + sales.getTotalProfit());
+                    final Object[][] table = new String[5][];
+                    salesData_orders = sales.getMonthwiseOrders();
+                    salesData_revenue = sales.getMonthwiseRevenue();
+                    salesData_profit = sales.getMonthwiseProfit();
+                    salesData_membership_discount = sales.getMonthwiseMembershipDiscount();
+                    System.out.println("\nMonthwise Analysis Orders");
+                    String[] month_string = new String[endMonth - startMonth + 4];
+                    String[] orders_string = new String[endMonth - startMonth + 4];
+                    String[] revenue_string = new String[endMonth - startMonth + 4];
+                    String[] profit_string = new String[endMonth - startMonth + 4];
+                    String[] membership_ds_string = new String[endMonth - startMonth +4];
+                    month_string[0] = "Month"; 
+                    orders_string[0] = "Orders";
+                    revenue_string[0] = "Revenue($)";
+                    profit_string[0] = "Profit($)";
+                    membership_ds_string[0] = "Membership discount($)";
+                    int count = 1; 
+                    String str_format = "%23s";
+                    for(int i = startMonth; i < endMonth + 1; i++){
+                        // salesValue += salesData_orders.get(i);
+                        month_string[count] = new DateFormatSymbols().getMonths()[i - 1];
+                        orders_string[count] = salesData_orders.get(i).toString();
+                        revenue_string[count] = salesData_revenue.get(i).toString();
+                        profit_string[count] = salesData_profit.get(i).toString();
+                        membership_ds_string[count] = salesData_membership_discount.get(i).toString();
+                        // System.out.println(new DateFormatSymbols().getMonths()[i - 1] + " recorded " + salesData.get(i)+ " orders");
+                        count+=1;
+                        str_format+="%23s";
+                    }
+                    table[0] = month_string;
+                    table[1] = orders_string;
+                    table[2] = revenue_string;
+                    table[3] = profit_string;
+                    table[4] = membership_ds_string;
+                    System.out.println("\n===================================================================================================================");
+                    for (final Object[] row : table) {
+                        System.out.format(str_format+"%n", row);
+                    }
+                    System.out.println("====================================================================================================================");
 
-                System.out.println("\nMonthwise Analysis Membership Discount");
-                salesValue = 0f;
-                salesData = sales.getMonthwiseMembershipDiscount();
-                for(int i = startMonth; i < endMonth + 1; i++){
-                    salesValue += salesData.get(i);
-                    System.out.println("Month " + new DateFormatSymbols().getMonths()[i - 1] + " gave $" + salesData.get(i)+ " amount as membership discount");
-                }
-                // System.out.println(" - Membership Discounts  = " + sales.getTotalMembershipDiscount());
                 }
             }
             else if ((choice==3 && !staffs.getStaff(staffId).getJobTitle().equals("Manager")) || (choice==5 && staffs.getStaff(staffId).getJobTitle().equals("Manager"))){
