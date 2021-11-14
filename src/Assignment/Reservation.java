@@ -31,15 +31,17 @@ public class Reservation {
                 table[i].setReserved(false);
 
                 // This is where the tables are set
-                if(i < 10){                     //1st 10 tables 4 pax
-                    table[i].setPax(4);
-
+                if(i < 5){                     //1st 5 tables 2 pax
+                    table[i].setPax(2);
                 }
-                else if(i<20){                  //2nd 10 tables 6 pax
+                else if(i<18){                  //table for 4 pax
+                    table[i].setPax(4);
+                }
+                else if(i<25){                  //2nd 10 tables 6 pax
                     table[i].setPax(6);
                 }
                 else
-                    table[i].setPax(8);
+                    table[i].setPax(10);
             }
     }
 
