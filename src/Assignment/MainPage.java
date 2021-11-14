@@ -7,15 +7,6 @@ import java.util.*;
 public class MainPage {
     public static void main (String args[]) {
 
-        /*
-
-
-        //If remove successfully, no print statement
-        //If there is no reservation, no print statement
-
-
-         */
-
         Scanner sc = new Scanner(System.in);
 
         //ArrayList<order> order = new ArrayList<order>();
