@@ -7,7 +7,7 @@ import java.time.YearMonth;
 import java.util.*;
 
 public class MainPage {
-    public static void main (String args[]) throws CloneNotSupportedException {
+    public static void main (String args[]) {
 
         /*
 
@@ -231,7 +231,15 @@ public class MainPage {
                                     break;
                                 case 5: //Checkout
                                     System.out.println("============================== CHECK OUT ==============================");
-                                    System.out.println();
+                                    System.out.println("Apply Membership Discount? (y/n): ");
+                                    strInput = sc.next();
+                                    if(strInput.toLowerCase().equals("y")){
+                                        orders.applyMembership(orderId);
+                                    }
+                                    else if(!strInput.toLowerCase().equals("n")){
+                                        System.out.println("Invalid Input");
+                                        break;
+                                    }
                                     orders.computeBill(orderId, menu);
                                     orders.printBill(orderId, menu);
                                     sales.appendOrder(orders.removeOrder(orderId));
