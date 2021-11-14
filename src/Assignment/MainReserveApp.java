@@ -59,10 +59,10 @@ public class MainReserveApp {
                 if(select == 0){
                     System.out.println("Input number of pax :");
                     pax = sc.nextInt();
-                    reserveDate.checkReservation(true,date,time,pax);
+                    reserveDate.checkReservation(true,time,date,pax);
                 }
                 else if(select == 1){
-                    reserveDate.checkReservation(false,date,time,-1);
+                    reserveDate.checkReservation(false,time,date,-1);
                 }
                 else{
                     System.out.println("Invalid choice");
@@ -78,7 +78,7 @@ public class MainReserveApp {
                 tableId = sc.nextInt();
                 System.out.println("Input number of pax :");
                 pax = sc.nextInt();
-                reserveDate.updateReservation(date,time,pax,tableId); break;
+                reserveDate.updateReservation(time,date,pax,tableId); break;
 
             case 4 :
                 // Assuming the current month, date and time is 10,6,7
