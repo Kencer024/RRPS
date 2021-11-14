@@ -35,13 +35,15 @@ public class ReserveDate {
      * @param pax An integer representing the number of pax that would be reserved
      * @param Name A string representing the name of the customer reserving
      */
-    public void reserveR(int time, int date, int pax, String Name){
+    public int reserveR(int time, int date, int pax, String Name){
         Reservation[] r = t[date-1].getList();
         if(r[time].getIsReserveDateAllowed()){     //checks whether the date has passed
-            r[time].reserve(pax,Name);             //cos date starts from 0
+            int tableId = r[time].reserve(pax,Name);             //cos date starts from 0
+            return tableId;
         }
         else{
             System.out.println("Reservation slot has passed choose another date or time");
+            return -1;
         }
 
 

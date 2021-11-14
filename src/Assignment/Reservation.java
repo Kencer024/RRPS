@@ -52,7 +52,7 @@ public class Reservation {
      * @param name A string representing the name of the person that would be
      *             reserving the table
      */
-    public void reserve(int pax, String name){
+    public int reserve(int pax, String name){
         checkEmptyTable(pax);
 
         boolean doesTableExist = false;
@@ -64,12 +64,13 @@ public class Reservation {
                 table[i].setName(name);
                 System.out.println("Table is reserved");
                 doesTableExist = true;
-
+                return tableId;
             }
         }if(!doesTableExist){
             System.out.println("Cannot book table");
+            return -1;
         }
-
+        return -1;
     }
 
     /** Removes reservation based on the tableId by searching through the array
