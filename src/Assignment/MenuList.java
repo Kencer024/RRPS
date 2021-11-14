@@ -213,18 +213,19 @@ public class MenuList
 
     private void printFood(int index, Boolean showUnavailable)
     {
+        if(!showUnavailable && !foods_.get(index).getAvailability())return;
         if(foods_.get(index).getClassName() == "Item")
         {
             System.out.print(foods_.get(index).getId() + " ");
-
-            System.out.println(foods_.get(index).getName());
+            if(!foods_.get(index).getAvailability()) System.out.println("(unavailable/old) ");
+            System.out.println(foods_.get(index).getName() + " $" + foods_.get(index).getSaleCost());
 
         }
         else
         {
             System.out.print(foods_.get(index).getId() + " ");
             if(!foods_.get(index).getAvailability()) System.out.println("(unavailable/old) ");
-            System.out.println(foods_.get(index).getName());
+            System.out.println(foods_.get(index).getName() + " $" + foods_.get(index).getSaleCost());
             for(int i = 0; i < foods_.get(index).getAllItemIds().size(); i++)
             {
                 System.out.println(" - " + getFood(foods_.get(index).getAllItemIds().get(i)).getName());

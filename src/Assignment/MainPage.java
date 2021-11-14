@@ -55,7 +55,8 @@ public class MainPage {
         MenuList menu = new MenuList();
 
         // For Order
-        String newOrderId, orderId = "";
+        String newOrderId;
+        String orderId = "";
         int orderPax, orderIndex;
         Boolean proceedToOrder;
 
@@ -178,21 +179,33 @@ public class MainPage {
                     proceedToOrder = false;
                     if(choice==1) {
                         System.out.println("============================== CREATE A NEW ORDER ==============================");
-                        System.out.print("Enter Table ID: ");
-                        orderId = sc.next();
-                        System.out.print("Enter #pax: ");
-                        orderPax = sc.nextInt();
-                        orders.newOrder(orderId, orderPax, staffId);
-                        orderIndex = orders.getOrderIndex(orderId);
-                        proceedToOrder = true;
+                        if(LocalDateTime.now().getHour() - 12 < 0 || LocalDateTime.now().getHour() - 12 >= 10) {
+                            System.out.println("Cannot create order at this time");
+                        }
+                        else {
+                            System.out.print("Enter #pax: ");
+                            orderPax = sc.nextInt();
+
+                            orderId = Integer.toString(reserveDate.reserveR(LocalDateTime.now().getHour() - 12, LocalDateTime.now().getDayOfMonth(), orderPax, "customer"));
+                            if(!orderId.equals("-1")) {
+                                orders.newOrder(orderId, orderPax, staffId);
+                                orderIndex = orders.getOrderIndex(orderId);
+                                proceedToOrder = true;
+                            }
+                        }
                     }
                     else if(choice==2) {
                         System.out.println("============================== MANAGE AN ORDER ==============================");
                         orders.printDatabase();
                         System.out.print("Enter Table ID: ");
                         orderId = sc.next();
-                        orderIndex = orders.getOrderIndex(orderId);
-                        proceedToOrder = true;
+                        if(orders.isInOrderList(orderId)){
+                            orderIndex = orders.getOrderIndex(orderId);
+                            proceedToOrder = true;
+                        }
+                        else{
+                            System.out.println("Invalid Input");
+                        }
                     }
                     else if(choice==3) {
                         System.out.println("============================== DISPLAY ALL CURRENT ORDERS ==============================");
@@ -204,8 +217,9 @@ public class MainPage {
                         orders.printDatabase();
                         System.out.print("Enter Table ID: ");
                         orderId = sc.next();
-                        orderIndex = orders.getOrderIndex(orderId);
+                        reserveDate.removeReserveR(orders.getOrderInfo(orderId).getDateTime().getHour() - 12, orders.getOrderInfo(orderId).getDateTime().getDayOfMonth(), Integer.parseInt(orderId), false);
                         orders.removeOrder(orderId);
+
                     }
 
                     if(proceedToOrder) {
@@ -227,14 +241,19 @@ public class MainPage {
                             switch(orderChoice){
                                 case 1://add to cart
                                     System.out.println("============================== ADD TO CART ==============================");
-                                    orders.printFoods(orderId, menu);
+                                    menu.printFoods(true, false);
                                     System.out.print("Enter Item ID: ");
                                     orderFoodId = sc.next();
-                                    System.out.print("Enter Quantity: ");
-                                    orderFoodQuantity = sc.nextInt();
-                                    successful = orders.addFood(orderId, orderFoodId, orderFoodQuantity);
-                                    if(!successful) {
-                                        System.out.println("Invalid Input!");
+                                    if(menu.isFood(orderFoodId)){
+                                        System.out.print("Enter Quantity: ");
+                                        orderFoodQuantity = sc.nextInt();
+                                        successful = orders.addFood(orderId, orderFoodId, orderFoodQuantity);
+                                        if(!successful) {
+                                            System.out.println("Invalid Input");
+                                        }
+                                    }
+                                    else{
+                                        System.out.println("Invalid Input");
                                     }
                                     break;
                                 case 2: //remove from cart
@@ -244,7 +263,7 @@ public class MainPage {
                                     orderFoodId = sc.next();
                                     successful = orders.removeFood(orderId, orderFoodId);
                                     if(!successful) {
-                                        System.out.println("Invalid Input!");
+                                        System.out.println("Invalid Input");
                                     }
                                     break;
                                 case 3: //Display menu
@@ -292,7 +311,6 @@ public class MainPage {
                                     break;
                                 case 4: //Retrieve Order Info
                                     System.out.println("============================== CURRENT ORDERS ==============================");
-                                    if(orders.getOrderInfo(orderId).getOrderSize() == 0) System.out.println("No items within this order");
                                     orders.printFoods(orderId, menu);
                                     break;
                                 case 5: //Checkout
@@ -308,6 +326,7 @@ public class MainPage {
                                     }
                                     orders.computeBill(orderId, menu);
                                     orders.printBill(orderId, menu, staffs);
+                                    reserveDate.removeReserveR(orders.getOrderInfo(orderId).getDateTime().getHour() - 12, orders.getOrderInfo(orderId).getDateTime().getDayOfMonth(), Integer.parseInt(orderId), false);
                                     sales.appendOrder(orders.removeOrder(orderId));
                                     orderChoice = 6;
                                     break;
@@ -358,7 +377,7 @@ public class MainPage {
                             reservationTime = sc.nextInt();
                             System.out.println("Enter Table Id: "); //should check by name instead
                             reservationTableId = sc.nextInt();
-                            reserveDate.removeReserveR(reservationTime, reservationDate, reservationTableId); //time, date, table
+                            reserveDate.removeReserveR(reservationTime, reservationDate, reservationTableId, true); //time, date, table
                             break;
 
                         case 3: //Check Reservation

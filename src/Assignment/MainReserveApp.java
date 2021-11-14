@@ -47,7 +47,7 @@ public class MainReserveApp {
                 time = sc.nextInt();
                 System.out.println("Table number :");
                 int tableId = sc.nextInt();
-                reserveDate.removeReserveR(time,date,tableId);break;
+                reserveDate.removeReserveR(time,date,tableId, true);break;
 
             case 2 :
                 System.out.println("Date :");

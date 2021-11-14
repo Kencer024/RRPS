@@ -36,9 +36,9 @@ public class Item extends Food{
      */
     public Item(){
         super.setId(""); 
-        super.setName(""); 
-        super.setFoodDesc(""); 
-        super.setType("");
+        super.setName("-");
+        super.setFoodDesc("-");
+        super.setType("-");
         super.availability_ = true;
     }
 

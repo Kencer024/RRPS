@@ -78,17 +78,19 @@ public class Reservation {
      * name to null
      *
      * @param tableId An integer representing the table identity, it could also be
-     *
+     * @param printResult A Boolean to toggle whether to print result messages or not
      */
-    public void removeReservation(int tableId){
+    public void removeReservation(int tableId, Boolean printResult){
         for(int i =0; i< table.length;i++){             //brute force search
             if(table[i].getTableId() == tableId){       //if table[i] is tableid
                 if(table[i].getName() != null){         //if a reservation is found
                     table[i].setReserved(false);        //set it to !reserved
                     table[i].setName(null);
-                    System.out.println("Table reservation removed");
+                    if(printResult)
+                        System.out.println("Table reservation removed");
                 }else{
-                    System.out.println("No reservation found");
+                    if(printResult)
+                        System.out.println("No reservation found");
                 }
 
             }
@@ -127,7 +129,7 @@ public class Reservation {
         for(i =0; i< table.length;i++) {             //brute force search
             if (table[i].getTableId() == tableId) {       //if table[i] is tableid
                 Name = table[i].getName();
-                removeReservation(i);
+                removeReservation(i, true);
                 reserve(pax,Name);
                 return;
             }

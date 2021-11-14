@@ -26,8 +26,8 @@ public class PromoSet extends Food{
      */
     public PromoSet()
     {
-        super.setName("");
-        super.setFoodDesc(""); 
+        super.setName("-");
+        super.setFoodDesc("-");
         super.setId("");
         super.availability_ = true;
     }

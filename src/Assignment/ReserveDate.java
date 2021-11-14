@@ -87,13 +87,15 @@ public class ReserveDate {
          *             1 means 1st day while 31 means the 31st day
          * @param table An integer representing the table that the staff will remove reservation from
          */
-        public void removeReserveR(int time, int date, int table){
+        public void removeReserveR(int time, int date, int table, boolean printResult){
             Reservation[] r = t[date-1].getList();
             int tableId = r[time].getTable()[table].getTableId();
             if(r[time].getTable()[tableId].getReserved())
-                r[time].removeReservation(tableId);             //cos date starts from 0
-            else
-                System.out.println("It is not reserved");
+                r[time].removeReservation(tableId, printResult);             //cos date starts from 0
+            else{
+                if(printResult)
+                    System.out.println("It is not reserved");
+            }
         }
 
         /**
@@ -151,7 +153,7 @@ public class ReserveDate {
                         r[time].updateReservation(tableId, pax);break;
                     case 1 :
                         String name = r[time].getTable()[table].getName();
-                        r[time].removeReservation(table);
+                        r[time].removeReservation(table, true);
                         System.out.println("Which date ?");
                         int date2 = sc.nextInt();
                         System.out.println("What time ?");
