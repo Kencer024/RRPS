@@ -27,7 +27,7 @@ public class Order
 		this.pax = pax;
 		foods_ = new ArrayList<Pair<String, Integer>>(0);
 		dateTime = LocalDateTime.now();
-		hasMembership = true;
+		hasMembership = false;
 		subTotal = 0;
 		baseCost = 0;
 		svcCharge = 0;
