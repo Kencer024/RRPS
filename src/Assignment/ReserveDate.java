@@ -105,7 +105,7 @@ public class ReserveDate {
          *               true checks for empty tables and false checks for reserved tables
          * @param pax An integer representing the number of pax for the NEW reserved table
          */
-        public void checkReservation(boolean choice, int date, int time, int pax){
+        public void checkReservation(boolean choice, int time,int date, int pax){
             Reservation[] r = t[date-1].getList();
             if(choice){                                     //check empty table
                 r[time].checkEmptyTable(pax);             //cos date starts from 0
@@ -132,7 +132,7 @@ public class ReserveDate {
      *            mind to 6 pax hence input 6
      * @param table An integer representing the original table booked
      */
-    public void updateReservation(int date, int time, int pax, int table){
+    public void updateReservation(int time,int date, int pax, int table){
             Reservation[] r = t[date-1].getList();
             Scanner sc = new Scanner(System.in);
 
@@ -171,7 +171,7 @@ public class ReserveDate {
      * @param table An integer representing original tableId
      * @return
      */
-    public boolean checkTableReservation(int date, int time, int table){
+    public boolean checkTableReservation(  int date,int time,int table){
         Reservation[] r = t[date-1].getList();
         if(r[time].getTable()[table].getReserved()){
             return true;

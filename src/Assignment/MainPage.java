@@ -383,7 +383,7 @@ public class MainPage {
                             reservationTime = sc.nextInt();
                             System.out.println("Enter No. Of Pax: ");
                             noOfPax = sc.nextInt();
-                            System.out.println("Enter New Table Id: ");
+                            System.out.println("Enter Old Table Id: ");
                             newReservationTableId = sc.nextInt();
                             reserveDate.updateReservation(reservationTime, reservationDate, noOfPax, newReservationTableId); //time, date, pax, table
                             break;
