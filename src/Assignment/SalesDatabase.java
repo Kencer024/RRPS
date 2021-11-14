@@ -129,21 +129,35 @@ public class SalesDatabase implements DatabaseInterface
     */
 	public void analyseTotalOrders()
    {
-       for(int i = 0; i< this.all_orders_.size();i++)
-       {
-           Order local_order = this.all_orders_.get(i);
-           this.total_revenue+= local_order.getTotal();
-			this.total_basecost+= local_order.getBaseCost();
-			this.total_membership_discount+= local_order.getMemberDiscount();
-			float profit = local_order.getTotal() - local_order.getBaseCost();
-			this.total_profit+= profit ;
+		this.total_revenue = 0;
+		this.total_basecost = 0;
+		this.total_profit = 0;
+		this.total_membership_discount = 0;
 
-			int month = local_order.getDateTime().getMonthValue();
-			this.month_revenue.put(month, this.month_revenue.get(month) + local_order.getTotal());
-			this.month_profit.put(month, this.month_profit.get(month) + profit);
-			this.month_orders.put(month,this.month_orders.get(month)+1);
+		for(int i = 1; i<13 ; i++)
+		{
+			this.month_revenue.put(i, 0f);
+			this.month_profit.put(i,0f);
+			this.month_orders.put(i,0f);
+			this.month_membership_discount.put(i,0f);
+		}   
+	
+		for(int i = 0; i< this.all_orders_.size();i++)
+		{
+			Order local_order = this.all_orders_.get(i);
+			this.total_revenue+= local_order.getTotal();
+				this.total_basecost+= local_order.getBaseCost();
+				this.total_membership_discount+= local_order.getMemberDiscount();
+				float profit = local_order.getTotal() - local_order.getBaseCost();
+				this.total_profit+= profit ;
 
-       }
+				int month = local_order.getDateTime().getMonthValue();
+				this.month_revenue.put(month, this.month_revenue.get(month) + local_order.getTotal());
+				this.month_profit.put(month, this.month_profit.get(month) + profit);
+				this.month_orders.put(month,this.month_orders.get(month)+1);
+				this.month_membership_discount.put(month,this.month_membership_discount.get(month)+local_order.getMemberDiscount());
+
+		}
    }
 
 	/** Fuction is used to retrieve all orders within a given time period
