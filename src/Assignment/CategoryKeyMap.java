@@ -72,35 +72,35 @@ public class CategoryKeyMap
 			return left;
 	}
 
-	/** Converts a full category name to its corresponding shortened key. Prints an error message if the category isn't
-	 * found in this CategoryKeyMap and returns an empty string.
+	/** Converts a full category name to its corresponding shortened key. Returns an empty string if the category isn't
+	 * found in this CategoryKeyMap.
 	 *
 	 * @param type A String representing the full category name of the items/promotional sets in the menu.
 	 * @return A 1-character String representing the Shortened key associated to the category name.
 	 */
 	public String getKey(String type)
 	{
+		if(binarySearchCategory(type) >= categoriesToKeys.size()) return "";
 		String key = categoriesToKeys.get(binarySearchCategory(type)).getSecond();
 		if(key.compareTo(type) == 0)
 		{
-			System.out.println("Invalid Type");
 			return "";
 		}
 		else return key;
 	}
 
-	/** Converts a shortened key to its corresponding full category name. Prints an error message if the key isn't
-	 * found in this CategoryKeyMap and returns an empty string.
+	/** Converts a shortened key to its corresponding full category name. Returns an empty string if the key isn't
+	 * found in this CategoryKeyMap.
 	 *
 	 * @param key A 1-character String representing the shortened key associated to the category name.
 	 * @return A String representing the full category name for the items/promotional sets in the menu.
 	 */
 	public String getCategory(String key)
 	{
+		if(binarySearchKey(key) >= categoriesToKeys.size()) return "";
 		String type =  keysToCategories.get(binarySearchKey(key)).getSecond();
 		if(type.compareTo(key) == 0)
 		{
-			System.out.println("Invalid Key");
 			return "";
 		}
 		else return type;
@@ -134,6 +134,20 @@ public class CategoryKeyMap
 				// System.out.println(binarySearchCategory(type));
 			}
 		}
+	}
+
+	/** Returns an ArrayList of all the categories within this CategoryKeyMap
+	 *
+	 * @return the ArrayList of all the categories
+	 */
+	public ArrayList<String> getCategoryList()
+	{
+		ArrayList<String> categories = new ArrayList<String>();
+		for(int i = 0; i < keysToCategories.size(); i++)
+		{
+			categories.add(keysToCategories.get(i).getSecond());
+		}
+		return categories;
 	}
 
 }

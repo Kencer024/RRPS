@@ -29,7 +29,7 @@ public class PromoSet extends Food{
         super.setName("");
         super.setFoodDesc(""); 
         super.setId("");
-        super.availability_ = 1;
+        super.availability_ = true;
     }
     
 	/** Gets all the Ids of the items that are a part of the promotional set
@@ -52,10 +52,16 @@ public class PromoSet extends Food{
 	/** Sets all the Ids of the items that are a part of the promotional set
 	 * @param addallitems_input is of the type ArrayList String that has all the ids of the items
     */
-    public void setallItemIds(List<String> addallitems_input)
+    public void setallItemIds(List<String> addallitems_input, MenuList menu)
 
     {
         this.itemList_ = addallitems_input;
+        float baseCost = 0f;
+        for(int i = 0; i < itemList_.size(); i++)
+        {
+            baseCost += menu.getFood(itemList_.get(0)).getBaseCost();
+        }
+        super.setBaseCost(baseCost);
     }
 
 	/** Removes the item from the promotional Set
@@ -80,6 +86,15 @@ public class PromoSet extends Food{
     public int size()
     {
         return itemList_.size();
+    }
+
+    @Override
+    public Boolean attributesAreValid(MenuList menu){
+        if(super.getSaleCost() < 0 || super.getBaseCost() < 0)return false;
+        for(int i = 0; i < itemList_.size(); i++){
+            if(!menu.isItem(itemList_.get(i)))return false;
+        }
+        return true;
     }
 
     

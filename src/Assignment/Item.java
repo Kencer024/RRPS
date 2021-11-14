@@ -39,7 +39,7 @@ public class Item extends Food{
         super.setName(""); 
         super.setFoodDesc(""); 
         super.setType("");
-        super.availability_ = 1;
+        super.availability_ = true;
     }
 
 	/**(Implementation of abstract function) Gets the Class name 
@@ -50,5 +50,15 @@ public class Item extends Food{
         return "Item";
     }
 
-    
+//    public Item clone(){
+//        Item cloneItem = new Item();
+//        cloneItem.setId(super.getId());
+//        cloneItem.setName(super.getName());
+//        cloneItem.setFoodDesc(super.getFoodDesc());
+//        cloneItem.setType(super.getType());
+//        cloneItem.setAvailability(super.getAvailability());
+//        cloneItem.setSaleCost(super.getSaleCost());
+//        cloneItem.setBaseCost(super.getBaseCost());
+//        return cloneItem;
+//    }
 }

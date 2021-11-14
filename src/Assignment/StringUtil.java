@@ -5,14 +5,14 @@ package Assignment;
  */
 public final class StringUtil
 {
-	private static int alphaNumeralToValue(char ch)
+	public static int alphaNumeralToValue(char ch)
 	{
 		if(ch >= '0' && ch <= '9')return ch - '0';
 		else if(ch >= 'A' && ch <= 'Z')return ch - 'A';
 		else if(ch >= 'a' && ch <= 'z')return ch - 'a';
 		else return -1;
 	}
-	private static char valueToAlphaNumeral(int val)
+	public static char valueToAlphaNumeral(int val)
 	{
 		if(val >= 0 && val <= 9)return (char)(val + '0');
 		else if(val <= 35)return (char)(val - 10 + 'A');

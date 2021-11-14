@@ -18,32 +18,11 @@ public class OrderDatabase implements DatabaseInterface
 		currentOrders = new ArrayList<Order>();
 	}
 
-    public Order getOrderInfo(String orderId_input)
-	{
-		for(int i=0; i<this.currentOrders.size() ;i++)
-		{
-			Order local_order = this.currentOrders.get(i);
-			if(orderId_input.equals(local_order.getOrderId()))
-				{
-					return local_order;
-				}
-
-		}
-		System.out.println("OrderID : " + orderId_input + " not found");
-		return null;
-	}
-
-	//NOT USED
-    public void appendOrder(Order order_add)
-	{
-		currentOrders.add(order_add);
-	}
-
-    public int getTotalNumelements()
-	{
-		return this.currentOrders.size();
-	}
-
+	/**
+	 * Returns the index of an Order within the internal array from a given table ID
+	 * @param tableId the table ID corresponding to the Order to look for
+	 * @return the index corresponding to the Order with the given table ID
+	 */
 	public int getOrderIndex(String tableId)
 	{
 		int left = 0, right = currentOrders.size() - 1, middle;
@@ -68,23 +47,24 @@ public class OrderDatabase implements DatabaseInterface
 		return left;
 	}
 
-//	/** Used to search for the order object by tableId
-//	 *
-//	 * @param tableId A string representing the identity of the table
-//	 * @return Order object with the tableId input
-//	 */
-//	public int getOrderIndex(String tableId)
-//	{
-//		int index;
-//		for(index = 0; index < currentOrders.size(); index++)
-//		{
-//			if(currentOrders.get(index).getTableId().matches(tableId))
-//			{
-//				return index;
-//			}
-//		}
-//		return -1;
-//	}
+	/**
+	 * Returns a copy of the Order corresponding to the given table ID
+	 * @param tableId the given ID
+	 * @return a copy of the Order corresponding to the given table ID
+	 */
+	public Order getOrderInfo(String tableId)
+	{
+		return currentOrders.get(getOrderIndex(tableId));
+	}
+
+	/**
+	 * Gets the total number of orders within the current OrderDatabase
+	 * @return the total number of orders
+	 */
+	public int getTotalNumelements()
+	{
+		return this.currentOrders.size();
+	}
 
 	/** Getter method to retrieve an array of order objects
 	 *
@@ -105,6 +85,11 @@ public class OrderDatabase implements DatabaseInterface
 		{
 			System.out.println("Table " + currentOrders.get(index).getTableId());
 		}
+	}
+
+	// NOT USED
+	public void appendOrder(Order order_add) {
+
 	}
 
 	/** Creates a new order and searches for duplicates
@@ -196,61 +181,6 @@ public class OrderDatabase implements DatabaseInterface
 		return true;
 	}
 
-//	/** Adds promotion set to the order object which is saved in an array of order
-//	 *
-//	 * @param tableId A string representing the table identity
-//	 * @param setId A string representing the type of promotion set to add
-//	 * @param amount An integer representing the cost of the promotion set
-//	 * @return Boolean that returns true if the order with the tableId inputted is found
-//	 * hence addition is successful, else false when no such order is found
-//	 */
-//	public Boolean addSet(String tableId, String setId, int amount)
-//	{
-//		int orderIndex = getOrderIndex(tableId);
-//		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return false;
-//		currentOrders.get(getOrderIndex(tableId)).addSet(setId, amount);
-//		return true;
-//	}
-//
-//	/** Removes promotion set from the order object which is saved in an array of order
-//	 *
-//	 * @param tableId A string representing the table identity
-//	 * @param setId A string representing the type of promotion set to add
-//	 * @return Boolean that returns true if the order with the tableId inputted is found
-//	 * hence removal is successful, else false when no such order is found
-//	 */
-//	public Boolean removeSet(String tableId, String setId)
-//	{
-//		int orderIndex = getOrderIndex(tableId);
-//		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return false;
-//		currentOrders.get(getOrderIndex(tableId)).removeSet(setId);
-//		return true;
-//	}
-
-//	/** Getter method to retrieve array of items of tableId with its respective items
-//	 *
-//	 * @param tableId A string representing the identity of table
-//	 * @return Array of dictionary of the tableId and its respective item
-//	 */
-//	public ArrayList<Pair<String, Integer>> listItems(String tableId, MenuList menu)
-//	{
-//		int orderIndex = getOrderIndex(tableId);
-//		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return null;
-//		return currentOrders.get(getOrderIndex(tableId)).listItems(MenuList menu);
-//	}
-//
-//	/** Getter method to retrieve array of items of tableId with its respective sets
-//	 *
-//	 * @param tableId A string representing the identity of table
-//	 * @return Array of dictionary of the tableId and its respective sets
-//	 */
-//	public ArrayList<Pair<String, Integer>> listSets(String tableId, MenuList menu)
-//	{
-//		int orderIndex = getOrderIndex(tableId);
-//		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return null;
-//		return currentOrders.get(getOrderIndex(tableId)).listSets(MenuList menu);
-//	}
-
 	/** Clears the order of tableId
 	 *
 	 * @param tableId A string representing the identity of table
@@ -289,7 +219,21 @@ public class OrderDatabase implements DatabaseInterface
 	{
 		int orderIndex = getOrderIndex(tableId);
 		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return false;
-		currentOrders.get(getOrderIndex(tableId)).printSets(menu);
+		currentOrders.get(getOrderIndex(tableId)).printPromoSets(menu);
+		return true;
+	}
+
+	/** Prints the Items and Promotional Sets with the tableId inputted
+	 *
+	 * @param tableId A string representing the identity of table
+	 * @return Boolean that returns true if the order with the tableId inputted is found
+	 * hence printing is successful, else false when no such order is found
+	 */
+	public Boolean printFoods(String tableId, MenuList menu)
+	{
+		int orderIndex = getOrderIndex(tableId);
+		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return false;
+		currentOrders.get(getOrderIndex(tableId)).printFoods(menu);
 		return true;
 	}
 

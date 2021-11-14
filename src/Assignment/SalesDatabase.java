@@ -25,6 +25,7 @@ public class SalesDatabase implements DatabaseInterface
 	private HashMap<Integer, Float> month_revenue = new HashMap<Integer, Float>();
 	private HashMap<Integer, Float> month_profit = new HashMap<Integer, Float>();
 	private HashMap<Integer, Float> month_orders = new HashMap<Integer, Float>();
+	private HashMap<Integer, Float> month_membership_discount = new HashMap<Integer, Float>();
 
 	/** Overriding the default constructor to initialise the array list and all the private variables
 	 * used for analysis to 0
@@ -42,6 +43,7 @@ public class SalesDatabase implements DatabaseInterface
 			this.month_revenue.put(i, 0f);
 			this.month_profit.put(i,0f);
 			this.month_orders.put(i,0f);
+			this.month_membership_discount.put(i,0f);
 		}
 	}
 
@@ -82,6 +84,11 @@ public class SalesDatabase implements DatabaseInterface
 	 * @return A HashMap with keys as months(integer 1 to 12) and values representing the total orders for the particular month
     */
 	public HashMap<Integer, Float> getMonthwiseOrders() { return this.month_orders;}
+
+	/** Gets the total membership discount for each month as a HashMap
+	 * @return A HashMap with keys as months(integer 1 to 12) and values representing the total orders for the particular month
+	 */
+	public HashMap<Integer, Float> getMonthwiseMembershipDiscount() { return this.month_membership_discount;}
 
 	/** Fuction is used to add the orders to the database
      * Implements the appendOrder Function from the DatabaseInterface
@@ -239,186 +246,4 @@ public class SalesDatabase implements DatabaseInterface
     {
         return this.all_orders_.size();
     }
-
-	// NOT USED
-	// public ArrayList<String> getOrderstimePeriod(int time_start, int time_end,int date_start, int date_end, int month_start, int month_end)
-	// {
-	// 	ArrayList<String> searched_orders = new ArrayList<String>();
-	// 	for(int i=0; i<all_orders_.size() ;i++)
-	// 	{
-	// 		Order local_order = all_orders_.get(i);
-	// 		LocalDateTime order_datetime = local_order.getDateTime();
-	// 		int month_order = order_datetime.getMonthValue();
-	// 		int date_order = order_datetime.getDayOfMonth();
-	// 		int time_order = order_datetime.getHour();
-	// 		if(check_in_range(month_start,month_end,month_order) == 1)
-	// 		{
-	// 			searched_orders.add(local_order.getOrderID());
-	// 		}
-	// 		else if(check_in_range(month_start,month_end,month_order) == 0)
-	// 		{
-	// 			if(check_in_range(date_start,date_end,date_order) == 1)
-	// 			{
-	// 				searched_orders.add(local_order.getOrderID());
-	// 			}
-	// 			else if (check_in_range(date_start,date_end,date_order) == 0)
-	// 			{
-	// 				if(check_in_range(time_start, time_end, time_order) == 1 || check_in_range(time_start, time_end, time_order) == 0)
-	// 				{
-	// 					searched_orders.add(local_order.getOrderID());
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-	// 	return sort_ids(searched_orders);
-	// }
-	//
-	// private int check_in_range(int start, int end, int value)
-	// {
-	// 	if(value > start && value < end)
-	// 	{
-	// 		return 1;
-	// 	}
-	// 	if(value == start && value == end)
-	// 	{
-	// 		return 0;
-	// 	}
-	// 	return -1;
-	// }
-	// public ArrayList<String> getOrdersByMonth(int month)
-	// {
-	// 	ArrayList<String> searched_orders = new ArrayList<String>();
-	// 	for(int i=0; i<all_orders_.size() ;i++)
-	// 	{
-	// 		Order local_order = all_orders_.get(i);
-	// 		LocalDateTime order_datetime = local_order.getDateTime();
-	// 		if(	order_datetime.getMonthValue() == month )
-	// 			{
-	// 				searched_orders.add(local_order.getOrderID());
-	// 			}
-
-	// 	}
-	// 	return sort_ids(searched_orders);
-	// }
-
-	// public ArrayList<String> getOrdersByDate(int date,int month)
-	// {
-	// 	ArrayList<String> searched_orders = new ArrayList<String>();
-	// 	for(int i=0; i<all_orders_.size() ;i++)
-	// 	{
-	// 		Order local_order = all_orders_.get(i);
-	// 		LocalDateTime order_datetime = local_order.getDateTime();
-	// 		if(	order_datetime.getMonthValue() == month &&
-	// 			order_datetime.getDayOfMonth() == date )
-	// 			{
-	// 				searched_orders.add(local_order.getOrderID());
-	// 			}
-
-	// 	}
-	// 	return sort_ids(searched_orders);
-	// }
-
-	// public ArrayList<String> getOrdersByTime(int time_hour,int date,int month)
-	// {
-	// 	ArrayList<String> searched_orders = new ArrayList<String>();
-	// 	for(int i=0; i<all_orders_.size() ;i++)
-	// 	{
-	// 		Order local_order = all_orders_.get(i);
-	// 		LocalDateTime order_datetime = local_order.getDateTime();
-	// 		if(	order_datetime.getMonthValue() == month &&
-	// 			order_datetime.getDayOfMonth() == date &&
-	// 			order_datetime.getHour() == time_hour)
-	// 			{
-	// 				searched_orders.add(local_order.getOrderID());
-	// 			}
-
-	// 	}
-	// 	return sort_ids(searched_orders);
-	// }
-
-	// public ArrayList<String> getOrderbyMonthTableId(int month,int year, String tableId_input)
-	// {
-	// 	ArrayList<String> orders_month = getOrdersByMonth(month);
-	// 	ArrayList<String> orders_table = new ArrayList<String>();
-	// 	for(int i =0; i<orders_month.size(); i++)
-	// 	{
-	// 		String local_order_id = orders_month.get(i);
-	// 		if(local_order_id.substring(local_order_id.length() - 3) == tableId_input)
-	// 		{
-	// 			orders_table.add(local_order_id);
-	// 		}
-	// 	}
-	// 	return sort_ids(orders_table);
-	// }
-	// get order objects (internal purposes)
-	// private ArrayList<Order> getOrdersObjtimePeriod(LocalDateTime start, LocalDateTime end)
-	// {
-	// 	ArrayList<Order> searched_orders = new ArrayList<Order>();
-	// 	for(int i=0; i<all_orders_.size() ;i++)
-	// 	{
-	// 		Order local_order = all_orders_.get(i);
-	// 		LocalDateTime order_datetime = local_order.getDateTime();
-	// 		boolean isAfter = order_datetime.isAfter(start);
-	// 		boolean isBefore = order_datetime.isBefore(end);
-	// 		if(isBefore && isAfter)
-	// 		{
-	// 			searched_orders.add(local_order);
-	// 		}
-	// 	}
-	// 	return searched_orders;
-	// }
-
-	// private ArrayList<Order> getOrdersObjByMonth(int month,int year)
-	// {
-	// 	ArrayList<Order> searched_orders = new ArrayList<Order>();
-	// 	for(int i=0; i<all_orders_.size() ;i++)
-	// 	{
-	// 		Order local_order = all_orders_.get(i);
-	// 		LocalDateTime order_datetime = local_order.getDateTime();
-	// 		if(order_datetime.getYear() == year &&
-	// 			order_datetime.getMonthValue() == month )
-	// 			{
-	// 				searched_orders.add(local_order);
-	// 			}
-
-	// 	}
-	// 	return searched_orders;
-	// }
-
-	// private ArrayList<Order> getOrdersObjByDate(int date,int month,int year)
-	// {
-	// 	ArrayList<Order> searched_orders = new ArrayList<Order>();
-	// 	for(int i=0; i<all_orders_.size() ;i++)
-	// 	{
-	// 		Order local_order = all_orders_.get(i);
-	// 		LocalDateTime order_datetime = local_order.getDateTime();
-	// 		if(order_datetime.getYear() == year &&
-	// 			order_datetime.getMonthValue() == month &&
-	// 			order_datetime.getDayOfMonth() == date )
-	// 			{
-	// 				searched_orders.add(local_order);
-	// 			}
-
-	// 	}
-	// 	return searched_orders;
-	// }
-
-	// private ArrayList<Order> getOrdersObjByTime(int time_hour,int date,int month,int year)
-	// {
-	// 	ArrayList<Order> searched_orders = new ArrayList<Order>();
-	// 	for(int i=0; i<all_orders_.size() ;i++)
-	// 	{
-	// 		Order local_order = all_orders_.get(i);
-	// 		LocalDateTime order_datetime = local_order.getDateTime();
-	// 		if(order_datetime.getYear() == year &&
-	// 			order_datetime.getMonthValue() == month &&
-	// 			order_datetime.getDayOfMonth() == date &&
-	// 			order_datetime.getHour() == time_hour)
-	// 			{
-	// 				searched_orders.add(local_order);
-	// 			}
-
-	// 	}
-	// 	return searched_orders;
-	// }
 }

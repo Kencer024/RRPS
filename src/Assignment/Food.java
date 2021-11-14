@@ -3,8 +3,8 @@ package Assignment;
 import java.util.List;
 
 /**Represents an abstract class that serves as a Parent class for
-* any kind of food that needs to be listed on the menu.
-*/
+ * any kind of food that needs to be listed on the menu.
+ */
 
 public abstract class Food {
     private String id_;
@@ -13,77 +13,77 @@ public abstract class Food {
     private String type_;
     private float saleCost_;
     private float baseCost_;
-    public int availability_;
+    public Boolean availability_;
 
     /** An abstract function that needs to be implemented
-    * by all other classes that would be inheriting from Food 
-    * to facilitate the printing of the bill.   
-    */
+     * by all other classes that would be inheriting from Food
+     * to facilitate the printing of the bill.
+     */
     abstract public String getClassName();
 
-	/** Gets the Id of Food
-    * @return A String representing the Id
-    */
+    /** Gets the Id of Food
+     * @return A String representing the Id
+     */
     public String getId()
     {
         return this.id_;
     }
 
-	/** Gets the Name of Food
-    * @return A String representing the name of the food
-    */
+    /** Gets the Name of Food
+     * @return A String representing the name of the food
+     */
     public String getName()
     {
         return this.name_;
 
     }
 
-	/** Gets the Description of the Food
-    * @return A String representing the description of the Food
-    */
+    /** Gets the Description of the Food
+     * @return A String representing the description of the Food
+     */
     public String getFoodDesc()
     {
         return this.foodDesc_;
     }
 
-	/** Gets the Type of Food
-    * @return A String representing the type of the food
-    * This attribute is just for more clearer understanding 
-    * of the classification of Food 
-    */
+    /** Gets the Type of Food
+     * @return A String representing the type of the food
+     * This attribute is just for more clearer understanding
+     * of the classification of Food
+     */
     public String getType()
     {
         return this.type_;
     }
 
-	/** Gets the selling price of Food
-    * @return A Float representing the selling price of the Food
-    */
+    /** Gets the selling price of Food
+     * @return A Float representing the selling price of the Food
+     */
     public float getSaleCost()
     {
         return this.saleCost_;
     }
 
-	/** Gets the cost price of Food
-    * @return A Float representing the cost price of the Food
-    */
+    /** Gets the cost price of Food
+     * @return A Float representing the cost price of the Food
+     */
     public float getBaseCost()
     {
         return this.baseCost_;
     }
 
-	/** Gets the availability of the Food
-    * @return An Integer representing the availability of the Food
-    * Currently, 1 - available and 0 - unavailable 
-    * Integer was chosen instead of boolean so that others can add in more integers 
-    * that can represent the special food like Chief's special(limited availability) etc
-    */
-    public int getAvailability()
+    /** Gets the availability of the Food
+     * @return A Boolean representing the availability of the Food
+     * Currently, true - available and false - unavailable
+     * Integer was chosen instead of boolean so that others can add in more integers
+     * that can represent the special food like Chief's special(limited availability) etc
+     */
+    public Boolean getAvailability()
     {
         return this.availability_;
     }
 
-	/** Sets the Id of Food 
+    /** Sets the Id of Food
      * @param id_input is of type String that represents the Id of the Food
      */
     public void setId(String id_input)
@@ -91,7 +91,7 @@ public abstract class Food {
         this.id_ = id_input;
     }
 
-    /** Sets the Name of Food 
+    /** Sets the Name of Food
      * @param name_input is of type String that represents the name of the Food
      */
     public void setName(String name_input)
@@ -99,7 +99,7 @@ public abstract class Food {
         this.name_ = name_input;
     }
 
-    /** Sets the description of Food 
+    /** Sets the description of Food
      * @param item_input is of type String that represents the description of the Food
      */
     public void setFoodDesc(String item_input)
@@ -107,7 +107,7 @@ public abstract class Food {
         this.foodDesc_ = item_input;
     }
 
-    /** Sets the Type of Food 
+    /** Sets the Type of Food
      * @param type_input is of type String that represents the type of the Food
      */
     public void setType(String type_input)
@@ -115,7 +115,7 @@ public abstract class Food {
         this.type_ = type_input;
     }
 
-    /** Sets the selling price of Food 
+    /** Sets the selling price of Food
      * @param saleCost_input is of type float that represents the selling price of the Food
      */
     public void setSaleCost(float saleCost_input)
@@ -129,7 +129,7 @@ public abstract class Food {
         }
     }
 
-    /** Sets the cost price of Food 
+    /** Sets the cost price of Food
      * @param baseCost_input is of type float that represents the cost price of the Food
      */
     public void setBaseCost(float baseCost_input)
@@ -144,9 +144,31 @@ public abstract class Food {
 
     }
 
+    /**
+     * Sets the availability of Food
+     * @param availability_input the Boolean to set the availability of this Food to
+     */
+    public void setAvailability(Boolean availability_input)
+    {
+        this.availability_ = availability_input;
+    }
+
+    /**
+     * Returns all the item IDs within the food. Will only work for PromoSets and is defaulted to return null for others.
+     * @return null
+     */
     public List<String> getAllItemIds()
     {
         return null;
     }
 
+    /**
+     * Returns if this Food's attributes are valid or not
+     * @param menu MenuList object to refer to
+     * @return true if all the attributes are valid, false otherwise
+     */
+    public Boolean attributesAreValid(MenuList menu){
+        if(this.saleCost_ < 0 || this.baseCost_ < 0)return false;
+        return true;
+    }
 }
