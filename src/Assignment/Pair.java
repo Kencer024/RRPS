@@ -15,7 +15,6 @@ public class Pair<A, B> {
      * @param second an object representing the second object
      */
     public Pair(A first, B second) {
-        super();
         this.first = first;
         this.second = second;
     }

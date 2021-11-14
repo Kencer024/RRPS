@@ -717,13 +717,11 @@ public class MainPage {
                     int count = 1; 
                     String str_format = "%23s";
                     for(int i = startMonth; i < endMonth + 1; i++){
-                        // salesValue += salesData_orders.get(i);
                         month_string[count] = new DateFormatSymbols().getMonths()[i - 1];
                         orders_string[count] = salesData_orders.get(i).toString();
                         revenue_string[count] = salesData_revenue.get(i).toString();
                         profit_string[count] = salesData_profit.get(i).toString();
                         membership_ds_string[count] = salesData_membership_discount.get(i).toString();
-                        // System.out.println(new DateFormatSymbols().getMonths()[i - 1] + " recorded " + salesData.get(i)+ " orders");
                         count+=1;
                         str_format+="%23s";
                     }
