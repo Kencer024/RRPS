@@ -39,12 +39,14 @@ public class ReserveDate {
         Reservation[] r = t[date-1].getList();
         if(r[time].getIsReserveDateAllowed()){     //checks whether the date has passed
             int tableId = r[time].reserve(pax,Name);             //cos date starts from 0
-            return tableId;
+            if(tableId != -1){
+                return tableId;
+            }
         }
         else{
             System.out.println("Reservation slot has passed choose another date or time");
-            return -1;
         }
+        return -1;
 
 
     }

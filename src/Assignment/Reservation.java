@@ -4,11 +4,11 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /*
-* Change the number of pax per table at the constructor
-* Reservation for the individual slot(1 hr)
-* Each slot there are 30 tables, everyone is assumed to reserve
-* only for 1 hour
-* */
+ * Change the number of pax per table at the constructor
+ * Reservation for the individual slot(1 hr)
+ * Each slot there are 30 tables, everyone is assumed to reserve
+ * only for 1 hour
+ * */
 
 /**
  * Represents the reservations available per timeslot e.g. 1pm has 30 tables
@@ -25,24 +25,24 @@ public class Reservation {
      * has a maximum pax of 4 etc
      */
     public Reservation(){
-            for(int i =0; i< table.length;i++){
-                table[i] = new Table(i);
-                table[i].setTableId(i);
-                table[i].setReserved(false);
+        for(int i =0; i< table.length;i++){
+            table[i] = new Table(i);
+            table[i].setTableId(i);
+            table[i].setReserved(false);
 
-                // This is where the tables are set
-                if(i < 5){                     //1st 5 tables 2 pax
-                    table[i].setPax(2);
-                }
-                else if(i<18){                  //table for 4 pax
-                    table[i].setPax(4);
-                }
-                else if(i<25){                  //2nd 10 tables 6 pax
-                    table[i].setPax(6);
-                }
-                else
-                    table[i].setPax(10);
+            // This is where the tables are set
+            if(i < 5){                     //1st 5 tables 2 pax
+                table[i].setPax(2);
             }
+            else if(i<18){                  //table for 4 pax
+                table[i].setPax(4);
+            }
+            else if(i<25){                  //2nd 10 tables 6 pax
+                table[i].setPax(6);
+            }
+            else
+                table[i].setPax(10);
+        }
     }
 
     /** Displays all empty tables that are more than or equals to
@@ -56,6 +56,11 @@ public class Reservation {
         checkEmptyTable(pax);
 
         boolean doesTableExist = false;
+        Table[] t = checkEmptyTable(pax);
+        if(t.length == 0){
+            System.out.println("Full reservation !\n Book other time or date !");
+            return -1;
+        }
         System.out.println("Enter choice of Table : ");
         int tableId = sc.nextInt();
         for(int i =0; i< table.length;i++){             //brute force search
@@ -147,9 +152,9 @@ public class Reservation {
         Table[] eTable = new Table[0];
         for(int i =0;i< table.length; i++){
             if(!table[i].getReserved() && table[i].getPax() >= pax
-            && this.getIsReserveDateAllowed()){
+                    && this.getIsReserveDateAllowed()){
                 System.out.println(table[i].getTableId() + "["
-                            + table[i].getPax() +"pax] is empty");
+                        + table[i].getPax() +"pax] is empty");
                 eTable = Arrays.copyOf(eTable, eTable.length+1);        //append eTable array
                 eTable[eTable.length-1] = table[i];
             }
@@ -171,7 +176,7 @@ public class Reservation {
         }
         for(int i =0;i<table.length;i++){
             if(table[i].getReserved() && this.getIsReserveDateAllowed()
-            && this.getIsReserveDateAllowed()){
+                    && this.getIsReserveDateAllowed()){
                 System.out.println("table " + i + " is reserved for " + table[i].getName() );
                 return;
             }
