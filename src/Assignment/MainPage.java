@@ -224,6 +224,7 @@ public class MainPage {
                             switch(orderChoice){
                                 case 1://add to cart
                                     System.out.println("============================== ADD TO CART ==============================");
+                                    orders.printFoods(orderId, menu);
                                     System.out.print("Enter Item ID: ");
                                     orderFoodId = sc.next();
                                     System.out.print("Enter Quantity: ");
