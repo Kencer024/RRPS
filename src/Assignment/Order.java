@@ -11,6 +11,7 @@ public class Order
 {
 	private String tableId;
 	private int pax;
+	private String staffId;
 	private LocalDateTime dateTime = LocalDateTime.now();
 	private Boolean hasMembership;
 	private ArrayList<Pair<String, Integer>> foods_;
@@ -21,10 +22,11 @@ public class Order
 	 * @param tableId represents the table identity no.
 	 * @param pax represents the no. of customer(s)
 	 */
-	public Order(String tableId, int pax)
+	public Order(String tableId, int pax, String staffId)
 	{
 		this.tableId = tableId;
 		this.pax = pax;
+		this.staffId = staffId;
 		foods_ = new ArrayList<Pair<String, Integer>>(0);
 		dateTime = LocalDateTime.now();
 		hasMembership = false;
@@ -287,7 +289,7 @@ public class Order
 	 *
 	 * @param menu MenuList object for referencing the item IDs within this order
 	 */
-	public void printBill(MenuList menu)
+	public void printBill(MenuList menu, StaffDatabase staffs)
 	{
 		String printLine = "";
 		int spaces = 0;
@@ -297,9 +299,16 @@ public class Order
 				+ "|                         RECEIPT                        |\n"
 				+ "|========================================================|\n");
 		System.out.println("|  " + dateTime.toString().substring(0, 19) + "                                   |");
-		System.out.println("|  Cashier :                                             |");
-		printLine = "|  Table : " + tableId + "\tPax : " + pax;
-		spaces = 58 - printLine.length() - 4;
+		printLine = "|  Staff : " + staffs.getStaff(staffId).getName();
+		spaces = 58 - printLine.length() - 2;
+		for(int j = 0; j < spaces; j++)
+		{
+			printLine += " ";
+		}
+		printLine += " |";
+		System.out.println(printLine);
+		printLine = "|  Table : " + tableId + "    Pax : " + pax;
+		spaces = 58 - printLine.length() - 2;
 		for(int j = 0; j < spaces; j++)
 		{
 			printLine += " ";

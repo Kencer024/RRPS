@@ -1,7 +1,7 @@
 package Assignment;
 
 /**
- * Utility class for manipulating items and promotional sets' alphanumeric ID strings
+ * Utility class for manipulating alphanumeric ID strings
  */
 public final class StringUtil
 {

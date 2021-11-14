@@ -98,9 +98,9 @@ public class OrderDatabase implements DatabaseInterface
 	 * @param pax An integer representing the current number of people
 	 *            allocated to the table
 	 */
-	public void newOrder(String tableId, int pax)
+	public void newOrder(String tableId, int pax, String staff)
 	{
-		Order newOrder = new Order(tableId, pax);
+		Order newOrder = new Order(tableId, pax, staff);
 		int left = 0, right = currentOrders.size() - 1, middle;
 
 		if(currentOrders.size() == 0)
@@ -285,11 +285,11 @@ public class OrderDatabase implements DatabaseInterface
 	 *             and promotional sets in the menu
 	 * @return Boolean that is true if the order is found and false otherwise
 	 */
-	public Boolean printBill(String tableId, MenuList menu)
+	public Boolean printBill(String tableId, MenuList menu, StaffDatabase staffs)
 	{
 		int orderIndex = getOrderIndex(tableId);
 		if(!currentOrders.get(orderIndex).getTableId().matches(tableId)) return false;
-		currentOrders.get(getOrderIndex(tableId)).printBill(menu);
+		currentOrders.get(getOrderIndex(tableId)).printBill(menu, staffs);
 		return true;
 	}
 

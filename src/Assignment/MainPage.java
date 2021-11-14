@@ -33,6 +33,11 @@ public class MainPage {
         //System.out.println(month);
         ReserveDate reserveDate = new ReserveDate(month, day, time);
 
+        // For Login
+        String staffId = "", staffPassword;
+        StaffDatabase staffs = new StaffDatabase();
+        Boolean loggedIn = false;
+
         int choice; //userInputOfChoice
 
         int reservationChoice;
@@ -81,16 +86,73 @@ public class MainPage {
         tmpSet.setallItemIds(new ArrayList<String>(Arrays.asList("1000", "6001", "5001")), menu);
         menu.insertFood(tmpSet);
 
+        Staff manager, cashier1, cashier2;
+        manager = new Staff(staffs.getNewStaffId(), "Lin Guo Qiang", 'M', "Manager", "password");       // ID 0001
+        staffs.addStaff(manager);
+        cashier1 = new Staff(staffs.getNewStaffId(), "Andreane Gerlach", 'F', "Cashier", "password");   // ID 0002
+        staffs.addStaff(cashier1);
+        cashier2 = new Staff(staffs.getNewStaffId(), "Darryl Waelchi", 'M', "Cashier", "password");     // ID 0003
+        staffs.addStaff(cashier2);
+
         do {
-            System.out.print("|========================================================|\n"
-                    + "|                         MENU                           |\n"
-                    + "|========================================================|\n"
-                    + "||     1: Manage Orders                                 ||\n"
-                    + "||     2: Manage Reservations                           ||\n"
-                    + "||     3: Edit Menu                                     ||\n"
-                    + "||     4: View Sales Data                               ||\n"
-                    + "||     5: Quit                                          ||\n"
-                    + "|========================================================|\n");
+            if(!loggedIn) {
+                System.out.print("|========================================================|\n"
+                        + "|                         MENU                           |\n"
+                        + "|========================================================|\n"
+                        + "||     1: Login                                         ||\n"
+                        + "||     2: Quit Program                                  ||\n"
+                        + "|========================================================|\n");
+                System.out.print("Enter your action: ");
+                choice = sc.nextInt();
+                if(choice==1) {
+                    System.out.print("|========================================================|\n"
+                            + "|                         LOGIN                          |\n"
+                            + "|========================================================|\n");
+                    System.out.print("Enter ID: ");
+                    staffId = sc.next();
+                    System.out.print("Enter Password: ");
+                    staffPassword = sc.next();
+
+                    if(staffs.staffLogin(staffId, staffPassword)) {
+                        staffPassword = "";
+                        System.out.println("Welcome, " + staffs.getStaff(staffId).getName());
+                        loggedIn = true;
+                    }
+                    else {
+                        System.out.println("Incorrect ID or Password");
+                    }
+                    staffPassword = "";
+                }
+                else if(choice!=2) System.out.println("Invalid Input");
+                else {
+                    System.out.println("You have ended the program");
+                    System.exit(0);
+                }
+            }
+            if(!loggedIn) continue;
+
+            if(staffs.getStaff(staffId).getJobTitle().equals("Manager")) {
+                System.out.print("|========================================================|\n"
+                        + "|                         MENU                           |\n"
+                        + "|========================================================|\n"
+                        + "||     1: Manage Orders                                 ||\n"
+                        + "||     2: Manage Reservations                           ||\n"
+                        + "||     3: Edit Menu                                     ||\n"
+                        + "||     4: View Sales Data                               ||\n"
+                        + "||     5: Logout                                        ||\n"
+                        + "||     6: Quit Program                                  ||\n"
+                        + "|========================================================|\n");
+            }
+            else {
+                System.out.print("|========================================================|\n"
+                        + "|                         MENU                           |\n"
+                        + "|========================================================|\n"
+                        + "||     1: Manage Orders                                 ||\n"
+                        + "||     2: Manage Reservations                           ||\n"
+                        + "||     3: Logout                                        ||\n"
+                        + "||     4: Quit Program                                  ||\n"
+                        + "|========================================================|\n");
+            }
 
             System.out.print("Enter your action: ");
             choice = sc.nextInt();
@@ -117,7 +179,7 @@ public class MainPage {
                         orderId = sc.next();
                         System.out.print("Enter #pax: ");
                         orderPax = sc.nextInt();
-                        orders.newOrder(orderId, orderPax);
+                        orders.newOrder(orderId, orderPax, staffId);
                         orderIndex = orders.getOrderIndex(orderId);
                         proceedToOrder = true;
                     }
@@ -231,7 +293,7 @@ public class MainPage {
                                     break;
                                 case 5: //Checkout
                                     System.out.println("============================== CHECK OUT ==============================");
-                                    System.out.println("Apply Membership Discount? (y/n): ");
+                                    System.out.print("Apply Membership Discount? (y/n): ");
                                     strInput = sc.next();
                                     if(strInput.toLowerCase().equals("y")){
                                         orders.applyMembership(orderId);
@@ -241,7 +303,7 @@ public class MainPage {
                                         break;
                                     }
                                     orders.computeBill(orderId, menu);
-                                    orders.printBill(orderId, menu);
+                                    orders.printBill(orderId, menu, staffs);
                                     sales.appendOrder(orders.removeOrder(orderId));
                                     orderChoice = 6;
                                     break;
@@ -333,7 +395,7 @@ public class MainPage {
                 } while(reservationChoice!=5);
             }
 
-            else if (choice==3){
+            else if (choice==3 && staffs.getStaff(staffId).getJobTitle().equals("Manager")){
                 do{
                     System.out.print("|========================================================|\n"
                             + "|                    EDITING MENU                        |\n"
@@ -577,7 +639,7 @@ public class MainPage {
                     }
                 } while(editChoice != 6);
             }
-            else if(choice==4){
+            else if(choice==4 && staffs.getStaff(staffId).getJobTitle().equals("Manager")){
                 System.out.println("============================== SALES REPORT ==============================");
                 int startMonth, endMonth;
                 System.out.print("Enter starting month: ");
@@ -649,17 +711,18 @@ public class MainPage {
                 // System.out.println(" - Membership Discounts  = " + sales.getTotalMembershipDiscount());
                 }
             }
-
-            else if (choice==5){
-                System.out.println("You have ended the program");
+            else if ((choice==3 && !staffs.getStaff(staffId).getJobTitle().equals("Manager")) || (choice==5 && staffs.getStaff(staffId).getJobTitle().equals("Manager"))){
+                System.out.println("You have been logged out");
+                loggedIn = false;
             }
-
+            else if ((choice==4 && !staffs.getStaff(staffId).getJobTitle().equals("Manager")) || (choice==6 && staffs.getStaff(staffId).getJobTitle().equals("Manager"))){
+                System.out.println("You have ended the program");
+                System.exit(0);
+            }
             else {
                 System.out.println("Please enter a valid input");
             }
-        }
-
-        while (choice!=5);
+        } while (true);
 
 
     }
